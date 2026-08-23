@@ -988,6 +988,22 @@
           f: 14,
           cat: "poisson_gras",
         },
+        maquereau_boite: {
+          label: "Maquereau au naturel égoutté",
+          kcal: 187,
+          p: 20,
+          c: 0,
+          f: 12,
+          cat: "poisson_gras",
+        },
+        sardine_boite: {
+          label: "Sardines au naturel égouttées",
+          kcal: 200,
+          p: 24,
+          c: 0,
+          f: 11,
+          cat: "poisson_gras",
+        },
         sardine_boite: {
           label: "Sardines à l'huile égouttées",
           kcal: 210,
@@ -1102,14 +1118,6 @@
           p: 2,
           c: 3,
           f: 20,
-          cat: "matiere_grasse",
-        },
-        creme_fraiche: {
-          label: "Crème fraîche",
-          kcal: 300,
-          p: 2,
-          c: 3,
-          f: 30,
           cat: "matiere_grasse",
         },
         whey: {
@@ -1622,6 +1630,52 @@
         },
       };
 
+      // g de sel pour 100g, valeurs type CIQUAL — uniquement pour les
+      // ingrédients significativement salés (charcuterie, fromages,
+      // pains, sauces, conserves). Absent de cette table = négligeable.
+      const SEL_PAR_100G = {
+        jambon_blanc: 1.8,
+        lardons: 1.9,
+        saucisse_fumee: 2.2,
+        bacon: 2.5,
+        thon_boite: 0.9,
+        sardine_boite: 1.2,
+        poisson_pane: 1.0,
+        fromage_rape: 1.2,
+        cheddar: 1.7,
+        parmesan: 1.9,
+        fromage_frais_leger: 0.5,
+        skyr: 0.1,
+        fromage_blanc_0: 0.1,
+        fromage_blanc: 0.1,
+        pain: 1.2,
+        pain_complet: 1.1,
+        pain_burger: 1.3,
+        tortilla: 1.3,
+        pate_pizza: 1.1,
+        pain_suedois: 1.2,
+        bagel: 1.1,
+        galette_riz: 0.25,
+        granola: 0.3,
+        sauce_soja: 14,
+        moutarde: 3.5,
+        mayonnaise: 1.5,
+        sauce_tomate: 1.0,
+        beurre_cacahuete: 0.5,
+        haricots_rouges_boite: 0.6,
+        mais_boite: 0.5,
+        champignons_boite: 0.8,
+        pois_chiches_boite: 0.6,
+        edamame: 0.15,
+        lait_coco: 0.05,
+        tofu_ferme: 0.05,
+        thon_boite: 0.9,
+        sardine_boite: 1.0,
+        maquereau_boite: 1.0,
+        cornichon: 2.5,
+        houmous: 1.0,
+      };
+
       // ingredients: [ [nutriKey, grams(raw)], ... ]
       const STARTER_MEALS = [
         {
@@ -1985,7 +2039,7 @@
         {
           id: "m28",
           technique: "poele",
-          name: "Poulet crème-parmesan, pâtes, petits pois",
+          name: "Poulet fromage frais-parmesan, pâtes, petits pois",
           moment: "dejeuner",
           src: "poulet",
           veg: true,
@@ -1995,7 +2049,7 @@
             ["poulet_blanc", 160],
             ["pates_completes_cru", 80],
             ["petits_pois", 100],
-            ["creme_fraiche", 40],
+            ["fromage_frais_leger", 40],
             ["parmesan", 12],
             ["huile", 6],
           ],
@@ -2003,7 +2057,7 @@
         {
           id: "m29",
           technique: "poele",
-          name: "Cabillaud, patate douce, aubergines",
+          name: "Cabillaud, patate douce, poivrons",
           moment: "dejeuner",
           src: "poisson",
           veg: true,
@@ -2011,7 +2065,7 @@
           ingredients: [
             ["cabillaud", 200],
             ["patate_douce", 80],
-            ["aubergine", 150],
+            ["poivron", 150],
             ["huile", 6],
             ["citron", 15],
           ],
@@ -2142,7 +2196,7 @@
         {
           id: "m38",
           technique: "poele",
-          name: "Bœuf haché maigre, quinoa, aubergines",
+          name: "Bœuf haché maigre, quinoa, ratatouille",
           moment: "diner",
           src: "bœuf",
           veg: true,
@@ -2151,7 +2205,7 @@
           ingredients: [
             ["boeuf_hache_5", 125],
             ["quinoa_cru", 75],
-            ["aubergine", 180],
+            ["ratatouille", 180],
             ["huile", 6],
             ["sauce_tomate", 90],
             ["ail", 3],
@@ -2238,22 +2292,6 @@
           ],
         },
         {
-          id: "m45",
-          technique: "wok",
-          name: "Poke bowl thon, riz, pois chiches, tomates cerises",
-          moment: "dejeuner",
-          src: "thon",
-          veg: true,
-          lean: true,
-          ingredients: [
-            ["thon_boite", 130],
-            ["riz_complet_cru", 75],
-            ["pois_chiches_boite", 80],
-            ["tomate", 100],
-            ["sauce_soja", 10],
-          ],
-        },
-        {
           id: "m46",
           technique: "poele",
           name: "Poulet sauté, patate douce, courgettes, sauce soja légère",
@@ -2333,7 +2371,7 @@
           ingredients: [
             ["tofu_ferme", 200],
             ["riz_complet_cru", 80],
-            ["aubergine", 100],
+            ["poivron", 100],
             ["courgette", 100],
             ["sauce_soja", 10],
             ["huile", 8],
@@ -2420,24 +2458,9 @@
           ],
         },
         {
-          id: "m61",
-          technique: "assemblage",
-          name: "Salade de pois chiches, tomates cerises, feta",
-          moment: "dejeuner",
-          src: "légumineuses",
-          veg: true,
-          ingredients: [
-            ["pois_chiches_boite", 220],
-            ["tomate", 150],
-            ["fromage_rape", 30],
-            ["huile", 10],
-            ["citron", 10],
-          ],
-        },
-        {
           id: "m62",
           technique: "poele",
-          name: "Saumon, quinoa, aubergines",
+          name: "Saumon, quinoa, courgettes",
           moment: "diner",
           src: "poisson",
           veg: true,
@@ -2445,7 +2468,7 @@
           ingredients: [
             ["saumon", 180],
             ["quinoa_cru", 75],
-            ["aubergine", 180],
+            ["courgette", 180],
             ["huile", 8],
             ["citron", 15],
           ],
@@ -2482,6 +2505,34 @@
           ],
         },
         {
+          id: "m65",
+          name: "Porridge skyr, pomme, beurre de cacahuète",
+          moment: "petitdej",
+          src: "laitier",
+          veg: true,
+          ingredients: [
+            ["skyr", 200],
+            ["avoine", 55],
+            ["pomme", 100],
+            ["beurre_cacahuete", 12],
+          ],
+        },
+        {
+          id: "m66",
+          technique: "porridge",
+          name: "Porridge lait, avoine, fruits rouges, skyr",
+          moment: "petitdej",
+          src: "laitier",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["avoine", 55],
+            ["lait", 200],
+            ["fruits_rouges", 120],
+            ["skyr", 150],
+          ],
+        },
+        {
           id: "m68",
           technique: "omelette",
           name: "Œufs brouillés, pain complet, fromage frais, tomate",
@@ -2498,7 +2549,7 @@
         },
         {
           id: "m69",
-          technique: "porridge",
+          technique: "pancakes",
           name: "Pancakes avoine, œufs, banane, skyr",
           moment: "petitdej",
           src: "œuf",
@@ -2680,7 +2731,7 @@
         {
           id: "m85",
           technique: "poele",
-          name: "Bœuf 5% sauce champignons-crème, purée de pommes de terre, carottes",
+          name: "Bœuf 5% sauce champignons, purée de pommes de terre, carottes",
           moment: "dejeuner",
           src: "bœuf",
           veg: true,
@@ -2693,7 +2744,6 @@
             ["lait", 80],
             ["carotte", 150],
             ["huile", 5],
-            ["creme_fraiche", 30],
           ],
         },
         {
@@ -2817,7 +2867,7 @@
         {
           id: "m96",
           technique: "poele",
-          name: "Bœuf épicé cumin-paprika, patate douce, aubergines",
+          name: "Bœuf épicé cumin-paprika, patate douce, carottes",
           moment: "diner",
           src: "bœuf",
           veg: true,
@@ -2826,7 +2876,7 @@
           ingredients: [
             ["boeuf_hache_5", 125],
             ["patate_douce", 250],
-            ["aubergine", 180],
+            ["carotte", 180],
             ["cumin", 3],
             ["paprika", 2],
             ["huile", 5],
@@ -3139,21 +3189,6 @@
           ],
         },
         {
-          id: "m118",
-          technique: "omelette",
-          name: "Shakshuka aux œufs, courgettes",
-          moment: "petitdej",
-          src: "œuf",
-          veg: true,
-          ingredients: [
-            ["oeuf", 150],
-            ["sauce_tomate", 180],
-            ["oignon", 40],
-            ["courgette", 160],
-            ["huile", 6],
-          ],
-        },
-        {
           id: "m119",
           technique: "poele",
           name: "Poulet citron-herbes, pommes de terre",
@@ -3188,7 +3223,7 @@
         },
         {
           id: "m121",
-          technique: "porridge",
+          technique: "pancakes",
           name: "Crêpes sportives banane-avoine",
           moment: "petitdej",
           src: "œuf",
@@ -3608,7 +3643,7 @@
             ["pates_completes_cru", 80],
             ["petits_pois", 150],
             ["fromage_rape", 25],
-            ["creme_fraiche", 30],
+            ["fromage_frais_leger", 30],
           ],
         },
         {
@@ -3628,92 +3663,479 @@
         },
         {
           id: "m159",
-          technique: "assemblage",
-          name: "Pomme et amandes",
-          moment: "collationmatin",
-          src: "vegetal",
-          lean: true,
+          technique: "poele",
+          name: "Poêlée de maquereau boîte, pâtes complètes, sauce tomate",
+          moment: "diner",
+          src: "poisson",
+          veg: true,
           ingredients: [
-            ["pomme", 150],
-            ["amandes", 40],
+            ["maquereau_boite", 120],
+            ["pates_completes_cru", 90],
+            ["sauce_tomate", 150],
+            ["oignon", 40],
+            ["ail", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m176",
+          technique: "poele",
+          name: "Maquereau, riz complet, courgettes, tomates cerises",
+          moment: "diner",
+          src: "poisson",
+          veg: true,
+          ingredients: [
+            ["maquereau_boite", 110],
+            ["riz_complet_cru", 110],
+            ["courgette", 250],
+            ["tomate", 100],
+            ["huile", 6],
+            ["citron", 15],
           ],
         },
         {
           id: "m160",
           technique: "poele",
-          name: "Pancakes avoine, banane, beurre de cacahuete",
-          moment: "petitdej",
-          src: "laitier",
-          lean: false,
+          name: "Poêlée de sardines boîte, riz complet, poivron, sauce tomate",
+          moment: "dejeuner",
+          src: "poisson",
+          veg: true,
           ingredients: [
-            ["avoine", 90],
-            ["oeuf", 100],
-            ["skyr", 100],
-            ["banane", 120],
-            ["beurre_cacahuete", 20],
+            ["sardine_boite", 110],
+            ["riz_complet_cru", 80],
+            ["poivron", 120],
+            ["sauce_tomate", 100],
+            ["oignon", 30],
+            ["huile", 6],
           ],
         },
         {
           id: "m161",
           technique: "poele",
-          name: "Crepes avoine, banane, beurre de cacahuete",
-          moment: "petitdej",
-          src: "laitier",
-          lean: false,
+          name: "Écrasé de pomme de terre au maquereau, sauce tomate",
+          moment: "diner",
+          src: "poisson",
+          veg: true,
           ingredients: [
-            ["avoine", 90],
-            ["lait", 200],
-            ["oeuf", 50],
-            ["skyr", 100],
-            ["banane", 120],
-            ["beurre_cacahuete", 20],
+            ["maquereau_boite", 110],
+            ["pomme_de_terre", 280],
+            ["sauce_tomate", 100],
+            ["fromage_blanc_0", 40],
+            ["huile", 5],
           ],
         },
         {
           id: "m162",
           technique: "assemblage",
-          name: "Oeuf au plat, toast complet, fromage blanc et miel",
-          moment: "œuf",
-          src: "oeuf",
-          lean: false,
+          name: "Tartine sardines, fromage frais, tomate, pain complet",
+          moment: "collationapresmidi",
+          src: "poisson",
+          veg: true,
           ingredients: [
-            ["pain_complet", 75],
-            ["oeuf", 100],
-            ["fromage_blanc", 150],
-            ["banane", 120],
-            ["beurre_cacahuete", 15],
-            ["miel", 15],
+            ["sardine_boite", 90],
+            ["fromage_frais_leger", 30],
+            ["tomate", 100],
+            ["pain_complet", 70],
+            ["citron", 8],
           ],
         },
         {
           id: "m163",
-          technique: "assemblage",
-          name: "Oeufs brouilles, toast, skyr et banane",
-          moment: "petitdej",
-          src: "œuf",
-          lean: false,
+          technique: "poele",
+          name: "Poulet poêlé sauce tomate, pâtes complètes, parmesan",
+          moment: "diner",
+          src: "poulet",
+          veg: true,
           ingredients: [
-            ["pain_complet", 75],
-            ["oeuf", 100],
-            ["skyr", 150],
-            ["banane", 120],
-            ["beurre_cacahuete", 20],
-            ["miel", 10],
+            ["poulet_blanc", 150],
+            ["pates_completes_cru", 90],
+            ["sauce_tomate", 150],
+            ["parmesan", 15],
+            ["huile", 6],
+            ["herbes_de_provence", 1],
           ],
         },
         {
           id: "m164",
-          technique: "assemblage",
-          name: "Omelette nature, toast, fromage blanc, amandes et banane",
+          technique: "poele",
+          name: "Steak haché 5% poêlé sauce tomate, riz complet, courgette",
+          moment: "diner",
+          src: "bœuf",
+          veg: true,
+          ingredients: [
+            ["boeuf_hache_5", 125],
+            ["riz_complet_cru", 80],
+            ["sauce_tomate", 130],
+            ["courgette", 150],
+            ["oignon", 30],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m165",
+          technique: "pain_dore",
+          name: "Pain doré banane-miel",
           moment: "petitdej",
           src: "œuf",
-          lean: false,
           ingredients: [
-            ["pain_complet", 75],
+            ["pain_complet", 90],
             ["oeuf", 100],
-            ["fromage_blanc", 150],
+            ["lait", 100],
+            ["banane", 100],
+            ["miel", 10],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m166",
+          technique: "omelette",
+          name: "Omelette jambon, poivron, fromage",
+          moment: "petitdej",
+          src: "œuf",
+          veg: true,
+          ingredients: [
+            ["oeuf", 150],
+            ["jambon_blanc", 40],
+            ["poivron", 100],
+            ["fromage_rape", 25],
+            ["pain", 60],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m167",
+          technique: "four",
+          name: "Poulet au four, ratatouille, riz complet",
+          moment: "diner",
+          src: "poulet",
+          veg: true,
+          ingredients: [
+            ["poulet_blanc", 150],
+            ["ratatouille", 200],
+            ["riz_complet_cru", 70],
+            ["huile", 6],
+            ["herbes_de_provence", 1],
+          ],
+        },
+        {
+          id: "m168",
+          technique: "mijote",
+          name: "Mijoté de poulet, petits pois, carotte, sauce tomate",
+          moment: "diner",
+          src: "poulet",
+          veg: true,
+          ingredients: [
+            ["poulet_blanc", 150],
+            ["petits_pois", 200],
+            ["carotte", 100],
+            ["sauce_tomate", 150],
+            ["oignon", 30],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m169",
+          technique: "wok",
+          name: "Wok de saumon, courgette, poivron, riz complet, sauce soja",
+          moment: "diner",
+          src: "poisson",
+          veg: true,
+          ingredients: [
+            ["saumon", 150],
+            ["courgette", 150],
+            ["poivron", 100],
+            ["riz_complet_cru", 70],
+            ["sauce_soja", 12],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m170",
+          technique: "mijote",
+          name: "Steak haché 5% mijoté bolognaise légère, courgette, pâtes complètes",
+          moment: "diner",
+          src: "bœuf",
+          veg: true,
+          ingredients: [
+            ["boeuf_hache_5", 125],
+            ["courgette", 150],
+            ["sauce_tomate", 150],
+            ["pates_completes_cru", 80],
+            ["ail", 3],
+            ["huile", 6],
+            ["herbes_de_provence", 1],
+          ],
+        },
+        {
+          id: "m171",
+          technique: "four",
+          name: "Cabillaud au four, sauce tomate, poivron, riz complet",
+          moment: "diner",
+          src: "poisson",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["cabillaud", 200],
+            ["sauce_tomate", 150],
+            ["poivron", 150],
+            ["riz_complet_cru", 70],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m185",
+          technique: "poele",
+          name: "Maquereau boîte, riz complet, ratatouille",
+          moment: "diner",
+          src: "maquereau",
+          veg: true,
+          ingredients: [
+            ["maquereau_boite", 120],
+            ["riz_complet_cru", 80],
+            ["ratatouille", 200],
+            ["citron", 15],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m186",
+          technique: "poele",
+          name: "Maquereau boîte, pommes de terre, petits pois, ail-citron",
+          moment: "diner",
+          src: "maquereau",
+          veg: true,
+          ingredients: [
+            ["maquereau_boite", 120],
+            ["pomme_de_terre", 220],
+            ["petits_pois", 150],
+            ["ail", 3],
+            ["citron", 15],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m187",
+          technique: "poele",
+          name: "Poêlée de maquereau boîte, quinoa, poivron",
+          moment: "diner",
+          src: "maquereau",
+          veg: true,
+          ingredients: [
+            ["maquereau_boite", 120],
+            ["quinoa_cru", 70],
+            ["poivron", 180],
+            ["oignon", 40],
+            ["citron", 15],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m188",
+          technique: "poele",
+          name: "Maquereau boîte, pâtes complètes, ratatouille, parmesan",
+          moment: "diner",
+          src: "maquereau",
+          veg: true,
+          ingredients: [
+            ["maquereau_boite", 120],
+            ["pates_completes_cru", 85],
+            ["ratatouille", 200],
+            ["parmesan", 15],
+            ["ail", 2],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m189",
+          technique: "poele",
+          name: "Escalope de dinde citron-ail, riz complet, courgette",
+          moment: "diner",
+          src: "dinde",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["dinde", 150],
+            ["riz_complet_cru", 80],
+            ["courgette", 200],
+            ["citron", 15],
+            ["ail", 3],
+            ["huile", 8],
+          ],
+        },
+        {
+          id: "m190",
+          technique: "mijote",
+          name: "Dinde curry-coco, riz, poivron",
+          moment: "diner",
+          src: "dinde",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["dinde", 150],
+            ["riz_cru", 80],
+            ["poivron", 150],
+            ["oignon", 50],
+            ["curry", 4],
+            ["lait_coco", 60],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m191",
+          technique: "wok",
+          name: "Wok de dinde, poivron, petits pois, sauce soja-gingembre",
+          moment: "diner",
+          src: "dinde",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["dinde", 150],
+            ["riz_cru", 80],
+            ["poivron", 100],
+            ["petits_pois", 100],
+            ["sauce_soja", 15],
+            ["gingembre", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m192",
+          technique: "poele",
+          name: "Dinde à l'ail et au paprika, pommes de terre, petits pois",
+          moment: "diner",
+          src: "dinde",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["dinde", 150],
+            ["pomme_de_terre", 200],
+            ["petits_pois", 150],
+            ["ail", 3],
+            ["paprika", 3],
+            ["citron", 10],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m193",
+          technique: "poele",
+          name: "Escalope de dinde, pâtes complètes, courgette, parmesan",
+          moment: "dejeuner",
+          src: "dinde",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["dinde", 150],
+            ["pates_completes_cru", 80],
+            ["courgette", 150],
+            ["parmesan", 15],
+            ["ail", 2],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m194",
+          technique: "mijote",
+          name: "Poulet basquaise, riz complet, poivron, tomate",
+          moment: "diner",
+          src: "poulet",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["poulet_blanc", 150],
+            ["riz_complet_cru", 80],
+            ["poivron", 200],
+            ["oignon", 60],
+            ["tomate", 100],
+            ["paprika", 2],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m195",
+          technique: "poele",
+          name: "Poulet curry, quinoa, petits pois",
+          moment: "diner",
+          src: "poulet",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["poulet_blanc", 150],
+            ["quinoa_cru", 70],
+            ["petits_pois", 150],
+            ["curry", 4],
+            ["citron", 15],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m196",
+          technique: "mijote",
+          name: "Bœuf 5% façon chili, haricots rouges, riz",
+          moment: "diner",
+          src: "bœuf",
+          veg: true,
+          ingredients: [
+            ["boeuf_hache_5", 125],
+            ["riz_cru", 70],
+            ["haricots_rouges_boite", 150],
+            ["sauce_tomate", 100],
+            ["oignon", 50],
+            ["cumin", 3],
+            ["paprika", 2],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m197",
+          technique: "poele",
+          name: "Bœuf 5% teriyaki, riz complet, petits pois",
+          moment: "diner",
+          src: "bœuf",
+          veg: true,
+          ingredients: [
+            ["boeuf_hache_5", 125],
+            ["riz_complet_cru", 80],
+            ["petits_pois", 150],
+            ["sauce_soja", 15],
+            ["gingembre", 3],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m172",
+          technique: "assemblage",
+          name: "Skyr, banane, beurre de cacahuète",
+          moment: "collationmatin",
+          src: "laitier",
+          ingredients: [
+            ["skyr", 200],
+            ["banane", 100],
+            ["beurre_cacahuete", 12],
+          ],
+        },
+        {
+          id: "m173",
+          technique: "assemblage",
+          name: "Fromage blanc, miel, pomme, amandes",
+          moment: "collationapresmidi",
+          src: "laitier",
+          ingredients: [
+            ["fromage_blanc_0", 150],
+            ["miel", 10],
+            ["pomme", 100],
+            ["amandes", 12],
+          ],
+        },
+        {
+          id: "m174",
+          technique: "assemblage",
+          name: "Skyr, banane, miel",
+          moment: "postworkout",
+          src: "laitier",
+          ingredients: [
+            ["skyr", 250],
             ["banane", 120],
-            ["amandes", 20],
             ["miel", 15],
           ],
         },
@@ -3779,21 +4201,16 @@
       const EMPTY_CAT_SET = new Set();
       function mealScalableCats(m) {
         if (!m.ingredients) return EMPTY_CAT_SET;
-        let hasFeculent = false,
-          hasFruit = false,
-          hasLegume = false;
+        const cats = new Set();
         for (const [key] of m.ingredients) {
           const n = NUTRI[key];
           if (!n) continue;
           if (n.cat === "feculent_complet" || n.cat === "feculent_raffine")
-            hasFeculent = true;
-          else if (n.cat === "fruit") hasFruit = true;
-          else if (n.cat === "legume") hasLegume = true;
+            cats.add(n.cat);
+          else if (n.cat === "fruit") cats.add("fruit");
+          else if (n.cat === "legume") cats.add("legume");
         }
-        if (hasFeculent) return FECULENT_CATS;
-        if (hasFruit) return FRUIT_CAT_SET;
-        if (hasLegume) return LEGUME_CAT_SET;
-        return EMPTY_CAT_SET;
+        return cats;
       }
       // "60g d'œuf" ne veut rien dire concrètement — pour ces ingrédients,
       // on affiche une unité pratique (pièces, cuillères) plutôt que des
@@ -3871,11 +4288,6 @@
           unitG: 5,
           label: "cuillère à café de mayonnaise",
           labelPlural: "cuillères à café de mayonnaise",
-        },
-        creme_fraiche: {
-          unitG: 15,
-          label: "cuillère à soupe de crème fraîche",
-          labelPlural: "cuillères à soupe de crème fraîche",
         },
         curry: {
           unitG: 2.5,
@@ -3975,7 +4387,7 @@
         const u = INGREDIENT_UNITS[key];
         if (u) {
           if (u.piece && !u.allowHalf) {
-            const count = Math.max(1, Math.round(grams / u.unitG));
+            const count = Math.max(1, Math.ceil(grams / u.unitG));
             const label = count <= 1 ? u.label : u.labelPlural;
             return `${count} ${label}`;
           }
@@ -4076,7 +4488,6 @@
       const DAIRY_ROLE_KEYS = new Set([
         "fromage_rape",
         "parmesan",
-        "creme_fraiche",
         "houmous",
         "mayonnaise",
         "fromage_frais_leger",
@@ -4094,6 +4505,7 @@
           vegs: [],
           seasonings: [],
           dairy: [],
+          extras: [],
         };
         (m.ingredients || []).forEach(([key]) => {
           const n = NUTRI[key];
@@ -4103,6 +4515,8 @@
           else if (n.cat === "condiment") roles.seasonings.push(key);
           else if (DAIRY_ROLE_KEYS.has(key)) roles.dairy.push(key);
           else if (VEG_ROLE_CATS.has(n.cat)) roles.vegs.push(key);
+          else if (n.cat === "oleagineux" || n.cat === "sucre")
+            roles.extras.push(key);
         });
         return roles;
       }
@@ -4118,7 +4532,8 @@
             "Recette personnalisée — suis tes propres indications de préparation.",
           ];
         }
-        const { proteins, starches, vegs, seasonings, dairy } = mealRoles(m);
+        const { proteins, starches, vegs, seasonings, dairy, extras } =
+          mealRoles(m);
         const BREAD_KEYS = new Set([
           "pain",
           "pain_complet",
@@ -4135,19 +4550,50 @@
         const vegLbl = joinLabels(vegs);
         const seasonLbl = joinLabels(seasonings);
         const dairyLbl = joinLabels(dairy);
+        const extrasLbl = joinLabels(extras);
         const steps = [];
 
         switch (t) {
+          case "bowl_froid":
+            steps.push(
+              `Mélange ${dairyLbl || "le laitier"} avec ${starchLbl || "les flocons d'avoine"} dans un bol.`,
+            );
+            if (vegs.length || extras.length) {
+              steps.push(
+                `Ajoute ${joinLabels([...vegs, ...extras])}, mélange.`,
+              );
+            }
+            steps.push(
+              "Déguste aussitôt, ou laisse reposer au frigo si tu préfères un mélange plus fondant (façon overnight oats).",
+            );
+            break;
           case "porridge":
             steps.push(
               `Fais chauffer ${starchLbl || "les flocons d'avoine"} avec un peu de lait ou d'eau à feu doux pendant 5 min, en remuant régulièrement.`,
             );
             if (dairy.length) steps.push(`Hors du feu, incorpore ${dairyLbl}.`);
-            if (vegs.length)
+            if (vegs.length || extras.length)
               steps.push(
-                `Ajoute ${vegLbl} et le reste des garnitures, mélange et sers.`,
+                `Ajoute ${joinLabels([...vegs, ...extras])} et le reste des garnitures, mélange et sers.`,
               );
             break;
+          case "pancakes": {
+            const mixIns = [
+              ...proteins.filter((p) => p !== "oeuf" && p !== "blanc_oeuf"),
+              ...vegs,
+              ...extras,
+            ];
+            steps.push(
+              `Mixe ou écrase ${mixIns.length ? joinLabels(mixIns) + " avec " : ""}les œufs, ${starchLbl || "les flocons d'avoine"}${dairy.length ? ` et ${dairyLbl}` : ""} pour obtenir une pâte lisse.`,
+            );
+            steps.push(
+              "Fais chauffer une poêle légèrement huilée à feu moyen, verse des petites louches de pâte.",
+            );
+            steps.push(
+              "Fais cuire 2 min de chaque côté jusqu'à ce que les pancakes soient dorés.",
+            );
+            break;
+          }
           case "omelette": {
             const otherProteins = proteins.filter(
               (p) => p !== "oeuf" && p !== "blanc_oeuf",
@@ -4179,7 +4625,9 @@
             steps.push(
               `Fais chauffer un filet d'huile dans une poêle, dore le pain 2-3 min de chaque côté à feu moyen.`,
             );
-            steps.push("Sers aussitôt, éventuellement avec un filet de miel.");
+            steps.push(
+              `Sers aussitôt${extras.length ? `, avec ${extrasLbl}` : ""}.`,
+            );
             break;
           }
           case "four":
@@ -4256,8 +4704,9 @@
               steps.push(
                 `Fais cuire les œufs 9-10 min dans l'eau bouillante, refroidis-les sous l'eau froide puis écale-les.`,
               );
+            const allBits = [...vegs, ...extras];
             steps.push(
-              `Assemble ou mélange tous les ingrédients${seasonings.length ? `, assaisonne avec ${seasonLbl}` : ""} et sers.`,
+              `Assemble ou mélange tous les ingrédients${allBits.length ? ` (${joinLabels(allBits)} compris)` : ""}${seasonings.length ? `, assaisonne avec ${seasonLbl}` : ""} et sers.`,
             );
             break;
           }
@@ -4280,7 +4729,9 @@
             else if (seasonings.length)
               steps.push(`Assaisonne avec ${seasonLbl}.`);
             let finalLine = "Mélange le tout";
-            if (dairy.length) finalLine += `, ajoute ${dairyLbl}`;
+            const finishBits = [...dairy, ...extras];
+            if (finishBits.length)
+              finalLine += `, ajoute ${joinLabels(finishBits)}`;
             finalLine += breadStarches.length
               ? `, sers avec ${breadLbl}.`
               : " et sers.";
@@ -4305,9 +4756,23 @@
           ([key]) => NUTRI[key] && cats.includes(NUTRI[key].cat),
         );
       }
+
+      function mealSelGrams(m, scale) {
+        scale = scale || 1;
+        if (!m.ingredients) return 0;
+        return m.ingredients.reduce((s, [key, g]) => {
+          const sel = SEL_PAR_100G[key];
+          return sel ? s + (sel * g * scale) / 100 : s;
+        }, 0);
+      }
       function mealContainsIngredient(m, key) {
         if (!m.ingredients) return false;
         return m.ingredients.some(([k]) => k === key);
+      }
+      function ingredientGrams(m, key) {
+        if (!m.ingredients) return 0;
+        const found = m.ingredients.find(([k]) => k === key);
+        return found ? found[1] : 0;
       }
       function mealContainsAnyIngredient(m, keysSet) {
         if (!m.ingredients) return false;
@@ -4454,6 +4919,7 @@
         activeDay: "lun",
         suggestIdx: 0,
         weekMessage: "",
+        generating: false,
         picker: null,
         recipeDetail: null, // UI only — id du repas affiché dans la popup "détail de la recette"
       };
@@ -4585,19 +5051,19 @@
               ? "var(--green)"
               : "var(--amber)";
         return `<svg class="jar-svg" width="64" height="100" viewBox="0 0 64 100">
-    <defs><clipPath id="jarclip"><path d="M14 20 L14 88 Q14 96 24 96 L40 96 Q50 96 50 88 L50 20 Z"/></clipPath></defs>
-    <path d="M14 20 L14 88 Q14 96 24 96 L40 96 Q50 96 50 88 L50 20 Z" fill="var(--bg)" stroke="var(--border)" stroke-width="2"/>
-    <rect x="14" y="${fillY}" width="36" height="${96 - fillY}" fill="${color}" opacity="0.85" clip-path="url(#jarclip)"/>
-    <rect x="20" y="8" width="24" height="14" rx="3" fill="var(--ink)"/>
-  </svg>`;
+        <defs><clipPath id="jarclip"><path d="M14 20 L14 88 Q14 96 24 96 L40 96 Q50 96 50 88 L50 20 Z"/></clipPath></defs>
+        <path d="M14 20 L14 88 Q14 96 24 96 L40 96 Q50 96 50 88 L50 20 Z" fill="var(--bg)" stroke="var(--border)" stroke-width="2"/>
+        <rect x="14" y="${fillY}" width="36" height="${96 - fillY}" fill="${color}" opacity="0.85" clip-path="url(#jarclip)"/>
+        <rect x="20" y="8" width="24" height="14" rx="3" fill="var(--ink)"/>
+      </svg>`;
       }
 
       function macrobar(label, val, target, color) {
         const pct = target ? Math.min(1.15, val / target) : 0;
         return `<div class="macrobar">
-    <div class="mb-top"><span>${label}</span><span>${val}g / ${target}g</span></div>
-    <div class="mb-track"><div class="mb-fill" style="width:${pct * 100}%; background:${color};"></div></div>
-  </div>`;
+        <div class="mb-top"><span>${label}</span><span>${val}g / ${target}g</span></div>
+        <div class="mb-track"><div class="mb-fill" style="width:${pct * 100}%; background:${color};"></div></div>
+      </div>`;
       }
 
       function randomFrom(arr) {
@@ -4609,12 +5075,12 @@
       // ça permet aux bonus/pénalités de score (périssables, glucides...)
       // d'avoir un vrai effet sur le résultat final.
       function weightedPick(sortedArr) {
-        const n = Math.min(sortedArr.length, 10);
+        const n = Math.min(sortedArr.length, 20);
         if (n === 0) return undefined;
         let total = 0;
         const weights = [];
         for (let i = 0; i < n; i++) {
-          const w = Math.pow(0.8, i);
+          const w = Math.pow(0.9, i);
           weights.push(w);
           total += w;
         }
@@ -4626,15 +5092,34 @@
         return sortedArr[n - 1];
       }
 
+      const MAIN_INGREDIENT_CATS = new Set([
+        "viande_rouge",
+        "charcuterie",
+        "volaille",
+        "oeuf",
+        "poisson_maigre",
+        "poisson_gras",
+        "legumineuse",
+        "laitier",
+        "feculent_complet",
+        "feculent_raffine",
+        "legume",
+        "fruit",
+      ]);
+
       function sortedOptionsForMoment(
         options,
         target,
         mealUsage,
         redMeatLeft,
         charcuterieLeft,
+        selLeft,
         thonLeft,
+        cabillaudLeft,
         daySrcCounts,
+        dayTechCounts,
         carbUsage,
+        ingredientUsage,
         perishState,
         dayIndex,
       ) {
@@ -4654,11 +5139,25 @@
               Math.max(1, target.protein);
             const fatOver =
               Math.max(0, x.fat - target.fat) / Math.max(1, target.fat);
-            const reusePenalty = (mealUsage[m.id] || 0) * 0.35;
-            const sameSrcPenalty = (daySrcCounts[m.src] || 0) >= 2 ? 2.2 : 0;
+            const reusePenalty = Math.pow(mealUsage[m.id] || 0, 1.6) * 1.1;
+            const sameSrcCount = daySrcCounts[m.src] || 0;
+            const sameTechCount =
+              dayTechCounts && m.technique
+                ? dayTechCounts[m.technique] || 0
+                : 0;
+            // Pénalité dès la 1ère répétition de la même source (protéine)
+            // ou de la même technique de préparation le même jour, pour
+            // éviter des recettes trop similaires côte à côte.
+            const sameSrcPenalty =
+              sameSrcCount > 0
+                ? sameSrcCount * 1.9 + (sameSrcCount >= 2 ? 3 : 0)
+                : 0;
+            const sameTechPenalty = sameTechCount * 0.7;
             const red = categoryGrams(m, "viande_rouge");
             const charc = categoryGrams(m, "charcuterie");
-            const isThon = mealContainsIngredient(m, "thon_boite");
+            const sel = mealSelGrams(m);
+            const thonGrams = ingredientGrams(m, "thon_boite");
+            const isCabillaud = mealContainsIngredient(m, "cabillaud");
             // Pénalité douce sur une source de glucides déjà beaucoup utilisée
             // cette semaine (riz, pâtes...), pour favoriser la rotation avec
             // patate douce / pomme de terre / quinoa déjà présents.
@@ -4673,7 +5172,21 @@
                   .map(([k]) => k)
               : [];
             const carbRepeatPenalty = carbKeys.reduce(
-              (s, k) => s + Math.max(0, (carbUsage[k] || 0) - 1) * 0.9,
+              (s, k) => s + Math.max(0, (carbUsage[k] || 0) - 1) * 1.6,
+              0,
+            );
+            // Pénalité générale : décourage un même ingrédient principal
+            // (viande, légume, laitier...) de revenir trop souvent sur la
+            // semaine entière, même s'il n'est jamais interdit par ailleurs.
+            const mainKeys = m.ingredients
+              ? m.ingredients
+                  .filter(
+                    ([k]) => NUTRI[k] && MAIN_INGREDIENT_CATS.has(NUTRI[k].cat),
+                  )
+                  .map(([k]) => k)
+              : [];
+            const ingredientRepeatPenalty = mainKeys.reduce(
+              (s, k) => s + Math.max(0, (ingredientUsage[k] || 0) - 1) * 2.4,
               0,
             );
             // Périssables déjà ouverts cette semaine (lait, crème fraîche...) :
@@ -4684,19 +5197,28 @@
             if (m.ingredients && perishState) {
               m.ingredients.forEach(([key]) => {
                 const pkg = CONSERVATION_PACKAGES[key];
-                if (!pkg) return;
+                if (!pkg || pkg.days > SHELF_LIFE_SOON_THRESHOLD) return;
                 const openedDay = perishState[key];
-                if (openedDay === undefined) return;
-                const age = dayIndex - openedDay;
-                if (age >= 0 && age <= pkg.days) perishBonus -= 3.5;
+                let thisBonus = 0;
+                if (openedDay === undefined) {
+                  thisBonus = -Math.max(0, DAYS.length - 1 - dayIndex) * 0.22;
+                } else {
+                  const age = dayIndex - openedDay;
+                  if (age >= 0 && age <= pkg.days) thisBonus = -3.5;
+                }
+                perishBonus = Math.min(perishBonus, thisBonus);
               });
             }
+            const oatSoftPenalty = mealContainsIngredient(m, "avoine")
+              ? 1.5
+              : 0;
             const hardPenalty =
               (red > redMeatLeft ? 4 : 0) +
               (charc > charcuterieLeft ? 4 : 0) +
-              (isThon && thonLeft <= 0 ? 4 : 0) +
-              (isThon && thonLeft === 1 ? 0.8 : 0) +
-              ((mealUsage[m.id] || 0) >= 3 ? 4 : 0) +
+              (sel > selLeft ? 3 : 0) +
+              (thonGrams > thonLeft ? 4 : 0) +
+              (isCabillaud && cabillaudLeft <= 0 ? 4 : 0) +
+              ((mealUsage[m.id] || 0) >= 3 ? 6 : 0) +
               sameSrcPenalty;
             return {
               meal: m,
@@ -4704,11 +5226,14 @@
                 kcalFit * 2 +
                 proteinGap * 1.4 +
                 proteinOver * 3 +
-                fatOver * 10 +
+                fatOver * 4 +
                 reusePenalty +
                 carbRepeatPenalty +
+                ingredientRepeatPenalty +
                 perishBonus +
-                hardPenalty,
+                hardPenalty +
+                sameTechPenalty +
+                oatSoftPenalty,
             };
           })
           .sort((a, b) => a.score - b.score)
@@ -4725,6 +5250,13 @@
       const CHARCUTERIE_SAFE = Math.round(
         CHARCUTERIE_MAX * HEALTH_SAFETY_MARGIN,
       );
+      const SEL_MAX = 35; // g/semaine — 5g/jour recommandé ANSES/PNNS 5 (mangerbouger.fr)
+      const SEL_SAFE = Math.round(SEL_MAX * HEALTH_SAFETY_MARGIN);
+      const NON_BLOCKING_RULE_KEYS = new Set([
+        "dailyKcal",
+        "dailyProtein",
+        "perishCluster",
+      ]);
       function weekStats(plan) {
         const allEntries = Object.values(plan)
           .flat()
@@ -4741,7 +5273,7 @@
           counts[id] = (counts[id] || 0) + 1;
         });
         const repeatedMeals = Object.entries(counts)
-          .filter(([, c]) => c > 3)
+          .filter(([, c]) => c > 2)
           .map(([id]) => mealById(id))
           .filter(Boolean);
 
@@ -4766,8 +5298,15 @@
           "poisson_gras",
         ]);
         const oilyFishCount = weeklyMealsWithCat(["poisson_gras"]);
+        const thonGramsWeek = meals.reduce(
+          (s, m) => s + ingredientGrams(m, "thon_boite"),
+          0,
+        );
         const thonCount = meals.filter((m) =>
           mealContainsIngredient(m, "thon_boite"),
+        ).length;
+        const cabillaudCount = meals.filter((m) =>
+          mealContainsIngredient(m, "cabillaud"),
         ).length;
         // Regroupement des périssables : une fois un pot/brique ouvert (lait,
         // houmous, crème fraîche...), toutes ses utilisations dans la semaine
@@ -4792,6 +5331,10 @@
         });
         const redMeatGrams = weeklyCatGrams("viande_rouge");
         const charcuterieGrams = weeklyCatGrams("charcuterie");
+        const selGrams = allEntries.reduce(
+          (s, { meal, scale }) => s + mealSelGrams(meal, scale),
+          0,
+        );
         const dairyCount = weeklyMealsWithCat(["laitier"]);
         const completGrams = weeklyCatGrams("feculent_complet");
         const raffineGrams = weeklyCatGrams("feculent_raffine");
@@ -4869,14 +5412,16 @@
           legumineuses: legumineuseCount >= 2,
           poisson: poissonCount >= 2,
           oilyFish: oilyFishCount >= 1,
-          thonLimit: thonCount <= 2,
+          thonLimit: thonGramsWeek <= INGREDIENT_UNITS.thon_boite.unitG,
+          cabillaudLimit: cabillaudCount <= 1,
           perishCluster: perishViolations.length === 0,
           redMeat: redMeatGrams <= RED_MEAT_SAFE,
           charcuterie: charcuterieGrams <= CHARCUTERIE_SAFE,
+          sel: selGrams <= SEL_SAFE,
           dairy: dairyCount >= 10,
           complet: completPct >= 50,
           fat: fatRatio <= 1.1,
-          variety: varietyCount >= 3,
+          variety: varietyCount >= 4,
           repetition: repeatedMeals.length === 0,
           // dailyKcal/dailyProtein: display warnings only, not blocking constraints
           dailyKcal: dailySummaries.every((d) => d.kcalOk),
@@ -4898,9 +5443,11 @@
           poissonCount,
           oilyFishCount,
           thonCount,
+          cabillaudCount,
           perishViolations,
           redMeatGrams,
           charcuterieGrams,
+          selGrams,
           dairyCount,
           completPct,
           weekFatTotal,
@@ -4913,12 +5460,7 @@
           rules,
           // dailyKcal/dailyProtein/perishCluster: display warnings only, not blocking constraints
           allRulesOk: Object.entries(rules)
-            .filter(
-              ([k]) =>
-                k !== "dailyKcal" &&
-                k !== "dailyProtein" &&
-                k !== "perishCluster",
-            )
+            .filter(([k]) => !NON_BLOCKING_RULE_KEYS.has(k))
             .every(([, v]) => v),
         };
       }
@@ -4990,13 +5532,17 @@
         }
 
         const attemptCount = 12000;
+        const ruleFailCounts = {};
         for (let attempt = 0; attempt < attemptCount; attempt++) {
           const mealUsage = {};
           let redMeatSoFar = 0;
           let charcuterieSoFar = 0;
-          let thonSoFar = 0;
+          let selSoFar = 0;
+          let thonGramsSoFar = 0;
+          let cabillaudSoFar = 0;
           let scaledDaysCount = 0;
           const carbUsage = {};
+          const ingredientUsage = {};
           const perishState = {}; // clé périssable -> index du jour où ouvert la 1ère fois
           const newPlan = {};
           let failed = false;
@@ -5009,6 +5555,7 @@
             const moments = Object.keys(dayMomentShare);
             const dayMeals = [];
             const daySrcCounts = {};
+            const dayTechCounts = {};
             const dayIndex = DAYS.indexOf(day);
 
             for (const moment of moments) {
@@ -5023,9 +5570,13 @@
                 mealUsage,
                 RED_MEAT_SAFE - redMeatSoFar,
                 CHARCUTERIE_SAFE - charcuterieSoFar,
-                2 - thonSoFar,
+                SEL_SAFE - selSoFar,
+                INGREDIENT_UNITS.thon_boite.unitG - thonGramsSoFar,
+                1 - cabillaudSoFar,
                 daySrcCounts,
+                dayTechCounts,
                 carbUsage,
+                ingredientUsage,
                 perishState,
                 dayIndex,
               );
@@ -5038,9 +5589,16 @@
               mealUsage[selected.id] = (mealUsage[selected.id] || 0) + 1;
               daySrcCounts[selected.src] =
                 (daySrcCounts[selected.src] || 0) + 1;
+              if (selected.technique)
+                dayTechCounts[selected.technique] =
+                  (dayTechCounts[selected.technique] || 0) + 1;
               redMeatSoFar += categoryGrams(selected, "viande_rouge");
               charcuterieSoFar += categoryGrams(selected, "charcuterie");
-              if (mealContainsIngredient(selected, "thon_boite")) thonSoFar++;
+              selSoFar += mealSelGrams(selected);
+              thonGramsSoFar += ingredientGrams(selected, "thon_boite");
+              if (mealContainsIngredient(selected, "cabillaud"))
+                cabillaudSoFar++;
+              cabillaudSoFar++;
               if (selected.ingredients) {
                 selected.ingredients.forEach(([k]) => {
                   if (
@@ -5049,6 +5607,9 @@
                       NUTRI[k].cat === "feculent_raffine")
                   ) {
                     carbUsage[k] = (carbUsage[k] || 0) + 1;
+                  }
+                  if (NUTRI[k] && MAIN_INGREDIENT_CATS.has(NUTRI[k].cat)) {
+                    ingredientUsage[k] = (ingredientUsage[k] || 0) + 1;
                   }
                   if (
                     CONSERVATION_PACKAGES[k] &&
@@ -5129,7 +5690,14 @@
 
           if (failed) continue;
           const stats = weekStats(newPlan);
-          if (!stats.allRulesOk) continue;
+          if (!stats.allRulesOk) {
+            Object.entries(stats.rules).forEach(([k, ok]) => {
+              if (!ok && !NON_BLOCKING_RULE_KEYS.has(k)) {
+                ruleFailCounts[k] = (ruleFailCounts[k] || 0) + 1;
+              }
+            });
+            continue;
+          }
 
           state.plan = newPlan;
           state.weekMessage = scaledDaysCount
@@ -5140,27 +5708,53 @@
           return;
         }
 
-        state.weekMessage =
-          "Aucun plan ne respecte toutes les contraintes avec la bibliothèque actuelle. Ajoute plus de recettes variées (surtout poisson gras, légumineuses, laitiers, légumes/fruits).";
+        const RULE_LABELS = {
+          legFruit: "légumes/fruits (80% du repère)",
+          legumineuses: "légumineuses (min 2/sem)",
+          poisson: "poisson (min 2/sem)",
+          oilyFish: "poisson gras (min 1/sem)",
+          thonLimit: "thon (max 1 boîte/sem)",
+          cabillaudLimit: "cabillaud (max 1/sem)",
+          redMeat: "viande rouge (quota)",
+          charcuterie: "charcuterie (quota)",
+          sel: "sel (quota)",
+          dairy: "laitiers (min 10/sem)",
+          complet: "féculents complets (50%)",
+          fat: "lipides (quota)",
+          variety: "variété des recettes",
+          repetition: "répétition des repas",
+          dailyDiversity:
+            "diversité protéique quotidienne (3 sources mini/jour)",
+          prepTime: "temps de préparation",
+          workSnack: "compatibilité collations au travail",
+          wheyFree: "whey exclue",
+        };
+        const topFails = Object.entries(ruleFailCounts)
+          .sort((a, b) => b[1] - a[1])
+          .slice(0, 3)
+          .map(([k]) => RULE_LABELS[k] || k);
+        state.weekMessage = topFails.length
+          ? `Aucun plan ne respecte toutes les contraintes avec la bibliothèque actuelle. Règle la plus souvent bloquante : ${topFails.join(", ")}. Ajoute des recettes qui aident sur ce point précis, ou assouplis cette règle.`
+          : "Aucun plan ne respecte toutes les contraintes avec la bibliothèque actuelle. Ajoute plus de recettes variées.";
         render();
       }
 
       function render() {
         const app = document.getElementById("app");
         app.innerHTML = `
-    <header class="top">
-      <div class="eyebrow">Réserve</div>
-      <h1>${tabTitle()}</h1>
-    </header>
-    <main>${renderTab()}</main>
-    <nav class="tabs">
-      ${tabBtn("profil", "◐", "Profil")}
-      ${tabBtn("bib", "◧", "Bibliothèque")}
-      ${tabBtn("semaine", "▦", "Semaine")}
-    </nav>
-    ${state.picker ? renderPicker() : ""}
-    ${state.recipeDetail ? renderRecipeDetailModal() : ""}
-  `;
+        <header class="top">
+          <div class="eyebrow">Réserve</div>
+          <h1>${tabTitle()}</h1>
+        </header>
+        <main>${renderTab()}</main>
+        <nav class="tabs">
+          ${tabBtn("profil", "◐", "Profil")}
+          ${tabBtn("bib", "◧", "Bibliothèque")}
+          ${tabBtn("semaine", "▦", "Semaine")}
+        </nav>
+        ${state.picker ? renderPicker() : ""}
+        ${state.recipeDetail ? renderRecipeDetailModal() : ""}
+      `;
         bindEvents();
       }
 
@@ -5183,33 +5777,33 @@
         const t = computeTargets(true);
         const r = computeTargets(false);
         return `
-    <div class="card">
-      <h2>Ton profil</h2>
-      <div class="row">
-        <div class="field"><label>Poids (kg)</label><input type="number" id="p-weight" value="${state.profile.weight}"></div>
-        <div class="field"><label>Taille (cm)</label><input type="number" id="p-height" value="${state.profile.height}"></div>
-        <div class="field"><label>Âge</label><input type="number" id="p-age" value="${state.profile.age}"></div>
-      </div>
-    </div>
-    <div class="card">
-      <h2>Jour d'entraînement <span class="pill">${t.kcal} kcal</span></h2>
-      ${macrobar("Protéines", 0, t.protein, "var(--green)")}
-      ${macrobar("Glucides", 0, t.carbs, "var(--amber)")}
-      ${macrobar("Lipides", 0, t.fat, "var(--brick)")}
-    </div>
-    <div class="card">
-      <h2>Jour de repos <span class="pill amber">${r.kcal} kcal</span></h2>
-      ${macrobar("Protéines", 0, r.protein, "var(--green)")}
-      ${macrobar("Glucides", 0, r.carbs, "var(--amber)")}
-      ${macrobar("Lipides", 0, r.fat, "var(--brick)")}
-    </div>
-    <div class="card">
-      <h2>Comment c'est calculé</h2>
-      <p style="font-size:13px;color:var(--ink-soft);line-height:1.55;margin:0;">
-      Métabolisme de base (Mifflin-St Jeor) × activité sédentaire, + un bonus les jours de muscu, + un surplus modéré pour la prise de masse. Protéines calées à 2g/kg. Ajuste ton poids ici chaque semaine pour garder les cibles justes.
-      </p>
-    </div>
-  `;
+        <div class="card">
+          <h2>Ton profil</h2>
+          <div class="row">
+            <div class="field"><label>Poids (kg)</label><input type="number" id="p-weight" value="${state.profile.weight}"></div>
+            <div class="field"><label>Taille (cm)</label><input type="number" id="p-height" value="${state.profile.height}"></div>
+            <div class="field"><label>Âge</label><input type="number" id="p-age" value="${state.profile.age}"></div>
+          </div>
+        </div>
+        <div class="card">
+          <h2>Jour d'entraînement <span class="pill">${t.kcal} kcal</span></h2>
+          ${macrobar("Protéines", 0, t.protein, "var(--green)")}
+          ${macrobar("Glucides", 0, t.carbs, "var(--amber)")}
+          ${macrobar("Lipides", 0, t.fat, "var(--brick)")}
+        </div>
+        <div class="card">
+          <h2>Jour de repos <span class="pill amber">${r.kcal} kcal</span></h2>
+          ${macrobar("Protéines", 0, r.protein, "var(--green)")}
+          ${macrobar("Glucides", 0, r.carbs, "var(--amber)")}
+          ${macrobar("Lipides", 0, r.fat, "var(--brick)")}
+        </div>
+        <div class="card">
+          <h2>Comment c'est calculé</h2>
+          <p style="font-size:13px;color:var(--ink-soft);line-height:1.55;margin:0;">
+          Métabolisme de base (Mifflin-St Jeor) × activité sédentaire, + un bonus les jours de muscu, + un surplus modéré pour la prise de masse. Protéines calées à 2g/kg. Ajuste ton poids ici chaque semaine pour garder les cibles justes.
+          </p>
+        </div>
+      `;
       }
 
       function renderBib() {
@@ -5217,12 +5811,12 @@
         let html = "";
 
         html += `<div class="card">
-    <h2>Tes recettes</h2>
-    <p style="font-size:13px;color:var(--ink-soft);line-height:1.5;margin:0;">
-      Toutes les recettes sont disponibles automatiquement pour la génération de ta semaine.
-      Tu n'as plus besoin de les valider une par une.
-    </p>
-  </div>`;
+        <h2>Tes recettes</h2>
+        <p style="font-size:13px;color:var(--ink-soft);line-height:1.5;margin:0;">
+          Toutes les recettes sont disponibles automatiquement pour la génération de ta semaine.
+          Tu n'as plus besoin de les valider une par une.
+        </p>
+      </div>`;
 
         html += `<div class="section-title">Tes repas disponibles (${validatedMeals.length})</div>`;
         if (validatedMeals.length === 0) {
@@ -5233,40 +5827,48 @@
             validatedMeals
               .map(
                 (m) => `
-      <div class="meal-row-full" style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-        <div style="flex:1;min-width:0;">
-          <div class="mname">${m.name}</div>
-          <div class="mmacro">${MOMENT_LABEL[m.moment]} · ${mac(m).kcal} kcal · ${mac(m).protein}P/${mac(m).carbs}G/${mac(m).fat}L</div>
-          ${m.ingredients ? `<div class="ingr-chips">${ingredientChips(m)}</div>` : ""}
-        </div>
-        <button class="rm-info" data-view-recipe="${m.id}">🍳</button>
-      </div>`,
+          <div class="meal-row-full" style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+            <div style="flex:1;min-width:0;">
+              <div class="mname">${m.name}</div>
+              <div class="mmacro">${MOMENT_LABEL[m.moment]} · ${mac(m).kcal} kcal · ${mac(m).protein}P/${mac(m).carbs}G/${mac(m).fat}L</div>
+              ${m.ingredients ? `<div class="ingr-chips">${ingredientChips(m)}</div>` : ""}
+            </div>
+            <button class="rm-info" data-view-recipe="${m.id}">🍳</button>
+          </div>`,
               )
               .join("") +
             `</div>`;
         }
 
         html += `<div class="section-title">Ajouter ton propre repas</div>
-    <div class="card">
-      <div class="row">
-        <div class="field" style="flex:2"><label>Nom</label><input type="number" style="display:none">
-          <input type="text" id="c-name" placeholder="Ex : Poêlée de dinde, quinoa" style="width:100%;border:1px solid var(--border);border-radius:10px;padding:9px 10px;font-size:14px;background:var(--bg);color:var(--ink);">
-        </div>
-      </div>
-      <div class="row" style="margin-top:10px;">
-        <div class="field"><label>Kcal</label><input type="number" id="c-kcal" value="600"></div>
-        <div class="field"><label>Protéines</label><input type="number" id="c-protein" value="35"></div>
-      </div>
-      <div class="row" style="margin-top:10px;">
-        <div class="field"><label>Glucides</label><input type="number" id="c-carbs" value="55"></div>
-        <div class="field"><label>Lipides</label><input type="number" id="c-fat" value="20"></div>
-      </div>
-      <div style="margin-top:12px;"><button class="primary" id="add-custom" style="width:100%;">Ajouter à ma bibliothèque</button></div>
-    </div>`;
+        <div class="card">
+          <div class="row">
+            <div class="field" style="flex:2"><label>Nom</label><input type="number" style="display:none">
+              <input type="text" id="c-name" placeholder="Ex : Poêlée de dinde, quinoa" style="width:100%;border:1px solid var(--border);border-radius:10px;padding:9px 10px;font-size:14px;background:var(--bg);color:var(--ink);">
+            </div>
+          </div>
+          <div class="row" style="margin-top:10px;">
+            <div class="field"><label>Kcal</label><input type="number" id="c-kcal" value="600"></div>
+            <div class="field"><label>Protéines</label><input type="number" id="c-protein" value="35"></div>
+          </div>
+          <div class="row" style="margin-top:10px;">
+            <div class="field"><label>Glucides</label><input type="number" id="c-carbs" value="55"></div>
+            <div class="field"><label>Lipides</label><input type="number" id="c-fat" value="20"></div>
+          </div>
+          <div style="margin-top:12px;"><button class="primary" id="add-custom" style="width:100%;">Ajouter à ma bibliothèque</button></div>
+        </div>`;
         return html;
       }
 
       function renderSemaine() {
+        if (state.generating) {
+          return `<style>@keyframes reserve-spin{to{transform:rotate(360deg);}}</style>
+        <div class="card" style="text-align:center;padding:48px 16px;">
+          <div style="width:34px;height:34px;margin:0 auto 16px;border:3px solid var(--line);border-top-color:var(--ink);border-radius:50%;animation:reserve-spin .8s linear infinite;"></div>
+          <div style="font-family:'Fraunces',serif;font-size:15px;font-weight:600;">Génération de la semaine…</div>
+          <div style="font-size:12px;color:var(--ink-soft);margin-top:4px;">Recherche du meilleur plan parmi des milliers de combinaisons.</div>
+        </div>`;
+        }
         const lib = libraryMeals();
         const allMoments = [
           ...new Set([
@@ -5281,28 +5883,31 @@
         const hasAnyMeals = Object.values(state.plan).some(
           (ids) => ids.length > 0,
         );
-        const rulesOk = Object.values(stats.rules).filter(Boolean).length;
-        const rulesTotal = Object.keys(stats.rules).length;
+        const blockingRuleEntries = Object.entries(stats.rules).filter(
+          ([k]) => !NON_BLOCKING_RULE_KEYS.has(k),
+        );
+        const rulesOk = blockingRuleEntries.filter(([, v]) => v).length;
+        const rulesTotal = blockingRuleEntries.length;
         const view = state.semaineView || "jours";
 
         let html = "";
 
         // ── Carte principale ──
         html += `<div class="card">
-    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
-      <div style="flex:1;min-width:0;">
-        <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;line-height:1.2;">Planifier ma semaine</div>
-        <div style="font-size:12px;color:var(--ink-soft);margin-top:3px;">${lib.length} recettes disponibles</div>
-      </div>
-      ${hasAnyMeals ? `<span class="pill ${stats.allRulesOk ? "" : "amber"}" style="flex-shrink:0;">${stats.allRulesOk ? "✓" : "▲"} ${rulesOk}/${rulesTotal}</span>` : ""}
-    </div>
-    ${thinMoments.length ? `<p style="font-size:12px;color:var(--amber);margin:0 0 10px;line-height:1.4;">Peu de recettes pour : ${thinMoments.map((m) => MOMENT_LABEL[m]).join(", ")}.</p>` : ""}
-    ${state.weekMessage ? `<div class="week-msg ${stats.allRulesOk ? "ok" : "warn"}">${state.weekMessage}</div>` : ""}
-    <div class="btn-row">
-      <button class="primary" id="gen-week" ${lib.length < 5 ? "disabled" : ""}>Générer</button>
-      <button id="save-week" ${!hasAnyMeals ? "disabled" : ""}>Sauvegarder</button>
-    </div>
-  </div>`;
+        <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;">
+          <div style="flex:1;min-width:0;">
+            <div style="font-family:'Fraunces',serif;font-size:18px;font-weight:600;line-height:1.2;">Planifier ma semaine</div>
+            <div style="font-size:12px;color:var(--ink-soft);margin-top:3px;">${lib.length} recettes disponibles</div>
+          </div>
+          ${hasAnyMeals ? `<span class="pill ${stats.allRulesOk ? "" : "amber"}" style="flex-shrink:0;">${stats.allRulesOk ? "✓" : "▲"} ${rulesOk}/${rulesTotal}</span>` : ""}
+        </div>
+        ${thinMoments.length ? `<p style="font-size:12px;color:var(--amber);margin:0 0 10px;line-height:1.4;">Peu de recettes pour : ${thinMoments.map((m) => MOMENT_LABEL[m]).join(", ")}.</p>` : ""}
+        ${state.weekMessage ? `<div class="week-msg ${stats.allRulesOk ? "ok" : "warn"}">${state.weekMessage}</div>` : ""}
+        <div class="btn-row">
+          <button class="primary" id="gen-week" ${lib.length < 5 ? "disabled" : ""}>Générer</button>
+          <button id="save-week" ${!hasAnyMeals ? "disabled" : ""}>Sauvegarder</button>
+        </div>
+      </div>`;
 
         if (!hasAnyMeals) return html;
 
@@ -5319,7 +5924,7 @@
         else if (view === "courses") html += renderShoppingListInner();
         else if (view === "coherence") {
           html += `<p style="font-size:12px;color:var(--ink-soft);padding:0 2px;margin:0 0 8px;line-height:1.5;">Repères PNNS 5 / ameli.fr + objectifs prise de masse.</p>
-    <div class="card">${renderCoherenceItems()}</div>`;
+        <div class="card">${renderCoherenceItems()}</div>`;
         } else {
           html += renderSavedWeeks();
         }
@@ -5345,10 +5950,10 @@
           const empty = state.plan[day.key].length === 0;
           const active = state.activeDay === day.key;
           html += `<div class="week-strip-day${active ? " wsd-active" : ""}" data-select-day="${day.key}">
-        <div class="wsd-label">${day.label}</div>
-        <div class="wsd-bar"><div class="wsd-fill" style="width:${empty ? 0 : Math.min(100, Math.round(pct * 100))}%;background:${color};"></div></div>
-        <div class="wsd-pct">${empty ? "—" : Math.round(pct * 100) + "%"}</div>
-      </div>`;
+            <div class="wsd-label">${day.label}</div>
+            <div class="wsd-bar"><div class="wsd-fill" style="width:${empty ? 0 : Math.min(100, Math.round(pct * 100))}%;background:${color};"></div></div>
+            <div class="wsd-pct">${empty ? "—" : Math.round(pct * 100) + "%"}</div>
+          </div>`;
         });
         html += `</div>`;
 
@@ -5366,46 +5971,46 @@
             : "";
 
         html += `<div class="card">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
-        <div style="flex:1;min-width:0;">
-          <div style="font-family:'Fraunces',serif;font-size:19px;font-weight:600;">${day.label}${day.training ? " · 💪 entraînement" : " · 🌿 repos"}</div>
-          <div class="mmacro" style="margin-top:2px;">${isEmpty ? "Aucun repas planifié" : `${totals.protein}g P · ${totals.carbs}g G · ${totals.fat}g L`}</div>
-        </div>
-        <span class="pill ${pillCls}">${isEmpty ? "vide" : totals.kcal + " / " + targets.kcal}</span>
-      </div>
-      ${overshoot ? `<p style="font-size:11.5px;color:var(--brick);margin:8px 0 0;line-height:1.4;">▲ Ce jour dépasse le quota calorique — régénère la semaine pour laisser l'algorithme ajuster les portions, ou retire un repas ci-dessous.</p>` : ""}
-      <div class="jar-wrap" style="margin:14px 0 12px;">
-        ${jarSvg(Math.min(1.2, totals.kcal / Math.max(1, targets.kcal)))}
-        <div class="jar-stats">
-          ${macrobar("Protéines", totals.protein, targets.protein, "var(--green)")}
-          ${macrobar("Glucides", totals.carbs, targets.carbs, "var(--amber)")}
-          ${macrobar("Lipides", totals.fat, targets.fat, "var(--brick)")}
-        </div>
-      </div>
-      ${
-        isEmpty
-          ? `<div class="empty" style="padding:12px 0 4px;"><p>Aucun repas pour ${day.label}.</p></div>`
-          : entries
-              .map(
-                (
-                  { meal: m, scale },
-                  i,
-                ) => `<div class="meal-row-full" style="border-left:3px solid ${MOMENT_ACCENT[m.moment] || "var(--border)"};padding-left:10px;">
-          <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
             <div style="flex:1;min-width:0;">
-              <div class="mname">${MOMENT_EMOJI[m.moment] || ""} ${m.name}${scale !== 1 ? ` <span style="font-size:10px;color:var(--amber);font-family:'JetBrains Mono',monospace;font-weight:600;">FÉCULENTS/LÉGUMES ${Math.round(scale * 100)}%</span>` : ""}${m.moment === "postworkout" ? ' <span style="font-size:10px;color:var(--green);font-family:JetBrains Mono,monospace;font-weight:600;">POST-SÉANCE</span>' : ""}${m.moment === "extra" ? ' <span style="font-size:10px;color:var(--brick);font-family:JetBrains Mono,monospace;font-weight:600;">PAS UN REPAS · À FINIR</span>' : ""}</div>
-              <div class="mmacro">${MOMENT_LABEL[m.moment]} · ${mac(m, scale).kcal} kcal · ${mac(m, scale).protein}P/${mac(m, scale).carbs}G/${mac(m, scale).fat}L</div>
-              ${m.ingredients ? `<div class="ingr-chips">${ingredientChips(m, scale)}</div>` : ""}
+              <div style="font-family:'Fraunces',serif;font-size:19px;font-weight:600;">${day.label}${day.training ? " · 💪 entraînement" : " · 🌿 repos"}</div>
+              <div class="mmacro" style="margin-top:2px;">${isEmpty ? "Aucun repas planifié" : `${totals.protein}g P · ${totals.carbs}g G · ${totals.fat}g L`}</div>
             </div>
-            <button class="rm-info" data-view-recipe="${m.id}">🍳</button>
-            <button class="rm" data-remove-day="${i}" data-remove-key="${day.key}">✕</button>
+            <span class="pill ${pillCls}">${isEmpty ? "vide" : totals.kcal + " / " + targets.kcal}</span>
           </div>
-        </div>`,
-              )
-              .join("")
-      }
-      <button class="primary small" data-open-picker-day="${day.key}" style="margin-top:12px;width:100%;">+ Ajouter un repas</button>
-    </div>`;
+          ${overshoot ? `<p style="font-size:11.5px;color:var(--brick);margin:8px 0 0;line-height:1.4;">▲ Ce jour dépasse le quota calorique — régénère la semaine pour laisser l'algorithme ajuster les portions, ou retire un repas ci-dessous.</p>` : ""}
+          <div class="jar-wrap" style="margin:14px 0 12px;">
+            ${jarSvg(Math.min(1.2, totals.kcal / Math.max(1, targets.kcal)))}
+            <div class="jar-stats">
+              ${macrobar("Protéines", totals.protein, targets.protein, "var(--green)")}
+              ${macrobar("Glucides", totals.carbs, targets.carbs, "var(--amber)")}
+              ${macrobar("Lipides", totals.fat, targets.fat, "var(--brick)")}
+            </div>
+          </div>
+          ${
+            isEmpty
+              ? `<div class="empty" style="padding:12px 0 4px;"><p>Aucun repas pour ${day.label}.</p></div>`
+              : entries
+                  .map(
+                    (
+                      { meal: m, scale },
+                      i,
+                    ) => `<div class="meal-row-full" style="border-left:3px solid ${MOMENT_ACCENT[m.moment] || "var(--border)"};padding-left:10px;">
+              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+                <div style="flex:1;min-width:0;">
+                  <div class="mname">${MOMENT_EMOJI[m.moment] || ""} ${m.name}${scale !== 1 ? ` <span style="font-size:10px;color:var(--amber);font-family:'JetBrains Mono',monospace;font-weight:600;">FÉCULENTS/LÉGUMES ${Math.round(scale * 100)}%</span>` : ""}${m.moment === "postworkout" ? ' <span style="font-size:10px;color:var(--green);font-family:JetBrains Mono,monospace;font-weight:600;">POST-SÉANCE</span>' : ""}${m.moment === "extra" ? ' <span style="font-size:10px;color:var(--brick);font-family:JetBrains Mono,monospace;font-weight:600;">PAS UN REPAS · À FINIR</span>' : ""}</div>
+                  <div class="mmacro">${MOMENT_LABEL[m.moment]} · ${mac(m, scale).kcal} kcal · ${mac(m, scale).protein}P/${mac(m, scale).carbs}G/${mac(m, scale).fat}L</div>
+                  ${m.ingredients ? `<div class="ingr-chips">${ingredientChips(m, scale)}</div>` : ""}
+                </div>
+                <button class="rm-info" data-view-recipe="${m.id}">🍳</button>
+                <button class="rm" data-remove-day="${i}" data-remove-key="${day.key}">✕</button>
+              </div>
+            </div>`,
+                  )
+                  .join("")
+          }
+          <button class="primary small" data-open-picker-day="${day.key}" style="margin-top:12px;width:100%;">+ Ajouter un repas</button>
+        </div>`;
 
         return html;
       }
@@ -5473,11 +6078,11 @@
         if (!keys.length)
           return `<p style="font-size:13px;color:var(--ink-soft);padding:2px 0;">La liste apparaît dès que des repas sont planifiés.</p>`;
         const row = (k) => `<details class="shop-item">
-          <summary><div class="mname">${NUTRI[k] ? NUTRI[k].label : k}</div><span class="pill">${formatShoppingAmount(k, totals[k])}</span></summary>
-          <div class="shop-item-detail">
-            ${breakdown[k].map((b) => `<div class="shop-item-line"><span>${b.dayLabel} · ${b.mealName}</span><span>${formatIngredientAmount(k, b.grams, NUTRI[k])}</span></div>`).join("")}
-          </div>
-        </details>`;
+              <summary><div class="mname">${NUTRI[k] ? NUTRI[k].label : k}</div><span class="pill">${formatShoppingAmount(k, totals[k])}</span></summary>
+              <div class="shop-item-detail">
+                ${breakdown[k].map((b) => `<div class="shop-item-line"><span>${b.dayLabel} · ${b.mealName}</span><span>${formatIngredientAmount(k, b.grams, NUTRI[k])}</span></div>`).join("")}
+              </div>
+            </details>`;
         const seen = new Set();
         const sections = AISLES.map((aisle) => {
           const aisleKeys = keys
@@ -5486,9 +6091,9 @@
           aisleKeys.forEach((k) => seen.add(k));
           if (!aisleKeys.length) return "";
           return `<div class="shop-aisle">
-        <div class="shop-aisle-title">${aisle.label}</div>
-        ${aisleKeys.map(row).join("")}
-      </div>`;
+            <div class="shop-aisle-title">${aisle.label}</div>
+            ${aisleKeys.map(row).join("")}
+          </div>`;
         }).join("");
         const leftoverKeys = keys
           .filter((k) => !seen.has(k))
@@ -5497,31 +6102,79 @@
           );
         const leftoverHtml = leftoverKeys.length
           ? `<div class="shop-aisle">
-        <div class="shop-aisle-title">🗂️ Autre</div>
-        ${leftoverKeys.map(row).join("")}
-      </div>`
+            <div class="shop-aisle-title">🗂️ Autre</div>
+            ${leftoverKeys.map(row).join("")}
+          </div>`
           : "";
         const notes = conservationNotes(totals);
         const conservationHtml = notes.length
           ? `<div class="card" style="margin-top:10px;">
-        <div style="font-family:'Fraunces',serif;font-size:15px;font-weight:600;margin-bottom:6px;">🧊 À finir rapidement une fois ouvert</div>
-        ${notes.map((n) => `<div class="coherence-item"><span class="ic" style="color:var(--amber);">▲</span><div class="txt"><b>${n.label}</b> ${n.packages > 1 ? `${n.packages} × ${n.size}${n.unit}` : `un format ${n.size}${n.unit}`} pour ${n.needed}${n.unit} utilisés cette semaine → il restera environ ${n.leftover}${n.unit} une fois ouvert, à consommer sous ${n.vie}. Pense à en réutiliser un peu dans une autre recette si possible.</div></div>`).join("")}
-      </div>`
+            <div style="font-family:'Fraunces',serif;font-size:15px;font-weight:600;margin-bottom:6px;">🧊 À finir rapidement une fois ouvert</div>
+            ${notes.map((n) => `<div class="coherence-item"><span class="ic" style="color:var(--amber);">▲</span><div class="txt"><b>${n.label}</b> ${n.packages > 1 ? `${n.packages} × ${n.size}${n.unit}` : `un format ${n.size}${n.unit}`} pour ${n.needed}${n.unit} utilisés cette semaine → il restera environ ${n.leftover}${n.unit} une fois ouvert, à consommer sous ${n.vie}. Pense à en réutiliser un peu dans une autre recette si possible.</div></div>`).join("")}
+          </div>`
           : "";
         return `<div class="card">${sections}${leftoverHtml}</div>${conservationHtml}`;
       }
 
-      // Emballages/pots typiques pour les produits périssables une fois ouverts :
-      // permet d'avertir quand une recette n'épuise pas tout le pot et qu'il
-      // faudra le finir ailleurs dans la semaine pour éviter le gaspillage.
-      const CONSERVATION_PACKAGES = {
+      // Date de consommation / durée de vie une fois le format entamé, pour
+      // (quasi) tous les aliments : permet d'avertir quand une recette
+      // n'épuise pas tout le paquet/pot et qu'il faudra le finir ailleurs
+      // dans la semaine pour éviter le gaspillage, et d'aider les semaines
+      // générées à réutiliser un format déjà entamé plutôt que d'en ouvrir
+      // un nouveau. Exception : volaille (poulet/dinde), viande rouge
+      // (steak/bœuf haché) et tous les poissons, achetés/cuisinés en
+      // portions fraîches sans notion de pot entamé à finir.
+      const SHELF_LIFE_EXCLUDED_CATS = new Set([
+        "volaille",
+        "viande_rouge",
+        "poisson_maigre",
+        "poisson_gras",
+      ]);
+      // Valeurs par défaut par catégorie (utilisées tant qu'aucune
+      // correction spécifique n'est donnée ci-dessous).
+      const CATEGORY_SHELF_DEFAULTS = {
+        charcuterie: { size: 200, unit: "g", vie: "4-5 jours", days: 5 },
+        oeuf: { size: 6, unit: "u", vie: "environ 3 semaines", days: 21 },
+        laitier: { size: 200, unit: "g", vie: "4-5 jours", days: 5 },
+        feculent_complet: {
+          size: 500,
+          unit: "g",
+          vie: "plusieurs semaines (sec)",
+          days: 60,
+        },
+        feculent_raffine: {
+          size: 500,
+          unit: "g",
+          vie: "plusieurs semaines (sec)",
+          days: 60,
+        },
+        legumineuse: { size: 400, unit: "g", vie: "4-5 jours", days: 5 },
+        legume: { size: 400, unit: "g", vie: "5-6 jours", days: 6 },
+        fruit: { size: 500, unit: "g", vie: "5-6 jours", days: 6 },
+        oleagineux: {
+          size: 200,
+          unit: "g",
+          vie: "plusieurs mois",
+          days: 120,
+        },
+        matiere_grasse: {
+          size: 500,
+          unit: "ml",
+          vie: "plusieurs semaines",
+          days: 60,
+        },
+        condiment: { size: 100, unit: "g", vie: "plusieurs mois", days: 180 },
+        sucre: { size: 250, unit: "g", vie: "plusieurs mois", days: 180 },
+      };
+      // Corrections aliment par aliment quand la valeur par défaut de la
+      // catégorie ne colle pas (frais vs sec, conserve/surgelé, format réel).
+      const ITEM_SHELF_OVERRIDES = {
         sauce_tomate: {
           size: 390,
           unit: "g",
           vie: "5-7 jours au frigo",
           days: 5,
         },
-        creme_fraiche: { size: 200, unit: "g", vie: "4-5 jours", days: 4 },
         fromage_frais_leger: {
           size: 150,
           unit: "g",
@@ -5532,7 +6185,189 @@
         fromage_blanc: { size: 500, unit: "g", vie: "4-5 jours", days: 4 },
         fromage_blanc_0: { size: 500, unit: "g", vie: "4-5 jours", days: 4 },
         skyr: { size: 450, unit: "g", vie: "environ 1 semaine", days: 7 },
+        blanc_oeuf: { size: 250, unit: "ml", vie: "2-3 jours", days: 3 },
+        whey: { size: 900, unit: "g", vie: "plusieurs mois", days: 90 },
+        fromage_rape: { size: 200, unit: "g", vie: "10-15 jours", days: 12 },
+        cheddar: { size: 200, unit: "g", vie: "10-15 jours", days: 12 },
+        parmesan: {
+          size: 150,
+          unit: "g",
+          vie: "environ 3 semaines",
+          days: 20,
+        },
+        patate_douce: {
+          size: 1000,
+          unit: "g",
+          vie: "environ 2 semaines",
+          days: 14,
+        },
+        pomme_de_terre: {
+          size: 1000,
+          unit: "g",
+          vie: "environ 3 semaines",
+          days: 21,
+        },
+        pain: { size: 400, unit: "g", vie: "4-5 jours", days: 5 },
+        pain_complet: { size: 400, unit: "g", vie: "4-5 jours", days: 5 },
+        pain_burger: { size: 300, unit: "g", vie: "4-5 jours", days: 5 },
+        tortilla: { size: 320, unit: "g", vie: "environ 10 jours", days: 10 },
+        pate_pizza: { size: 280, unit: "g", vie: "4-5 jours", days: 5 },
+        bagel: { size: 300, unit: "g", vie: "4-5 jours", days: 5 },
+        lentilles_crues: {
+          size: 500,
+          unit: "g",
+          vie: "plusieurs mois (sec)",
+          days: 90,
+        },
+        haricots_rouges_boite: {
+          size: 240,
+          unit: "g",
+          vie: "2-3 jours une fois ouvert",
+          days: 3,
+        },
+        pois_chiches_boite: {
+          size: 240,
+          unit: "g",
+          vie: "2-3 jours une fois ouvert",
+          days: 3,
+        },
+        edamame: {
+          size: 400,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        tofu_ferme: { size: 200, unit: "g", vie: "3-4 jours", days: 4 },
+        houmous: { size: 200, unit: "g", vie: "4-5 jours", days: 5 },
+        mais_boite: {
+          size: 285,
+          unit: "g",
+          vie: "2-3 jours une fois ouvert",
+          days: 3,
+        },
+        champignons_boite: {
+          size: 230,
+          unit: "g",
+          vie: "2-3 jours une fois ouvert",
+          days: 3,
+        },
+        oignon: {
+          size: 1000,
+          unit: "g",
+          vie: "plusieurs semaines",
+          days: 21,
+        },
+        cornichon: {
+          size: 370,
+          unit: "g",
+          vie: "environ 1 mois au frigo",
+          days: 30,
+        },
+        petits_pois: {
+          size: 600,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        courgette: {
+          size: 600,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        ratatouille: {
+          size: 600,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        aubergine: {
+          size: 600,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        poivron: {
+          size: 600,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        carotte: {
+          size: 600,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        legumes_congeles: {
+          size: 600,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        banane: { size: 1000, unit: "g", vie: "4-5 jours", days: 5 },
+        pomme: {
+          size: 1000,
+          unit: "g",
+          vie: "environ 2 semaines",
+          days: 14,
+        },
+        citron: {
+          size: 500,
+          unit: "g",
+          vie: "environ 2 semaines",
+          days: 14,
+        },
+        fruits_rouges: {
+          size: 500,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        myrtilles: {
+          size: 500,
+          unit: "g",
+          vie: "plusieurs mois (surgelé)",
+          days: 90,
+        },
+        huile: { size: 1000, unit: "ml", vie: "plusieurs mois", days: 180 },
+        lait_coco: {
+          size: 400,
+          unit: "ml",
+          vie: "3-4 jours une fois ouvert",
+          days: 4,
+        },
+        mayonnaise: {
+          size: 470,
+          unit: "g",
+          vie: "environ 2 mois",
+          days: 60,
+        },
+        miel: { size: 500, unit: "g", vie: "plusieurs mois", days: 365 },
+        ail: { size: 250, unit: "g", vie: "3-4 semaines", days: 25 },
+        gingembre: {
+          size: 150,
+          unit: "g",
+          vie: "environ 2 semaines",
+          days: 14,
+        },
       };
+      // Table finale, générée pour tous les aliments non exclus : catégorie
+      // par défaut, corrigée aliment par aliment quand nécessaire.
+      const CONSERVATION_PACKAGES = Object.keys(NUTRI).reduce((acc, key) => {
+        const n = NUTRI[key];
+        if (!n || SHELF_LIFE_EXCLUDED_CATS.has(n.cat)) return acc;
+        const base = CATEGORY_SHELF_DEFAULTS[n.cat];
+        if (!base) return acc;
+        acc[key] = { ...base, ...(ITEM_SHELF_OVERRIDES[key] || {}) };
+        return acc;
+      }, {});
+      // Au-delà de ce nombre de jours, un aliment se garde de toute façon
+      // largement plus longtemps qu'une semaine de plan (riz, huile,
+      // épices, surgelés...) : pas besoin d'insister dessus pour inciter à
+      // le réutiliser vite ni pour l'afficher en "à finir rapidement".
+      const SHELF_LIFE_SOON_THRESHOLD = 10;
+
       // Pour chaque périssable, la recette "extra" ultra-rapide qui permet
       // de le finir sans en faire un vrai repas.
       const PERISH_QUICK_EXTRA = {
@@ -5544,7 +6379,11 @@
       };
       function conservationNotes(totals) {
         return Object.keys(CONSERVATION_PACKAGES)
-          .filter((k) => totals[k])
+          .filter(
+            (k) =>
+              totals[k] &&
+              CONSERVATION_PACKAGES[k].days <= SHELF_LIFE_SOON_THRESHOLD,
+          )
           .map((k) => {
             const info = CONSERVATION_PACKAGES[k];
             const needed = totals[k];
@@ -5587,14 +6426,25 @@
             ` ${stats.legumineuseCount} repas (min 2/sem).`,
           ),
           line(
-            stats.rules.poisson ? "ok" : "warn",
-            stats.rules.poisson ? "Poisson présent" : "Pas assez de poisson",
+            stats.rules.poisson && stats.rules.oilyFish ? "ok" : "warn",
+            !stats.rules.poisson
+              ? "Pas assez de poisson"
+              : !stats.rules.oilyFish
+                ? "Pas assez de poisson gras"
+                : "Poisson présent",
             ` ${stats.poissonCount} repas dont ${stats.oilyFishCount} gras (min 2/sem dont 1 gras).`,
           ),
           line(
             stats.rules.thonLimit ? "ok" : "warn",
             stats.rules.thonLimit ? "Thon limité" : "Trop de thon",
-            ` ${stats.thonCount} repas au thon cette semaine (max 2/sem, par précaution sur le mercure).`,
+            ` ${stats.thonCount} repas au thon cette semaine, ${Math.round(stats.thonGramsWeek)}g au total (max 1 boîte/sem).`,
+          ),
+          line(
+            stats.rules.cabillaudLimit ? "ok" : "warn",
+            stats.rules.cabillaudLimit
+              ? "Cabillaud limité"
+              : "Trop de cabillaud",
+            ` ${stats.cabillaudCount} repas au cabillaud cette semaine (max 1/sem, pour varier les poissons blancs).`,
           ),
           line(
             stats.rules.perishCluster ? "ok" : "warn",
@@ -5640,6 +6490,25 @@
               ? "Kcal entraînement OK"
               : "Kcal entraînement à compléter",
             ` Moy. jours entraînement: ${stats.trainingKcalAvg} / ${stats.trainingTargetAvg} kcal (~${Math.round((stats.trainingKcalAvg / Math.max(1, stats.trainingTargetAvg)) * 100)}%).`,
+          ),
+          line(
+            stats.rules.dailyProtein ? "ok" : "warn",
+            stats.rules.dailyProtein
+              ? "Protéines quotidiennes OK"
+              : "Protéines insuffisantes certains jours",
+            " Chaque jour atteint au moins 90% de l'objectif protéines.",
+          ),
+          line(
+            stats.rules.prepTime ? "ok" : "warn",
+            stats.rules.prepTime
+              ? "Temps de préparation OK"
+              : "Recette(s) trop longue(s) à préparer",
+            " ≤15 min petit-déj/collations, ≤35 min déjeuner/dîner.",
+          ),
+          line(
+            stats.rules.sel ? "ok" : "warn",
+            stats.rules.sel ? "Sel sous contrôle" : "Sel au-dessus du quota",
+            ` ${Math.round(stats.selGrams)}g (recommandation ANSES/PNNS 5 : max 35g/sem, ~5g/jour — l'appli vise ${SEL_SAFE}g).`,
           ),
           line(
             stats.rules.dailyDiversity ? "ok" : "warn",
@@ -5693,15 +6562,15 @@
             .reverse()
             .forEach((sw) => {
               html += `<div class="saved-week-row">
-        <div class="sw-info">
-          <div class="sw-label">${sw.label}</div>
-          <div class="sw-date">${sw.date}</div>
-        </div>
-        <div class="sw-actions">
-          <button class="small" data-restore-week="${sw.id}">Restaurer</button>
-          <button class="small reject" data-delete-week="${sw.id}">✕</button>
-        </div>
-      </div>`;
+            <div class="sw-info">
+              <div class="sw-label">${sw.label}</div>
+              <div class="sw-date">${sw.date}</div>
+            </div>
+            <div class="sw-actions">
+              <button class="small" data-restore-week="${sw.id}">Restaurer</button>
+              <button class="small reject" data-delete-week="${sw.id}">✕</button>
+            </div>
+          </div>`;
             });
           html += `</div>`;
         }
@@ -5735,22 +6604,22 @@
         const x = mac(m);
         const steps = generateSteps(m);
         return `<div class="overlay" id="recipe-overlay">
-    <div class="sheet">
-      <button class="close-x" data-close-recipe>✕</button>
-      <h3>${m.name}</h3>
-      <div class="mmacro" style="margin-bottom:14px;">${MOMENT_LABEL[m.moment]} · ${x.kcal} kcal · ${x.protein}P/${x.carbs}G/${x.fat}L</div>
-      ${
-        m.ingredients
-          ? `<div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:6px;">Ingrédients</div>
-      <div class="ingr-chips" style="margin-bottom:16px;">${ingredientChips(m)}</div>`
-          : ""
-      }
-      <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:8px;">Préparation</div>
-      <ol style="margin:0;padding-left:18px;">
-        ${steps.map((s) => `<li style="font-size:13.5px;line-height:1.6;margin-bottom:6px;">${s}</li>`).join("")}
-      </ol>
-    </div>
-  </div>`;
+        <div class="sheet">
+          <button class="close-x" data-close-recipe>✕</button>
+          <h3>${m.name}</h3>
+          <div class="mmacro" style="margin-bottom:14px;">${MOMENT_LABEL[m.moment]} · ${x.kcal} kcal · ${x.protein}P/${x.carbs}G/${x.fat}L</div>
+          ${
+            m.ingredients
+              ? `<div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:6px;">Ingrédients</div>
+          <div class="ingr-chips" style="margin-bottom:16px;">${ingredientChips(m)}</div>`
+              : ""
+          }
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:8px;">Préparation</div>
+          <ol style="margin:0;padding-left:18px;">
+            ${steps.map((s) => `<li style="font-size:13.5px;line-height:1.6;margin-bottom:6px;">${s}</li>`).join("")}
+          </ol>
+        </div>
+      </div>`;
       }
 
       function renderPicker() {
@@ -5761,38 +6630,38 @@
           (m) => filter === "all" || m.moment === filter,
         );
         return `<div class="overlay" id="overlay">
-    <div class="sheet">
-      <h3>Ajouter un repas à ${day ? day.label : "la journée"}</h3>
-      <div class="moment-filter">
-        ${[
-          "all",
-          "petitdej",
-          "collationmatin",
-          "dejeuner",
-          "collationapresmidi",
-          "diner",
-        ]
-          .map(
-            (k) => `
-          <button class="mf-btn ${filter === k ? "active" : ""}" data-mf="${k}">${k === "all" ? "Tous" : MOMENT_LABEL[k]}</button>
-        `,
-          )
-          .join("")}
-      </div>
-      ${
-        lib.length === 0
-          ? '<p style="font-size:13px;color:var(--ink-soft);">Aucun repas validé dans cette catégorie.</p>'
-          : lib
+        <div class="sheet">
+          <h3>Ajouter un repas à ${day ? day.label : "la journée"}</h3>
+          <div class="moment-filter">
+            ${[
+              "all",
+              "petitdej",
+              "collationmatin",
+              "dejeuner",
+              "collationapresmidi",
+              "diner",
+            ]
               .map(
-                (m) => `<div class="picker-item" data-pick="${m.id}">
-          <div style="flex:1;"><div class="mname">${m.name}</div><div class="mmacro">${mac(m).kcal} kcal · ${mac(m).protein}P/${mac(m).carbs}G/${mac(m).fat}L</div>${m.ingredients ? `<div class="ingr-chips">${ingredientChips(m)}</div>` : ""}</div>
-          <span style="font-size:20px;color:var(--green);flex:none;">+</span>
-        </div>`,
+                (k) => `
+              <button class="mf-btn ${filter === k ? "active" : ""}" data-mf="${k}">${k === "all" ? "Tous" : MOMENT_LABEL[k]}</button>
+            `,
               )
-              .join("")
-      }
-    </div>
-  </div>`;
+              .join("")}
+          </div>
+          ${
+            lib.length === 0
+              ? '<p style="font-size:13px;color:var(--ink-soft);">Aucun repas validé dans cette catégorie.</p>'
+              : lib
+                  .map(
+                    (m) => `<div class="picker-item" data-pick="${m.id}">
+              <div style="flex:1;"><div class="mname">${m.name}</div><div class="mmacro">${mac(m).kcal} kcal · ${mac(m).protein}P/${mac(m).carbs}G/${mac(m).fat}L</div>${m.ingredients ? `<div class="ingr-chips">${ingredientChips(m)}</div>` : ""}</div>
+              <span style="font-size:20px;color:var(--green);flex:none;">+</span>
+            </div>`,
+                  )
+                  .join("")
+          }
+        </div>
+      </div>`;
       }
 
       function bindEvents() {
@@ -5854,7 +6723,14 @@
           const genBtn = document.getElementById("gen-week");
           if (genBtn)
             genBtn.onclick = () => {
-              generateWeek();
+              if (state.generating) return;
+              state.generating = true;
+              render();
+              setTimeout(() => {
+                generateWeek();
+                state.generating = false;
+                render();
+              }, 30);
             };
 
           const saveBtn = document.getElementById("save-week");
