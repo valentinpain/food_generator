@@ -1,4 +1,13 @@
 <!doctype html>
+<!-- REGLES DES REPAS
+ - But : prendre du muscle proprement
+ - Pas de whey
+ - Je n'ai pas de mixeur
+ - Portions poulet : 150g, Portions de steak haché : 125g, Portions de saumon : pavé standard vendu en barquette, Portions de dinde : 150g
+ - On évite les repas secs (par exemple fromage blanc + flocons avoine) et on privilégie les repas qui se digèrent bien
+ - Il me faut des repas avec des aliments qui se réutilisent facilement / se perdent rapidement une fois ouverts
+
+-->
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
@@ -18,7 +27,12 @@
         --amber-soft: #f6e8d1;
         --brick: #b23a2e;
         --brick-soft: #f5dedb;
-        --border: #e2dacb;
+        --protein: #8e5fd6;
+        --protein-soft: #f2ebfa;
+        --carbs: #5c7cf7;
+        --carbs-soft: #ebeffe;
+        --fat: #b0508f;
+        --fat-soft: #faebf2;
         --radius: 16px;
       }
       * {
@@ -311,6 +325,96 @@
         padding-right: 10px;
       }
 
+      .day-head-card {
+        padding: 16px 16px 14px;
+      }
+      .day-head-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+      }
+      .day-title {
+        font-size: 18px;
+        font-weight: 700;
+        letter-spacing: -0.01em;
+      }
+      .day-mode {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 3px 10px;
+        white-space: nowrap;
+      }
+      .day-mode.is-training {
+        color: var(--green);
+        border-color: var(--green);
+        background: var(--green-soft);
+      }
+      .day-kcal-row {
+        display: flex;
+        align-items: baseline;
+        gap: 5px;
+        margin-top: 10px;
+      }
+      .day-kcal {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 26px;
+        font-weight: 700;
+      }
+      .day-kcal-target {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 12px;
+        color: var(--ink-soft);
+      }
+      .day-macros {
+        display: flex;
+        gap: 10px;
+        margin-top: 12px;
+      }
+      .day-macro {
+        flex: 1;
+        min-width: 0;
+      }
+      .dm-top {
+        display: flex;
+        justify-content: space-between;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9.5px;
+        color: var(--ink-soft);
+        margin-bottom: 4px;
+      }
+      .day-macro {
+        flex: 1;
+        min-width: 0;
+        background: var(--bg);
+        border-radius: 10px;
+        padding: 7px 9px 8px;
+      }
+      .day-macro:nth-child(1) {
+        background: var(--protein-soft);
+      }
+      .day-macro:nth-child(2) {
+        background: var(--carbs-soft);
+      }
+      .day-macro:nth-child(3) {
+        background: var(--fat-soft);
+      }
+      .dm-p {
+        background: var(--protein);
+      }
+      .dm-c {
+        background: var(--carbs);
+      }
+      .dm-f {
+        background: var(--fat);
+      }
+
       .suggest-card .name,
       .meal-row-full .mname {
         line-height: 1.25;
@@ -458,7 +562,7 @@
         border-bottom: none;
       }
       .meal-row-full .mname {
-        font-size: 14px;
+        font-size: 16px;
         font-weight: 600;
       }
       .meal-row-full .mmacro {
@@ -468,26 +572,212 @@
         margin-top: 2px;
       }
       .ingr-line {
-        font-size: 12px;
+        font-size: 11px;
         color: var(--ink-soft);
-        line-height: 1.5;
+        line-height: 1.6;
         margin-top: 4px;
       }
       .ingr-chips {
+        font-size: 12px;
         display: flex;
         flex-wrap: wrap;
-        gap: 4px 6px;
-        margin-top: 6px;
+        gap: 3px 5px;
+        margin-top: 4px;
       }
       .ingr-chip {
-        font-size: 11px;
+        font-size: 10px;
         color: var(--ink-soft);
         background: var(--bg);
         border: 1px solid var(--border);
         border-radius: 100px;
-        padding: 2px 9px;
+        padding: 1px 7px;
         white-space: nowrap;
-        line-height: 1.6;
+        line-height: 1.4;
+      }
+
+      .day-timeline {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-top: 4px;
+      }
+      .day-period {
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        min-width: 0;
+      }
+      .day-period-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        padding-bottom: 5px;
+        border-bottom: 1px solid var(--border);
+      }
+      .meal-card {
+        position: relative;
+        cursor: pointer;
+        background: var(--bg);
+        border: 1px solid transparent;
+        border-radius: 12px;
+        padding: 13px 13px 12px 13px;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        transition:
+          border-color 0.15s ease,
+          transform 0.1s ease,
+          background 0.15s ease;
+      }
+      .meal-card:hover {
+        border-color: var(--border);
+      }
+      .meal-card:active {
+        transform: scale(0.98);
+        background: var(--border);
+      }
+
+      .day-period-meals {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+      .meal-card .mc-rm {
+        position: absolute;
+        top: 8px;
+        right: 8px;
+        background: none;
+        border: none;
+        color: var(--ink-soft);
+        width: 22px;
+        height: 22px;
+        min-width: 22px;
+        border-radius: 100px;
+        font-size: 12px;
+        line-height: 1;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+      }
+      .meal-card .mc-rm:active {
+        background: var(--paper);
+        color: var(--ink);
+      }
+      .meal-card .mc-head-row {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 6px;
+        margin-bottom: 5px;
+      }
+      .meal-card .mc-moment {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 9.5px;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: var(--ink-soft);
+        margin-bottom: 0;
+      }
+      .meal-card .mc-name {
+        font-size: 14.5px;
+        font-weight: 600;
+        line-height: 1.32;
+      }
+      .meal-card .mc-tag {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 8.5px;
+        font-weight: 600;
+        letter-spacing: 0.04em;
+        color: var(--ink-soft);
+        background: var(--bg);
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        padding: 1px 7px;
+        display: inline-block;
+        margin-top: 6px;
+        width: fit-content;
+      }
+      .meal-card .mc-foot {
+        margin-top: auto;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+      .meal-card .mc-kcal {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 18px;
+        font-weight: 700;
+        color: var(--ink);
+      }
+      .meal-card .mc-kcal-unit {
+        font-family: "Inter", sans-serif;
+        font-size: 10.5px;
+        font-weight: 500;
+        color: var(--ink-soft);
+        margin-left: 2px;
+      }
+      .mc-bar {
+        display: flex;
+        height: 5px;
+        border-radius: 3px;
+        overflow: hidden;
+        background: var(--border);
+        margin: 7px 0 6px;
+      }
+      .mc-bar-p {
+        background: var(--protein);
+      }
+      .mc-bar-c {
+        background: var(--carbs);
+      }
+      .mc-bar-f {
+        background: var(--fat);
+      }
+      .day-comp-bar {
+        margin: 12px 0;
+      }
+      .meal-card .mc-macro-row {
+        display: flex;
+        justify-content: space-between;
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        color: var(--ink-soft);
+      }
+      .meal-card .mc-open {
+        flex-shrink: 0;
+        color: var(--ink-soft);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .meal-card.is-expanded .mc-open svg {
+        transform: rotate(90deg);
+      }
+      .mc-recipe {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--border);
+      }
+      .mc-recipe-label {
+        font-family: "JetBrains Mono", monospace;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        color: var(--ink-soft);
+        margin-bottom: 6px;
+      }
+      .mc-recipe-steps {
+        margin: 0;
+        padding-left: 16px;
+      }
+      .mc-recipe-steps li {
+        font-size: 12.5px;
+        line-height: 1.55;
+        margin-bottom: 5px;
       }
 
       .picker-item {
@@ -567,6 +857,33 @@
         position: sticky;
         top: 0;
         text-align: right;
+      }
+      .recipe-overlay {
+        align-items: stretch;
+        justify-content: flex-end;
+      }
+      .recipe-panel {
+        width: 100%;
+        max-width: 400px;
+        height: 100%;
+        margin: 0;
+        border-radius: 0;
+        max-height: none;
+        box-shadow: -10px 0 28px rgba(35, 40, 31, 0.18);
+        animation: recipe-slide-in 0.22s ease;
+      }
+      @keyframes recipe-slide-in {
+        from {
+          transform: translateX(100%);
+        }
+        to {
+          transform: translateX(0);
+        }
+      }
+      @media (max-width: 480px) {
+        .recipe-panel {
+          max-width: 100%;
+        }
       }
       .moment-filter {
         display: flex;
@@ -861,18 +1178,34 @@
 
     <script>
       const DAYS = [
-        { key: "lun", label: "Lun", training: true },
-        { key: "mar", label: "Mar", training: true },
-        { key: "mer", label: "Mer", training: true },
-        { key: "jeu", label: "Jeu", training: false },
-        { key: "ven", label: "Ven", training: true },
-        { key: "sam", label: "Sam", training: true },
-        { key: "dim", label: "Dim", training: false },
+        { key: "lun", label: "Lun", training: true, workday: true },
+        { key: "mar", label: "Mar", training: true, workday: true },
+        { key: "mer", label: "Mer", training: true, workday: true },
+        { key: "jeu", label: "Jeu", training: false, workday: true },
+        { key: "ven", label: "Ven", training: true, workday: true },
+        { key: "sam", label: "Sam", training: true, workday: false },
+        { key: "dim", label: "Dim", training: false, workday: false },
       ];
 
       // Valeurs nutritionnelles moyennes pour 100g d'aliment CRU (indicatives, type table CIQUAL/valeurs génériques)
       // cat: catégorie utilisée pour les repères PNNS 5 (2026)
       const NUTRI = {
+        farine: {
+          label: "Farine de blé",
+          kcal: 349,
+          p: 10,
+          c: 75,
+          f: 1,
+          cat: "feculent_raffine",
+        },
+        levure_chimique: {
+          label: "Levure chimique",
+          kcal: 53,
+          p: 0,
+          c: 28,
+          f: 0,
+          cat: "condiment",
+        },
         // --- Viandes / volailles / charcuterie
         poulet_blanc: {
           label: "Blanc de poulet cru",
@@ -890,28 +1223,12 @@
           f: 1.5,
           cat: "volaille",
         },
-        boeuf_hache_15: {
-          label: "Bœuf haché 15% MG cru",
-          kcal: 215,
-          p: 19,
-          c: 0,
-          f: 15,
-          cat: "viande_rouge",
-        },
         boeuf_hache_5: {
           label: "Bœuf haché 5% MG cru",
           kcal: 130,
           p: 21,
           c: 0,
           f: 5,
-          cat: "viande_rouge",
-        },
-        steak_hache: {
-          label: "Steak haché cru",
-          kcal: 175,
-          p: 20,
-          c: 0,
-          f: 10,
           cat: "viande_rouge",
         },
         jambon_blanc: {
@@ -922,31 +1239,6 @@
           f: 3,
           cat: "charcuterie",
         },
-        lardons: {
-          label: "Lardons",
-          kcal: 150,
-          p: 21,
-          c: 0,
-          f: 8,
-          cat: "charcuterie",
-        },
-        saucisse_fumee: {
-          label: "Saucisse fumée",
-          kcal: 280,
-          p: 13,
-          c: 2,
-          f: 25,
-          cat: "charcuterie",
-        },
-        bacon: {
-          label: "Bacon",
-          kcal: 300,
-          p: 14,
-          c: 1,
-          f: 27,
-          cat: "charcuterie",
-        },
-
         // --- Poissons / fruits de mer
         cabillaud: {
           label: "Cabillaud cru",
@@ -954,14 +1246,6 @@
           p: 18,
           c: 0,
           f: 0.7,
-          cat: "poisson_maigre",
-        },
-        poisson_pane: {
-          label: "Poisson blanc pané surgelé",
-          kcal: 200,
-          p: 14,
-          c: 18,
-          f: 9,
           cat: "poisson_maigre",
         },
         thon_boite: {
@@ -980,14 +1264,6 @@
           f: 13,
           cat: "poisson_gras",
         },
-        maquereau: {
-          label: "Maquereau cru",
-          kcal: 205,
-          p: 19,
-          c: 0,
-          f: 14,
-          cat: "poisson_gras",
-        },
         maquereau_boite: {
           label: "Maquereau au naturel égoutté",
           kcal: 187,
@@ -1004,30 +1280,6 @@
           f: 11,
           cat: "poisson_gras",
         },
-        sardine_boite: {
-          label: "Sardines à l'huile égouttées",
-          kcal: 210,
-          p: 22,
-          c: 0,
-          f: 14,
-          cat: "poisson_gras",
-        },
-        truite: {
-          label: "Truite crue",
-          kcal: 120,
-          p: 20,
-          c: 0,
-          f: 4,
-          cat: "poisson_maigre",
-        },
-        crevettes: {
-          label: "Crevettes crues décortiquées",
-          kcal: 85,
-          p: 19,
-          c: 1,
-          f: 1,
-          cat: "poisson_maigre",
-        },
 
         // --- Œufs
         oeuf: {
@@ -1038,32 +1290,8 @@
           f: 11,
           cat: "oeuf",
         },
-        blanc_oeuf: {
-          label: "Blanc d'œuf cru",
-          kcal: 52,
-          p: 11,
-          c: 0.7,
-          f: 0.2,
-          cat: "oeuf",
-        },
 
         // --- Laitiers
-        fromage_rape: {
-          label: "Fromage râpé (type emmental)",
-          kcal: 380,
-          p: 25,
-          c: 1,
-          f: 31,
-          cat: "laitier",
-        },
-        cheddar: {
-          label: "Cheddar",
-          kcal: 400,
-          p: 25,
-          c: 1,
-          f: 33,
-          cat: "laitier",
-        },
         parmesan: {
           label: "Parmesan",
           kcal: 400,
@@ -1080,28 +1308,12 @@
           f: 3,
           cat: "laitier",
         },
-        skyr: {
-          label: "Skyr nature",
-          kcal: 63,
-          p: 11,
-          c: 4,
-          f: 0.2,
-          cat: "laitier",
-        },
-        fromage_blanc_0: {
-          label: "Fromage blanc 0%",
-          kcal: 45,
-          p: 8,
-          c: 4,
-          f: 0.2,
-          cat: "laitier",
-        },
         fromage_blanc: {
-          label: "Fromage blanc 3-4%",
-          kcal: 65,
+          label: "Fromage blanc 0%",
+          kcal: 48,
           p: 7,
           c: 4,
-          f: 3,
+          f: 0,
           cat: "laitier",
         },
         lait: {
@@ -1110,22 +1322,6 @@
           p: 3.3,
           c: 4.8,
           f: 1.6,
-          cat: "laitier",
-        },
-        lait_coco: {
-          label: "Lait de coco (conserve)",
-          kcal: 200,
-          p: 2,
-          c: 3,
-          f: 20,
-          cat: "matiere_grasse",
-        },
-        whey: {
-          label: "Whey protéine (poudre)",
-          kcal: 380,
-          p: 75,
-          c: 8,
-          f: 6,
           cat: "laitier",
         },
 
@@ -1178,6 +1374,14 @@
           f: 7,
           cat: "feculent_complet",
         },
+        muesli_noix: {
+          label: "Muesli aux noix (Jordans)",
+          kcal: 375,
+          p: 10,
+          c: 58,
+          f: 10,
+          cat: "feculent_complet",
+        },
         patate_douce: {
           label: "Patate douce crue",
           kcal: 86,
@@ -1192,14 +1396,6 @@
           p: 2,
           c: 17,
           f: 0.1,
-          cat: "feculent_raffine",
-        },
-        pain: {
-          label: "Pain blanc",
-          kcal: 265,
-          p: 9,
-          c: 52,
-          f: 1.5,
           cat: "feculent_raffine",
         },
         pain_complet: {
@@ -1218,52 +1414,12 @@
           f: 4,
           cat: "feculent_raffine",
         },
-        tortilla: {
-          label: "Tortilla de blé",
-          kcal: 310,
-          p: 9,
-          c: 50,
-          f: 7,
-          cat: "feculent_raffine",
-        },
-        pate_pizza: {
-          label: "Pâte à pizza crue",
-          kcal: 265,
-          p: 9,
-          c: 52,
-          f: 3,
-          cat: "feculent_raffine",
-        },
         galette_riz: {
           label: "Galette de riz soufflé",
           kcal: 380,
           p: 8,
           c: 82,
           f: 1,
-          cat: "feculent_raffine",
-        },
-        pain_suedois: {
-          label: "Pain suédois (crispbread complet)",
-          kcal: 320,
-          p: 10,
-          c: 65,
-          f: 3,
-          cat: "feculent_complet",
-        },
-        bagel: {
-          label: "Bagel",
-          kcal: 270,
-          p: 10,
-          c: 52,
-          f: 2,
-          cat: "feculent_raffine",
-        },
-        granola: {
-          label: "Granola",
-          kcal: 450,
-          p: 10,
-          c: 60,
-          f: 18,
           cat: "feculent_raffine",
         },
 
@@ -1308,61 +1464,13 @@
           f: 2,
           cat: "legumineuse",
         },
-        edamame: {
-          label: "Edamame",
-          kcal: 120,
-          p: 11,
-          c: 9,
-          f: 5,
-          cat: "legumineuse",
-        },
-        tofu_ferme: {
-          label: "Tofu ferme",
-          kcal: 145,
-          p: 15,
-          c: 2,
-          f: 9,
-          cat: "legumineuse",
-        },
-        houmous: {
-          label: "Houmous",
-          kcal: 175,
-          p: 8,
-          c: 14,
-          f: 10,
-          cat: "legumineuse",
-        },
 
         // --- Légumes
-        brocolis: {
-          label: "Brocolis",
-          kcal: 34,
-          p: 3,
-          c: 7,
-          f: 0.4,
-          cat: "legume",
-        },
         petits_pois: {
           label: "Petits pois surgelés",
           kcal: 80,
           p: 5,
           c: 14,
-          f: 0.4,
-          cat: "legume",
-        },
-        haricots_verts: {
-          label: "Haricots verts",
-          kcal: 31,
-          p: 2,
-          c: 7,
-          f: 0.2,
-          cat: "legume",
-        },
-        epinards: {
-          label: "Épinards",
-          kcal: 23,
-          p: 3,
-          c: 3.6,
           f: 0.4,
           cat: "legume",
         },
@@ -1382,14 +1490,6 @@
           f: 2.3,
           cat: "legume",
         },
-        aubergine: {
-          label: "Aubergine surgelée",
-          kcal: 25,
-          p: 1,
-          c: 6,
-          f: 0.2,
-          cat: "legume",
-        },
         poivron: {
           label: "Poivrons surgelés",
           kcal: 26,
@@ -1406,30 +1506,6 @@
           f: 0.2,
           cat: "legume",
         },
-        legumes_congeles: {
-          label: "Légumes congelés (mix)",
-          kcal: 40,
-          p: 2,
-          c: 7,
-          f: 0.3,
-          cat: "legume",
-        },
-        salade: {
-          label: "Salade verte",
-          kcal: 15,
-          p: 1.4,
-          c: 3,
-          f: 0.2,
-          cat: "legume",
-        },
-        crudites: {
-          label: "Crudités (mix)",
-          kcal: 25,
-          p: 1.5,
-          c: 4,
-          f: 0.3,
-          cat: "legume",
-        },
         oignon: {
           label: "Oignon",
           kcal: 40,
@@ -1443,22 +1519,6 @@
           kcal: 18,
           p: 0.9,
           c: 3.9,
-          f: 0.2,
-          cat: "legume",
-        },
-        concombre: {
-          label: "Concombre",
-          kcal: 15,
-          p: 0.7,
-          c: 3.6,
-          f: 0.1,
-          cat: "legume",
-        },
-        cornichon: {
-          label: "Cornichon",
-          kcal: 12,
-          p: 0.9,
-          c: 2,
           f: 0.2,
           cat: "legume",
         },
@@ -1488,23 +1548,14 @@
           f: 0.2,
           cat: "fruit",
         },
-        fruits_rouges: {
-          label: "Fruits rouges surgelés",
-          kcal: 45,
-          p: 0.8,
-          c: 10,
+        citron: {
+          label: "Citron",
+          kcal: 29,
+          p: 1,
+          c: 9,
           f: 0.3,
-          cat: "fruit",
+          cat: "condiment",
         },
-        myrtilles: {
-          label: "Myrtilles surgelées",
-          kcal: 43,
-          p: 0.7,
-          c: 10,
-          f: 0.3,
-          cat: "fruit",
-        },
-        citron: { label: "Citron", kcal: 29, p: 1, c: 9, f: 0.3, cat: "fruit" },
         amandes: {
           label: "Amandes",
           kcal: 580,
@@ -1513,12 +1564,20 @@
           f: 50,
           cat: "oleagineux",
         },
-        fruits_secs: {
-          label: "Fruits secs / oléagineux mélangés",
-          kcal: 570,
+        noix_cajou: {
+          label: "Noix de cajou",
+          kcal: 553,
           p: 18,
-          c: 22,
-          f: 48,
+          c: 30,
+          f: 44,
+          cat: "oleagineux",
+        },
+        noix: {
+          label: "Cerneaux de noix",
+          kcal: 654,
+          p: 15,
+          c: 14,
+          f: 65,
           cat: "oleagineux",
         },
 
@@ -1539,23 +1598,7 @@
           f: 50,
           cat: "oleagineux",
         },
-        mayonnaise: {
-          label: "Mayonnaise",
-          kcal: 680,
-          p: 1,
-          c: 2,
-          f: 75,
-          cat: "matiere_grasse",
-        },
         miel: { label: "Miel", kcal: 305, p: 0.3, c: 76, f: 0, cat: "sucre" },
-        moutarde: {
-          label: "Moutarde",
-          kcal: 65,
-          p: 4,
-          c: 5,
-          f: 3,
-          cat: "condiment",
-        },
         sauce_soja: {
           label: "Sauce soja",
           kcal: 60,
@@ -1620,14 +1663,6 @@
           f: 3.2,
           cat: "condiment",
         },
-        cacao_poudre: {
-          label: "Cacao en poudre non sucré",
-          kcal: 228,
-          p: 20,
-          c: 12,
-          f: 14,
-          cat: "condiment",
-        },
       };
 
       // g de sel pour 100g, valeurs type CIQUAL — uniquement pour les
@@ -1635,18 +1670,13 @@
       // pains, sauces, conserves). Absent de cette table = négligeable.
       const SEL_PAR_100G = {
         jambon_blanc: 1.8,
-        lardons: 1.9,
-        saucisse_fumee: 2.2,
-        bacon: 2.5,
         thon_boite: 0.9,
         sardine_boite: 1.2,
         poisson_pane: 1.0,
         fromage_rape: 1.2,
         cheddar: 1.7,
         parmesan: 1.9,
-        fromage_frais_leger: 0.5,
-        skyr: 0.1,
-        fromage_blanc_0: 0.1,
+        fromage_frais_leger: 1.4,
         fromage_blanc: 0.1,
         pain: 1.2,
         pain_complet: 1.1,
@@ -1659,7 +1689,6 @@
         granola: 0.3,
         sauce_soja: 14,
         moutarde: 3.5,
-        mayonnaise: 1.5,
         sauce_tomate: 1.0,
         beurre_cacahuete: 0.5,
         haricots_rouges_boite: 0.6,
@@ -1667,8 +1696,6 @@
         champignons_boite: 0.8,
         pois_chiches_boite: 0.6,
         edamame: 0.15,
-        lait_coco: 0.05,
-        tofu_ferme: 0.05,
         thon_boite: 0.9,
         sardine_boite: 1.0,
         maquereau_boite: 1.0,
@@ -1676,6 +1703,13 @@
         houmous: 1.0,
       };
 
+      // g de sucres (libres) pour 100g — uniquement pour les ingrédients
+      // significativement sucrés (miel, sauces sucrées...). Absent de cette
+      // table = négligeable ou sucre naturel non comptabilisé (fruit entier).
+      const SUCRE_PAR_100G = {
+        miel: 76,
+        sauce_tomate: 4,
+      };
       // ingredients: [ [nutriKey, grams(raw)], ... ]
       const STARTER_MEALS = [
         {
@@ -1688,42 +1722,8 @@
             ["pain_complet", 90],
             ["oeuf", 100],
             ["poulet_blanc", 80],
-            ["fromage_frais_leger", 35],
+            ["fromage_frais_leger", 40],
             ["tomate", 80],
-            ["herbes_de_provence", 1],
-          ],
-        },
-        {
-          id: "m2",
-          technique: "poele",
-          name: "Burger maison épicé, bœuf 5%, fromage, tomate",
-          moment: "diner",
-          src: "bœuf",
-          ingredients: [
-            ["pain", 100],
-            ["boeuf_hache_5", 125],
-            ["fromage_rape", 20],
-            ["tomate", 45],
-            ["oignon", 15],
-            ["fromage_frais_leger", 25],
-            ["paprika", 2],
-          ],
-        },
-        {
-          id: "m3",
-          technique: "mijote",
-          name: "Gratin moelleux de pâtes jambon-champignons-fromage",
-          moment: "diner",
-          src: "porc",
-          ingredients: [
-            ["pates_completes_cru", 90],
-            ["jambon_blanc", 80],
-            ["champignons_boite", 100],
-            ["fromage_rape", 25],
-            ["lait", 80],
-            ["fromage_blanc_0", 80],
-            ["sauce_tomate", 80],
-            ["ail", 3],
             ["herbes_de_provence", 1],
           ],
         },
@@ -1737,26 +1737,13 @@
             ["poulet_blanc", 150],
             ["riz_complet_cru", 80],
             ["courgette", 180],
-            ["sauce_soja", 12],
+            ["sauce_soja", 9],
             ["huile", 8],
           ],
         },
         {
-          id: "m5",
-          technique: "omelette",
-          name: "Omelette jambon-fromage, pain",
-          moment: "petitdej",
-          src: "œuf",
-          ingredients: [
-            ["oeuf", 150],
-            ["jambon_blanc", 40],
-            ["fromage_rape", 25],
-            ["pain", 60],
-            ["huile", 5],
-          ],
-        },
-        {
           id: "m6",
+          technique: "porridge",
           name: "Porridge avoine, pomme, miel",
           moment: "petitdej",
           src: "laitier",
@@ -1792,7 +1779,7 @@
           moment: "dejeuner",
           src: "poulet",
           ingredients: [
-            ["pain_complet", 80],
+            ["pain_complet", 75],
             ["poulet_blanc", 150],
             ["tomate", 100],
             ["fromage_frais_leger", 40],
@@ -1823,10 +1810,10 @@
           src: "thon",
           ingredients: [
             ["pain_complet", 90],
-            ["thon_boite", 100],
+            ["thon_boite", 112],
             ["oeuf", 60],
-            ["fromage_frais_leger", 35],
-            ["tomate", 75],
+            ["fromage_frais_leger", 40],
+            ["tomate", 80],
             ["citron", 10],
           ],
         },
@@ -1838,43 +1825,12 @@
           src: "œuf",
           ingredients: [
             ["riz_cru", 90],
-            ["jambon_blanc", 70],
+            ["jambon_blanc", 50],
             ["petits_pois", 100],
             ["oeuf", 60],
             ["huile", 10],
             ["sauce_soja", 10],
             ["gingembre", 3],
-          ],
-        },
-        {
-          id: "m12",
-          technique: "poele",
-          name: "Bœuf épicé façon tacos, riz, maïs, fromage frais",
-          moment: "diner",
-          src: "bœuf",
-          ingredients: [
-            ["riz_cru", 70],
-            ["boeuf_hache_5", 125],
-            ["fromage_rape", 20],
-            ["fromage_frais_leger", 40],
-            ["oignon", 20],
-            ["tomate", 100],
-            ["mais_boite", 60],
-            ["cumin", 3],
-            ["paprika", 2],
-          ],
-        },
-        {
-          id: "m13",
-          technique: "assemblage",
-          name: "Jambon-fromage, pain complet, tomates",
-          moment: "diner",
-          src: "porc",
-          ingredients: [
-            ["pain_complet", 70],
-            ["jambon_blanc", 70],
-            ["fromage_rape", 40],
-            ["tomate", 80],
           ],
         },
         {
@@ -1887,7 +1843,7 @@
             ["poulet_blanc", 150],
             ["riz_complet_cru", 80],
             ["sauce_tomate", 140],
-            ["fromage_blanc_0", 80],
+            ["fromage_blanc", 80],
             ["curry", 6],
             ["huile", 6],
           ],
@@ -1909,20 +1865,6 @@
           ],
         },
         {
-          id: "m17",
-          technique: "assemblage",
-          name: "Jambon blanc, fromage frais léger, pain",
-          moment: "collationmatin",
-          src: "porc",
-          veg: false,
-          lean: true,
-          ingredients: [
-            ["jambon_blanc", 60],
-            ["fromage_frais_leger", 40],
-            ["pain", 60],
-          ],
-        },
-        {
           id: "m19",
           technique: "poele",
           name: "Poulet froid, riz, sauce soja légère",
@@ -1935,19 +1877,6 @@
             ["riz_complet_cru", 60],
             ["sauce_soja", 8],
             ["tomate", 100],
-          ],
-        },
-        {
-          id: "m20",
-          technique: "assemblage",
-          name: "Thon, pain, fromage frais léger",
-          moment: "collationapresmidi",
-          src: "thon",
-          lean: true,
-          ingredients: [
-            ["thon_boite", 90],
-            ["pain", 60],
-            ["fromage_frais_leger", 30],
           ],
         },
         {
@@ -1985,55 +1914,16 @@
           ],
         },
         {
-          id: "m23",
-          technique: "assemblage",
-          name: "Pain, jambon, fromage, œuf dur",
-          moment: "petitdej",
-          src: "œuf",
-          ingredients: [
-            ["pain", 80],
-            ["jambon_blanc", 50],
-            ["fromage_rape", 30],
-            ["oeuf", 100],
-          ],
-        },
-        {
           id: "m25",
           technique: "assemblage",
           name: "Pain complet, beurre de cacahuète, banane, œuf",
           moment: "petitdej",
           src: "œuf",
           ingredients: [
-            ["pain_complet", 80],
+            ["pain_complet", 75],
             ["beurre_cacahuete", 20],
             ["banane", 100],
             ["oeuf", 60],
-          ],
-        },
-        {
-          id: "m26",
-          technique: "assemblage",
-          name: "Fromage blanc, miel, amandes",
-          moment: "collationmatin",
-          src: "laitier",
-          lean: true,
-          ingredients: [
-            ["fromage_blanc_0", 200],
-            ["miel", 10],
-            ["amandes", 15],
-            ["fruits_rouges", 100],
-          ],
-        },
-        {
-          id: "m27",
-          technique: "assemblage",
-          name: "Œufs durs, pain, fromage",
-          moment: "collationmatin",
-          src: "œuf",
-          ingredients: [
-            ["oeuf", 120],
-            ["pain", 50],
-            ["fromage_rape", 20],
           ],
         },
         {
@@ -2076,6 +1966,7 @@
           name: "Lentilles, poulet, riz",
           moment: "dejeuner",
           src: "légumineuses",
+          prep: 25,
           ingredients: [
             ["lentilles_crues", 70],
             ["poulet_blanc", 150],
@@ -2099,31 +1990,6 @@
             ["sauce_tomate", 90],
             ["ail", 3],
             ["herbes_de_provence", 1],
-          ],
-        },
-        {
-          id: "m32",
-          technique: "assemblage",
-          name: "Jambon, fromage, pain, tomate",
-          moment: "collationapresmidi",
-          src: "porc",
-          ingredients: [
-            ["jambon_blanc", 60],
-            ["fromage_rape", 25],
-            ["pain", 60],
-            ["tomate", 30],
-          ],
-        },
-        {
-          id: "m33",
-          technique: "assemblage",
-          name: "Œufs durs, fromage, pain",
-          moment: "collationapresmidi",
-          src: "œuf",
-          ingredients: [
-            ["oeuf", 120],
-            ["fromage_rape", 25],
-            ["pain", 55],
           ],
         },
         {
@@ -2154,8 +2020,8 @@
           veg: true,
           frozen: true,
           ingredients: [
-            ["saumon", 150],
-            ["quinoa_cru", 75],
+            ["saumon", 125],
+            ["quinoa_cru", 80],
             ["courgette", 180],
             ["huile", 5],
             ["citron", 20],
@@ -2169,6 +2035,7 @@
           src: "légumineuses",
           veg: true,
           frozen: true,
+          prep: 25,
           ingredients: [
             ["lentilles_crues", 80],
             ["poulet_blanc", 150],
@@ -2204,7 +2071,7 @@
           frozen: true,
           ingredients: [
             ["boeuf_hache_5", 125],
-            ["quinoa_cru", 75],
+            ["quinoa_cru", 80],
             ["ratatouille", 180],
             ["huile", 6],
             ["sauce_tomate", 90],
@@ -2246,7 +2113,7 @@
             ["petits_pois", 150],
             ["curry", 5],
             ["huile", 6],
-            ["fromage_blanc_0", 70],
+            ["fromage_blanc", 70],
           ],
         },
         {
@@ -2258,27 +2125,14 @@
           veg: true,
           ingredients: [
             ["oeuf", 200],
-            ["pain_complet", 80],
+            ["pain_complet", 75],
             ["courgette", 100],
             ["huile", 6],
           ],
         },
         {
-          id: "m43",
-          technique: "assemblage",
-          name: "Fromage blanc 0%, myrtilles congelées, amandes",
-          moment: "collationmatin",
-          src: "laitier",
-          lean: true,
-          frozen: true,
-          ingredients: [
-            ["fromage_blanc_0", 220],
-            ["myrtilles", 100],
-            ["amandes", 15],
-          ],
-        },
-        {
           id: "m44",
+          technique: "assemblage",
           name: "Blanc de poulet froid, galette de riz, pomme",
           moment: "collationmatin",
           src: "poulet",
@@ -2316,9 +2170,10 @@
           src: "légumineuses",
           veg: true,
           lean: true,
+          prep: 15,
           ingredients: [
-            ["lentilles_crues", 75],
-            ["thon_boite", 90],
+            ["lentilles_crues", 80],
+            ["thon_boite", 112],
             ["tomate", 120],
             ["oignon", 30],
             ["huile", 8],
@@ -2352,29 +2207,12 @@
           lean: true,
           ingredients: [
             ["cabillaud", 180],
-            ["riz_complet_cru", 75],
+            ["riz_complet_cru", 80],
             ["courgette", 180],
             ["huile", 6],
             ["citron", 15],
             ["ail", 3],
             ["herbes_de_provence", 1],
-          ],
-        },
-        {
-          id: "m52",
-          technique: "poele",
-          name: "Tofu ferme mariné, riz, légumes sautés",
-          moment: "diner",
-          src: "légumineuses",
-          veg: true,
-          lean: true,
-          ingredients: [
-            ["tofu_ferme", 200],
-            ["riz_complet_cru", 80],
-            ["poivron", 100],
-            ["courgette", 100],
-            ["sauce_soja", 10],
-            ["huile", 8],
           ],
         },
         {
@@ -2421,7 +2259,7 @@
           src: "poisson",
           veg: true,
           ingredients: [
-            ["saumon", 150],
+            ["saumon", 125],
             ["pomme_de_terre", 220],
             ["tomate", 80],
             ["huile", 8],
@@ -2437,7 +2275,7 @@
           veg: true,
           ingredients: [
             ["sardine_boite", 100],
-            ["pain_complet", 80],
+            ["pain_complet", 75],
             ["tomate", 150],
             ["huile", 6],
             ["citron", 15],
@@ -2466,8 +2304,8 @@
           veg: true,
           lean: true,
           ingredients: [
-            ["saumon", 180],
-            ["quinoa_cru", 75],
+            ["saumon", 125],
+            ["quinoa_cru", 80],
             ["courgette", 180],
             ["huile", 8],
             ["citron", 15],
@@ -2494,42 +2332,28 @@
         {
           id: "m64",
           technique: "assemblage",
-          name: "Skyr, banane, beurre de cacahuète",
+          name: "fromage blanc, banane, beurre de cacahuète",
           moment: "collationapresmidi",
           src: "laitier",
           lean: true,
           ingredients: [
-            ["skyr", 180],
+            ["fromage_blanc", 180],
             ["banane", 100],
             ["beurre_cacahuete", 15],
           ],
         },
         {
           id: "m65",
-          name: "Porridge skyr, pomme, beurre de cacahuète",
+          technique: "bowl_froid",
+          name: "Porridge fromage blanc, pomme, beurre de cacahuète",
           moment: "petitdej",
           src: "laitier",
           veg: true,
           ingredients: [
-            ["skyr", 200],
-            ["avoine", 55],
+            ["fromage_blanc", 200],
+            ["muesli_noix", 60],
             ["pomme", 100],
             ["beurre_cacahuete", 12],
-          ],
-        },
-        {
-          id: "m66",
-          technique: "porridge",
-          name: "Porridge lait, avoine, fruits rouges, skyr",
-          moment: "petitdej",
-          src: "laitier",
-          veg: true,
-          lean: true,
-          ingredients: [
-            ["avoine", 55],
-            ["lait", 200],
-            ["fruits_rouges", 120],
-            ["skyr", 150],
           ],
         },
         {
@@ -2542,24 +2366,24 @@
           lean: true,
           ingredients: [
             ["oeuf", 120],
-            ["pain_complet", 80],
-            ["fromage_frais_leger", 35],
+            ["pain_complet", 75],
+            ["fromage_frais_leger", 40],
             ["tomate", 100],
           ],
         },
         {
           id: "m69",
           technique: "pancakes",
-          name: "Pancakes avoine, œufs, banane, skyr",
+          name: "Pancakes avoine, œufs, banane, fromage_blanc",
           moment: "petitdej",
           src: "œuf",
           veg: true,
           lean: true,
           ingredients: [
-            ["avoine", 55],
+            ["avoine", 60],
             ["oeuf", 100],
             ["banane", 100],
-            ["skyr", 150],
+            ["fromage_blanc", 150],
           ],
         },
         {
@@ -2573,23 +2397,8 @@
           ingredients: [
             ["oeuf", 150],
             ["courgette", 100],
-            ["pain_complet", 80],
-            ["fromage_frais_leger", 35],
-          ],
-        },
-        {
-          id: "m74",
-          technique: "assemblage",
-          name: "Fromage blanc, fruits rouges, miel, amandes",
-          moment: "collationmatin",
-          src: "laitier",
-          veg: true,
-          lean: true,
-          ingredients: [
-            ["fromage_blanc_0", 220],
-            ["fruits_rouges", 120],
-            ["miel", 10],
-            ["amandes", 12],
+            ["pain_complet", 75],
+            ["fromage_frais_leger", 40],
           ],
         },
         {
@@ -2603,7 +2412,7 @@
           ingredients: [
             ["galette_riz", 45],
             ["fromage_frais_leger", 40],
-            ["jambon_blanc", 70],
+            ["jambon_blanc", 50],
           ],
         },
         {
@@ -2640,25 +2449,6 @@
           ],
         },
         {
-          id: "m80",
-          technique: "four",
-          name: "Poulet rôti à l'ail et aux herbes, patate douce, petits pois, fromage frais",
-          moment: "dejeuner",
-          src: "poulet",
-          veg: true,
-          lean: true,
-          frozen: true,
-          ingredients: [
-            ["poulet_blanc", 150],
-            ["patate_douce", 80],
-            ["petits_pois", 180],
-            ["fromage_frais_leger", 40],
-            ["huile", 5],
-            ["ail", 3],
-            ["herbes_de_provence", 1],
-          ],
-        },
-        {
           id: "m81",
           technique: "poele",
           name: "Poulet au curry léger, pommes de terre, petits pois",
@@ -2685,10 +2475,10 @@
           lean: true,
           frozen: true,
           ingredients: [
-            ["pain_complet", 80],
+            ["pain_complet", 75],
             ["poulet_blanc", 150],
             ["tomate", 140],
-            ["fromage_frais_leger", 45],
+            ["fromage_frais_leger", 50],
             ["cumin", 2],
             ["citron", 10],
           ],
@@ -2723,7 +2513,7 @@
             ["poulet_blanc", 150],
             ["riz_cru", 80],
             ["petits_pois", 120],
-            ["sauce_soja", 12],
+            ["sauce_soja", 9],
             ["miel", 10],
             ["huile", 5],
           ],
@@ -2772,8 +2562,8 @@
           lean: true,
           frozen: true,
           ingredients: [
-            ["saumon", 150],
-            ["riz_complet_cru", 75],
+            ["saumon", 125],
+            ["riz_complet_cru", 80],
             ["courgette", 180],
             ["citron", 15],
           ],
@@ -2806,13 +2596,14 @@
           lean: true,
           ingredients: [
             ["pain_complet", 65],
-            ["thon_boite", 90],
-            ["fromage_frais_leger", 35],
+            ["thon_boite", 112],
+            ["fromage_frais_leger", 40],
             ["tomate", 80],
           ],
         },
         {
           id: "m92",
+          technique: "assemblage",
           name: "Poulet, pain complet, fromage frais, pomme",
           moment: "collationapresmidi",
           src: "poulet",
@@ -2822,27 +2613,8 @@
           ingredients: [
             ["poulet_blanc", 150],
             ["pain_complet", 70],
-            ["fromage_frais_leger", 35],
+            ["fromage_frais_leger", 40],
             ["pomme", 80],
-          ],
-        },
-        {
-          id: "m94",
-          technique: "poele",
-          name: "Poulet curry-coco, riz, petits pois",
-          moment: "diner",
-          src: "poulet",
-          veg: true,
-          lean: true,
-          frozen: true,
-          ingredients: [
-            ["poulet_blanc", 150],
-            ["riz_complet_cru", 80],
-            ["petits_pois", 180],
-            ["lait_coco", 60],
-            ["curry", 5],
-            ["huile", 5],
-            ["ail", 3],
           ],
         },
         {
@@ -2858,7 +2630,7 @@
             ["poulet_blanc", 150],
             ["pates_completes_cru", 80],
             ["petits_pois", 180],
-            ["fromage_frais_leger", 45],
+            ["fromage_frais_leger", 50],
             ["huile", 5],
             ["ail", 3],
             ["herbes_de_provence", 1],
@@ -2892,7 +2664,7 @@
           lean: true,
           frozen: true,
           ingredients: [
-            ["saumon", 150],
+            ["saumon", 125],
             ["pomme_de_terre", 280],
             ["courgette", 180],
             ["citron", 15],
@@ -2966,7 +2738,7 @@
           workSnack: true,
           lean: true,
           ingredients: [
-            ["thon_boite", 100],
+            ["thon_boite", 112],
             ["galette_riz", 40],
             ["tomate", 30],
           ],
@@ -2987,6 +2759,7 @@
         },
         {
           id: "m103",
+          technique: "assemblage",
           name: "Pain complet, beurre de cacahuète, pomme",
           moment: "collationmatin",
           src: "oleagineux",
@@ -2994,7 +2767,7 @@
           lean: true,
           ingredients: [
             ["pain_complet", 45],
-            ["beurre_cacahuete", 22],
+            ["beurre_cacahuete", 14],
             ["pomme", 120],
           ],
         },
@@ -3008,8 +2781,8 @@
           lean: true,
           ingredients: [
             ["galette_riz", 35],
-            ["beurre_cacahuete", 25],
-            ["amandes", 20],
+            ["beurre_cacahuete", 14],
+            ["amandes", 12],
             ["banane", 100],
           ],
         },
@@ -3022,9 +2795,9 @@
           workSnack: true,
           lean: true,
           ingredients: [
-            ["thon_boite", 100],
+            ["thon_boite", 112],
             ["pain_complet", 40],
-            ["amandes", 18],
+            ["amandes", 20],
           ],
         },
         {
@@ -3043,6 +2816,7 @@
         },
         {
           id: "m107",
+          technique: "assemblage",
           name: "Pain complet, beurre de cacahuète, pomme, amandes",
           moment: "collationapresmidi",
           src: "oleagineux",
@@ -3050,9 +2824,9 @@
           lean: true,
           ingredients: [
             ["pain_complet", 70],
-            ["beurre_cacahuete", 22],
+            ["beurre_cacahuete", 14],
             ["pomme", 110],
-            ["amandes", 15],
+            ["amandes", 12],
           ],
         },
         {
@@ -3064,7 +2838,7 @@
           workSnack: true,
           lean: true,
           ingredients: [
-            ["thon_boite", 100],
+            ["thon_boite", 112],
             ["galette_riz", 30],
             ["amandes", 20],
           ],
@@ -3080,7 +2854,7 @@
           ingredients: [
             ["sardine_boite", 100],
             ["galette_riz", 30],
-            ["amandes", 18],
+            ["amandes", 20],
           ],
         },
         {
@@ -3093,8 +2867,8 @@
           lean: true,
           ingredients: [
             ["galette_riz", 25],
-            ["beurre_cacahuete", 20],
-            ["amandes", 20],
+            ["beurre_cacahuete", 14],
+            ["amandes", 12],
             ["banane", 100],
           ],
         },
@@ -3108,7 +2882,7 @@
           src: "oleagineux",
           lean: true,
           ingredients: [
-            ["pain_complet", 80],
+            ["pain_complet", 75],
             ["beurre_cacahuete", 22],
             ["banane", 130],
             ["miel", 12],
@@ -3117,13 +2891,13 @@
         {
           id: "m113",
           technique: "assemblage",
-          name: "Skyr, pain complet, banane",
+          name: "fromage blanc, pain complet, banane",
           moment: "postworkout",
           src: "laitier",
           lean: true,
           ingredients: [
-            ["skyr", 200],
-            ["pain_complet", 80],
+            ["fromage_blanc", 200],
+            ["pain_complet", 75],
             ["banane", 120],
           ],
         },
@@ -3151,7 +2925,7 @@
           ingredients: [
             ["galette_riz", 35],
             ["beurre_cacahuete", 22],
-            ["fromage_blanc_0", 150],
+            ["fromage_blanc", 150],
             ["banane", 110],
           ],
         },
@@ -3184,7 +2958,7 @@
             ["riz_complet_cru", 80],
             ["carotte", 120],
             ["oignon", 30],
-            ["sauce_soja", 12],
+            ["sauce_soja", 9],
             ["huile", 5],
           ],
         },
@@ -3238,20 +3012,6 @@
           ],
         },
         {
-          id: "m122",
-          technique: "omelette",
-          name: "Omelette façon pizza, sauce tomate, jambon",
-          moment: "petitdej",
-          src: "œuf",
-          veg: false,
-          ingredients: [
-            ["oeuf", 150],
-            ["sauce_tomate", 80],
-            ["jambon_blanc", 50],
-            ["fromage_rape", 20],
-          ],
-        },
-        {
           id: "m123",
           technique: "wok",
           name: "Saumon façon teriyaki, riz, petits pois",
@@ -3259,10 +3019,10 @@
           src: "poisson",
           veg: true,
           ingredients: [
-            ["saumon", 150],
+            ["saumon", 125],
             ["riz_complet_cru", 80],
             ["petits_pois", 100],
-            ["sauce_soja", 12],
+            ["sauce_soja", 9],
             ["miel", 8],
             ["huile", 5],
           ],
@@ -3281,7 +3041,7 @@
             ["petits_pois", 150],
             ["champignons_boite", 80],
             ["oeuf", 60],
-            ["sauce_soja", 12],
+            ["sauce_soja", 9],
             ["huile", 8],
           ],
         },
@@ -3311,23 +3071,8 @@
           workSnack: true,
           veg: true,
           ingredients: [
-            ["amandes", 45],
+            ["amandes", 28],
             ["banane", 120],
-          ],
-        },
-        {
-          id: "m130",
-          technique: "poele",
-          name: "Burger poulet, œuf au plat, fromage",
-          moment: "diner",
-          src: "poulet",
-          ingredients: [
-            ["pain", 100],
-            ["poulet_blanc", 180],
-            ["oeuf", 60],
-            ["fromage_rape", 30],
-            ["tomate", 40],
-            ["huile", 6],
           ],
         },
         {
@@ -3352,15 +3097,15 @@
           name: "Fromage blanc nature",
           moment: "extra",
           src: "laitier",
-          ingredients: [["fromage_blanc_0", 100]],
+          ingredients: [["fromage_blanc", 100]],
         },
         {
           id: "m135",
           technique: "assemblage",
-          name: "Skyr nature",
+          name: "fromage_blanc nature",
           moment: "extra",
           src: "laitier",
-          ingredients: [["skyr", 100]],
+          ingredients: [["fromage_blanc", 100]],
         },
         {
           id: "m136",
@@ -3399,37 +3144,23 @@
           moment: "petitdej",
           src: "laitier",
           ingredients: [
-            ["avoine", 55],
+            ["avoine", 60],
             ["lait", 150],
-            ["cacao_poudre", 10],
             ["banane", 100],
-            ["miel", 8],
+            ["cannelle", 2],
+            ["miel", 10],
           ],
         },
         {
           id: "m140",
           technique: "assemblage",
-          name: "Skyr façon dessert choco-amandes",
+          name: "fromage_blanc façon dessert choco-amandes",
           moment: "collationmatin",
           src: "laitier",
           ingredients: [
-            ["skyr", 150],
-            ["cacao_poudre", 8],
-            ["amandes", 15],
-            ["miel", 8],
-          ],
-        },
-        {
-          id: "m142",
-          technique: "omelette",
-          name: "Œufs brouillés, pain complet, fromage, jambon",
-          moment: "petitdej",
-          src: "œuf",
-          ingredients: [
-            ["oeuf", 150],
-            ["pain_complet", 60],
-            ["fromage_rape", 25],
-            ["jambon_blanc", 50],
+            ["fromage_blanc", 150],
+            ["amandes", 20],
+            ["miel", 12],
           ],
         },
         {
@@ -3442,7 +3173,7 @@
             ["pain_complet", 40],
             ["fromage_frais_leger", 40],
             ["miel", 8],
-            ["amandes", 15],
+            ["amandes", 20],
           ],
         },
         {
@@ -3455,7 +3186,7 @@
             ["galette_riz", 30],
             ["fromage_frais_leger", 40],
             ["miel", 8],
-            ["amandes", 15],
+            ["amandes", 20],
           ],
         },
         {
@@ -3465,7 +3196,7 @@
           moment: "petitdej",
           src: "œuf",
           ingredients: [
-            ["avoine", 55],
+            ["avoine", 60],
             ["oeuf", 100],
             ["pomme", 90],
             ["lait", 40],
@@ -3482,7 +3213,7 @@
           veg: true,
           ingredients: [
             ["pomme", 180],
-            ["amandes", 20],
+            ["amandes", 12],
             ["cannelle", 1],
           ],
         },
@@ -3497,7 +3228,7 @@
           ingredients: [
             ["pain_complet", 35],
             ["miel", 10],
-            ["amandes", 15],
+            ["amandes", 12],
           ],
         },
         {
@@ -3510,7 +3241,7 @@
           veg: true,
           ingredients: [
             ["banane", 120],
-            ["beurre_cacahuete", 20],
+            ["beurre_cacahuete", 14],
           ],
         },
         {
@@ -3523,9 +3254,8 @@
           veg: true,
           ingredients: [
             ["galette_riz", 20],
-            ["cacao_poudre", 8],
-            ["amandes", 15],
-            ["miel", 6],
+            ["beurre_cacahuete", 10],
+            ["amandes", 12],
           ],
         },
         {
@@ -3538,7 +3268,7 @@
           veg: true,
           ingredients: [
             ["pomme", 150],
-            ["beurre_cacahuete", 20],
+            ["beurre_cacahuete", 14],
           ],
         },
         {
@@ -3551,7 +3281,7 @@
           veg: true,
           ingredients: [
             ["pain_complet", 35],
-            ["beurre_cacahuete", 18],
+            ["beurre_cacahuete", 12],
             ["cannelle", 1],
           ],
         },
@@ -3565,23 +3295,8 @@
           veg: true,
           ingredients: [
             ["banane", 110],
-            ["cacao_poudre", 8],
-            ["amandes", 15],
-          ],
-        },
-        {
-          id: "m153",
-          technique: "toutenun",
-          name: "Poêlée saumon, pâtes, ratatouille, fromage",
-          moment: "diner",
-          src: "poisson",
-          veg: true,
-          ingredients: [
-            ["saumon", 150],
-            ["pates_completes_cru", 80],
-            ["ratatouille", 200],
-            ["fromage_rape", 30],
-            ["huile", 5],
+            ["beurre_cacahuete", 10],
+            ["amandes", 12],
           ],
         },
         {
@@ -3614,36 +3329,6 @@
             ["ratatouille", 200],
             ["parmesan", 15],
             ["huile", 5],
-          ],
-        },
-        {
-          id: "m156",
-          technique: "toutenun",
-          name: "Poêlée bœuf haché, pâtes, sauce tomate, fromage",
-          moment: "dejeuner",
-          src: "bœuf",
-          ingredients: [
-            ["boeuf_hache_5", 125],
-            ["pates_completes_cru", 80],
-            ["sauce_tomate", 120],
-            ["fromage_rape", 30],
-            ["ail", 3],
-            ["herbes_de_provence", 1],
-          ],
-        },
-        {
-          id: "m157",
-          technique: "toutenun",
-          name: "Poêlée thon, pâtes, petits pois, fromage",
-          moment: "dejeuner",
-          src: "thon",
-          veg: true,
-          ingredients: [
-            ["thon_boite", 100],
-            ["pates_completes_cru", 80],
-            ["petits_pois", 150],
-            ["fromage_rape", 25],
-            ["fromage_frais_leger", 30],
           ],
         },
         {
@@ -3720,7 +3405,7 @@
             ["maquereau_boite", 110],
             ["pomme_de_terre", 280],
             ["sauce_tomate", 100],
-            ["fromage_blanc_0", 40],
+            ["fromage_blanc", 40],
             ["huile", 5],
           ],
         },
@@ -3787,22 +3472,6 @@
           ],
         },
         {
-          id: "m166",
-          technique: "omelette",
-          name: "Omelette jambon, poivron, fromage",
-          moment: "petitdej",
-          src: "œuf",
-          veg: true,
-          ingredients: [
-            ["oeuf", 150],
-            ["jambon_blanc", 40],
-            ["poivron", 100],
-            ["fromage_rape", 25],
-            ["pain", 60],
-            ["huile", 5],
-          ],
-        },
-        {
           id: "m167",
           technique: "four",
           name: "Poulet au four, ratatouille, riz complet",
@@ -3841,11 +3510,11 @@
           src: "poisson",
           veg: true,
           ingredients: [
-            ["saumon", 150],
+            ["saumon", 125],
             ["courgette", 150],
             ["poivron", 100],
             ["riz_complet_cru", 70],
-            ["sauce_soja", 12],
+            ["sauce_soja", 9],
             ["huile", 6],
           ],
         },
@@ -3938,7 +3607,7 @@
           veg: true,
           ingredients: [
             ["maquereau_boite", 120],
-            ["pates_completes_cru", 85],
+            ["pates_completes_cru", 90],
             ["ratatouille", 200],
             ["parmesan", 15],
             ["ail", 2],
@@ -3963,24 +3632,6 @@
           ],
         },
         {
-          id: "m190",
-          technique: "mijote",
-          name: "Dinde curry-coco, riz, poivron",
-          moment: "diner",
-          src: "dinde",
-          veg: true,
-          lean: true,
-          ingredients: [
-            ["dinde", 150],
-            ["riz_cru", 80],
-            ["poivron", 150],
-            ["oignon", 50],
-            ["curry", 4],
-            ["lait_coco", 60],
-            ["huile", 5],
-          ],
-        },
-        {
           id: "m191",
           technique: "wok",
           name: "Wok de dinde, poivron, petits pois, sauce soja-gingembre",
@@ -3993,7 +3644,7 @@
             ["riz_cru", 80],
             ["poivron", 100],
             ["petits_pois", 100],
-            ["sauce_soja", 15],
+            ["sauce_soja", 10],
             ["gingembre", 3],
             ["huile", 6],
           ],
@@ -4097,7 +3748,7 @@
             ["boeuf_hache_5", 125],
             ["riz_complet_cru", 80],
             ["petits_pois", 150],
-            ["sauce_soja", 15],
+            ["sauce_soja", 10],
             ["gingembre", 3],
             ["huile", 5],
           ],
@@ -4105,11 +3756,11 @@
         {
           id: "m172",
           technique: "assemblage",
-          name: "Skyr, banane, beurre de cacahuète",
+          name: "fromage blanc, banane, beurre de cacahuète",
           moment: "collationmatin",
           src: "laitier",
           ingredients: [
-            ["skyr", 200],
+            ["fromage_blanc", 200],
             ["banane", 100],
             ["beurre_cacahuete", 12],
           ],
@@ -4121,22 +3772,743 @@
           moment: "collationapresmidi",
           src: "laitier",
           ingredients: [
-            ["fromage_blanc_0", 150],
+            ["fromage_blanc", 150],
             ["miel", 10],
             ["pomme", 100],
-            ["amandes", 12],
+            ["amandes", 10],
           ],
         },
         {
           id: "m174",
           technique: "assemblage",
-          name: "Skyr, banane, miel",
+          name: "fromage blanc, banane, miel",
           moment: "postworkout",
           src: "laitier",
           ingredients: [
-            ["skyr", 250],
+            ["fromage_blanc", 250],
             ["banane", 120],
             ["miel", 15],
+          ],
+        },
+        {
+          id: "m201",
+          technique: "pancakes",
+          name: "Pancakes protéinés banane",
+          moment: "petitdej",
+          src: "oeuf",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["farine", 60],
+            ["oeuf", 100],
+            ["banane", 120],
+            ["lait", 100],
+            ["levure_chimique", 11],
+          ],
+        },
+        {
+          id: "m202",
+          technique: "galette",
+          name: "Galettes de thon minute, courgette",
+          moment: "diner",
+          src: "thon",
+          lean: true,
+          ingredients: [
+            ["thon_boite", 112],
+            ["farine", 30],
+            ["oeuf", 50],
+            ["oignon", 50],
+            ["courgette", 150],
+            ["huile", 8],
+          ],
+        },
+        {
+          id: "m203",
+          technique: "pane",
+          name: "Poulet pané minute, courgettes",
+          moment: "diner",
+          src: "poulet",
+          lean: true,
+          ingredients: [
+            ["poulet_blanc", 150],
+            ["farine", 20],
+            ["oeuf", 50],
+            ["courgette", 200],
+            ["huile", 8],
+          ],
+        },
+        {
+          id: "m212",
+          technique: "poele",
+          name: "Burger bœuf épicé paprika-ail, oignon confit, tomate",
+          moment: "diner",
+          src: "bœuf",
+          ingredients: [
+            ["pain_burger", 90],
+            ["boeuf_hache_5", 125],
+            ["oignon", 30],
+            ["tomate", 60],
+            ["sauce_tomate", 20],
+            ["paprika", 2],
+            ["ail", 3],
+          ],
+        },
+        {
+          id: "m213",
+          technique: "mijote",
+          name: "Curry de pois chiches, patate douce, gingembre-ail, riz",
+          moment: "diner",
+          src: "légumineuses",
+          veg: true,
+          lean: true,
+          prep: 20,
+          ingredients: [
+            ["pois_chiches_boite", 200],
+            ["patate_douce", 200],
+            ["riz_complet_cru", 60],
+            ["curry", 5],
+            ["gingembre", 3],
+            ["ail", 3],
+            ["lait", 80],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m214",
+          technique: "poele",
+          name: "Pâtes thon, ail, citron, parmesan",
+          moment: "dejeuner",
+          src: "thon",
+          ingredients: [
+            ["pates_cru", 90],
+            ["thon_boite", 112],
+            ["ail", 4],
+            ["citron", 15],
+            ["parmesan", 15],
+            ["huile", 10],
+            ["herbes_de_provence", 1],
+          ],
+        },
+        {
+          id: "m215",
+          technique: "poele",
+          name: "Dinde miel-cannelle, patate douce rôtie, oignon",
+          moment: "diner",
+          src: "volaille",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["dinde", 150],
+            ["patate_douce", 220],
+            ["oignon", 20],
+            ["miel", 8],
+            ["cannelle", 1],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m216",
+          technique: "poele",
+          name: "Maquereau, pommes de terre, oignon-ail-citron",
+          moment: "diner",
+          src: "poisson",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["maquereau_boite", 120],
+            ["pomme_de_terre", 250],
+            ["oignon", 30],
+            ["ail", 3],
+            ["citron", 15],
+            ["huile", 6],
+            ["herbes_de_provence", 1],
+          ],
+        },
+        {
+          id: "m217",
+          technique: "poele",
+          name: "Saumon teriyaki maison, riz, poivrons",
+          moment: "diner",
+          src: "poisson",
+          veg: true,
+          ingredients: [
+            ["saumon", 125],
+            ["riz_cru", 80],
+            ["poivron", 150],
+            ["sauce_soja", 14],
+            ["gingembre", 4],
+            ["miel", 8],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m218",
+          technique: "mijote",
+          name: "Chili de lentilles épicé, maïs, riz",
+          moment: "diner",
+          src: "légumineuses",
+          veg: true,
+          lean: true,
+          prep: 25,
+          ingredients: [
+            ["lentilles_crues", 90],
+            ["mais_boite", 80],
+            ["sauce_tomate", 150],
+            ["riz_cru", 70],
+            ["cumin", 3],
+            ["paprika", 2],
+            ["oignon", 30],
+            ["ail", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m219",
+          technique: "poele",
+          name: "Poulet mariné curry-ail-citron, quinoa, courgette",
+          moment: "dejeuner",
+          src: "poulet",
+          veg: true,
+          lean: true,
+          frozen: true,
+          ingredients: [
+            ["poulet_blanc", 150],
+            ["quinoa_cru", 70],
+            ["courgette", 180],
+            ["curry", 4],
+            ["ail", 3],
+            ["citron", 15],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m220",
+          technique: "omelette",
+          name: "Œufs brouillés épicés, poivrons, oignon, paprika",
+          moment: "petitdej",
+          src: "œuf",
+          ingredients: [
+            ["oeuf", 150],
+            ["poivron", 100],
+            ["oignon", 30],
+            ["paprika", 2],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m221",
+          technique: "poele",
+          name: "Poêlée jambon-champignons à l'ail, pâtes complètes, parmesan",
+          moment: "dejeuner",
+          src: "porc",
+          ingredients: [
+            ["jambon_blanc", 75],
+            ["champignons_boite", 100],
+            ["pates_completes_cru", 80],
+            ["ail", 3],
+            ["parmesan", 15],
+            ["huile", 6],
+            ["herbes_de_provence", 1],
+          ],
+        },
+        {
+          id: "m222",
+          technique: "poele",
+          name: "Cabillaud épicé cumin-citron, riz complet, carottes",
+          moment: "diner",
+          src: "poisson",
+          ingredients: [
+            ["cabillaud", 200],
+            ["riz_complet_cru", 70],
+            ["carotte", 150],
+            ["cumin", 3],
+            ["citron", 15],
+            ["ail", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m223",
+          technique: "poele",
+          name: "Sardines à l'ail-citron, poivrons, pommes de terre",
+          moment: "diner",
+          src: "poisson",
+          ingredients: [
+            ["sardine_boite", 100],
+            ["pomme_de_terre", 220],
+            ["poivron", 150],
+            ["ail", 3],
+            ["citron", 15],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m224",
+          technique: "bowl_froid",
+          name: "Bol quinoa crémeux au curry, thon, petits pois",
+          moment: "dejeuner",
+          src: "thon",
+          ingredients: [
+            ["quinoa_cru", 70],
+            ["thon_boite", 112],
+            ["petits_pois", 120],
+            ["curry", 4],
+            ["lait", 60],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m225",
+          technique: "wok",
+          name: "Dinde épicée gingembre-curry, riz, poivrons",
+          moment: "diner",
+          src: "volaille",
+          ingredients: [
+            ["dinde", 150],
+            ["riz_cru", 70],
+            ["poivron", 150],
+            ["curry", 4],
+            ["gingembre", 3],
+            ["ail", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m226",
+          technique: "assemblage",
+          name: "Fromage blanc, cerneaux de noix, miel",
+          moment: "collationmatin",
+          src: "laitier",
+          ingredients: [
+            ["fromage_blanc", 200],
+            ["noix", 20],
+            ["miel", 10],
+          ],
+        },
+        {
+          id: "m227",
+          technique: "bowl_froid",
+          name: "Porridge froid fromage blanc, avoine, noix de cajou, miel",
+          moment: "collationmatin",
+          src: "laitier",
+          ingredients: [
+            ["fromage_blanc", 180],
+            ["muesli_noix", 40],
+            ["noix_cajou", 20],
+            ["miel", 10],
+          ],
+        },
+        {
+          id: "m228",
+          technique: "assemblage",
+          name: "Galette de riz, fromage frais, noix de cajou concassées, miel",
+          moment: "collationapresmidi",
+          src: "laitier",
+          ingredients: [
+            ["galette_riz", 30],
+            ["fromage_frais_leger", 40],
+            ["noix_cajou", 20],
+            ["miel", 8],
+          ],
+        },
+        {
+          id: "m229",
+          technique: "assemblage",
+          name: "Fromage frais, pomme, cerneaux de noix",
+          moment: "collationapresmidi",
+          src: "laitier",
+          ingredients: [
+            ["fromage_frais_leger", 50],
+            ["pomme", 120],
+            ["noix", 20],
+          ],
+        },
+        {
+          id: "m230",
+          technique: "assemblage",
+          name: "Banane, beurre de cacahuète, noix de cajou",
+          moment: "postworkout",
+          src: "oleagineux",
+          ingredients: [
+            ["banane", 120],
+            ["beurre_cacahuete", 15],
+            ["noix_cajou", 15],
+          ],
+        },
+        {
+          id: "m231",
+          technique: "porridge",
+          name: "Porridge lait, avoine, banane, cerneaux de noix, cannelle",
+          moment: "postworkout",
+          src: "laitier",
+          ingredients: [
+            ["avoine", 55],
+            ["lait", 200],
+            ["banane", 100],
+            ["noix", 15],
+            ["cannelle", 1],
+          ],
+        },
+        {
+          id: "m232",
+          technique: "assemblage",
+          name: "Tartine pain complet, fromage frais, noix de cajou, miel",
+          moment: "collationmatin",
+          src: "laitier",
+          ingredients: [
+            ["pain_complet", 50],
+            ["fromage_frais_leger", 40],
+            ["noix_cajou", 20],
+            ["miel", 8],
+          ],
+        },
+        {
+          id: "m233",
+          technique: "bowl_froid",
+          name: "Bol fromage blanc, banane, cerneaux de noix, cannelle",
+          moment: "collationapresmidi",
+          src: "laitier",
+          ingredients: [
+            ["fromage_blanc", 200],
+            ["banane", 100],
+            ["noix", 20],
+            ["cannelle", 1],
+          ],
+        },
+        {
+          id: "m234",
+          technique: "assemblage",
+          name: "Lait miel-cannelle, noix de cajou",
+          moment: "postworkout",
+          src: "laitier",
+          ingredients: [
+            ["lait", 250],
+            ["miel", 12],
+            ["noix_cajou", 20],
+            ["cannelle", 1],
+          ],
+        },
+        {
+          id: "m235",
+          technique: "assemblage",
+          name: "Pomme écrasée, fromage blanc, cerneaux de noix, miel",
+          moment: "collationmatin",
+          src: "laitier",
+          ingredients: [
+            ["pomme", 120],
+            ["fromage_blanc", 150],
+            ["noix", 20],
+            ["miel", 8],
+          ],
+        },
+        {
+          id: "m236",
+          technique: "assemblage",
+          name: "Galette de riz, beurre de cacahuète, cerneaux de noix, banane",
+          moment: "collationapresmidi",
+          src: "oleagineux",
+          ingredients: [
+            ["galette_riz", 30],
+            ["beurre_cacahuete", 15],
+            ["noix", 15],
+            ["banane", 100],
+          ],
+        },
+        {
+          id: "m237",
+          technique: "wok",
+          name: "Poulet fajita poivrons-oignon, riz, cumin-paprika",
+          moment: "dejeuner",
+          src: "poulet",
+          ingredients: [
+            ["poulet_blanc", 150],
+            ["poivron", 150],
+            ["oignon", 30],
+            ["riz_cru", 70],
+            ["cumin", 2],
+            ["paprika", 2],
+            ["huile", 6],
+            ["citron", 10],
+          ],
+        },
+        {
+          id: "m238",
+          technique: "poele",
+          name: "Cabillaud express curry-lait, riz, petits pois",
+          moment: "diner",
+          src: "poisson",
+          ingredients: [
+            ["cabillaud", 200],
+            ["riz_cru", 70],
+            ["petits_pois", 120],
+            ["curry", 4],
+            ["lait", 60],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m239",
+          technique: "wok",
+          name: "Dinde sautée poivron-oignon au cumin, riz",
+          moment: "diner",
+          src: "volaille",
+          ingredients: [
+            ["dinde", 150],
+            ["poivron", 150],
+            ["oignon", 30],
+            ["riz_cru", 70],
+            ["cumin", 3],
+            ["huile", 6],
+            ["citron", 10],
+          ],
+        },
+        {
+          id: "m240",
+          technique: "poele",
+          name: "Saumon express curry-citron, quinoa, petits pois",
+          moment: "diner",
+          src: "poisson",
+          ingredients: [
+            ["saumon", 125],
+            ["quinoa_cru", 70],
+            ["petits_pois", 100],
+            ["curry", 3],
+            ["citron", 15],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m241",
+          technique: "poele",
+          name: "Thon poêlé ail-paprika, pâtes, tomate",
+          moment: "dejeuner",
+          src: "thon",
+          ingredients: [
+            ["thon_boite", 112],
+            ["pates_cru", 90],
+            ["sauce_tomate", 100],
+            ["ail", 3],
+            ["paprika", 2],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m242",
+          technique: "wok",
+          name: "Bœuf haché fajita poivrons-oignon, quinoa",
+          moment: "dejeuner",
+          src: "bœuf",
+          ingredients: [
+            ["boeuf_hache_5", 125],
+            ["poivron", 150],
+            ["oignon", 30],
+            ["quinoa_cru", 70],
+            ["paprika", 2],
+            ["ail", 3],
+            ["huile", 6],
+            ["citron", 10],
+          ],
+        },
+        {
+          id: "m243",
+          technique: "omelette",
+          name: "Œufs brouillés jambon-poivron",
+          moment: "petitdej",
+          src: "œuf",
+          ingredients: [
+            ["oeuf", 150],
+            ["jambon_blanc", 50],
+            ["poivron", 100],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m244",
+          technique: "omelette",
+          name: "Omelette champignons-jambon-ail",
+          moment: "petitdej",
+          src: "œuf",
+          ingredients: [
+            ["oeuf", 150],
+            ["champignons_boite", 80],
+            ["jambon_blanc", 25],
+            ["ail", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m245",
+          technique: "bowl_froid",
+          name: "Bol fromage blanc, avoine, banane, cannelle",
+          moment: "petitdej",
+          src: "laitier",
+          ingredients: [
+            ["fromage_blanc", 180],
+            ["muesli_noix", 40],
+            ["banane", 100],
+            ["cannelle", 1],
+            ["miel", 8],
+          ],
+        },
+        {
+          id: "m247",
+          technique: "assemblage",
+          name: "Fromage blanc, myrtilles, amandes",
+          moment: "postworkout",
+          src: "laitier",
+          lean: true,
+          ingredients: [
+            ["fromage_blanc", 220],
+            ["myrtilles", 100],
+            ["amandes", 15],
+          ],
+        },
+        {
+          id: "m248",
+          technique: "porridge",
+          name: "Porridge avoine, lait, fruits rouges, cannelle",
+          moment: "postworkout",
+          src: "laitier",
+          ingredients: [
+            ["avoine", 55],
+            ["lait", 200],
+            ["fruits_rouges", 100],
+            ["cannelle", 1],
+          ],
+        },
+        {
+          id: "m249",
+          technique: "assemblage",
+          name: "Galette de riz, fromage frais, myrtilles, noix de cajou",
+          moment: "postworkout",
+          src: "laitier",
+          ingredients: [
+            ["galette_riz", 30],
+            ["fromage_frais_leger", 150],
+            ["myrtilles", 80],
+            ["noix_cajou", 15],
+          ],
+        },
+        {
+          id: "m250",
+          technique: "assemblage",
+          name: "Pain complet, beurre de cacahuète, pomme, miel",
+          moment: "postworkout",
+          src: "oleagineux",
+          lean: true,
+          ingredients: [
+            ["pain_complet", 75],
+            ["beurre_cacahuete", 22],
+            ["pomme", 130],
+            ["miel", 12],
+          ],
+        },
+        {
+          id: "m246",
+          technique: "porridge",
+          name: "Porridge avoine-lait-miel, noix de cajou",
+          moment: "petitdej",
+          src: "laitier",
+          ingredients: [
+            ["avoine", 50],
+            ["lait", 200],
+            ["miel", 10],
+            ["noix_cajou", 15],
+          ],
+        },
+        {
+          id: "m251",
+          technique: "bowl_froid",
+          name: "Bol fromage blanc, muesli aux noix, myrtilles",
+          moment: "petitdej",
+          src: "laitier",
+          veg: true,
+          ingredients: [
+            ["fromage_blanc", 200],
+            ["muesli_noix", 50],
+            ["myrtilles", 80],
+          ],
+        },
+        {
+          id: "m252",
+          technique: "bowl_froid",
+          name: "Bol lait, muesli aux noix, banane, miel",
+          moment: "petitdej",
+          src: "laitier",
+          veg: true,
+          ingredients: [
+            ["lait", 200],
+            ["muesli_noix", 60],
+            ["banane", 100],
+            ["miel", 10],
+          ],
+        },
+        {
+          id: "m253",
+          technique: "assemblage",
+          name: "Muesli aux noix, fromage blanc, pomme, cannelle",
+          moment: "collationmatin",
+          src: "laitier",
+          ingredients: [
+            ["muesli_noix", 40],
+            ["fromage_blanc", 150],
+            ["pomme", 100],
+            ["cannelle", 1],
+          ],
+        },
+        {
+          id: "m260",
+          technique: "assemblage",
+          name: "Salade de pois chiches, thon, poivron, citron",
+          moment: "dejeuner",
+          src: "légumineuses",
+          veg: true,
+          lean: true,
+          prep: 15,
+          ingredients: [
+            ["pois_chiches_boite", 200],
+            ["thon_boite", 100],
+            ["poivron", 150],
+            ["citron", 15],
+            ["huile", 8],
+          ],
+        },
+        {
+          id: "m261",
+          technique: "poele",
+          name: "Haricots rouges, dinde, riz, cumin",
+          moment: "diner",
+          src: "légumineuses",
+          veg: true,
+          lean: true,
+          prep: 25,
+          ingredients: [
+            ["haricots_rouges_boite", 200],
+            ["dinde", 150],
+            ["riz_cru", 70],
+            ["cumin", 3],
+            ["oignon", 30],
+            ["ail", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m262",
+          technique: "mijote",
+          name: "Dahl de lentilles, carotte, patate douce",
+          moment: "diner",
+          src: "légumineuses",
+          veg: true,
+          lean: true,
+          prep: 30,
+          ingredients: [
+            ["lentilles_crues", 90],
+            ["carotte", 150],
+            ["patate_douce", 150],
+            ["gingembre", 4],
+            ["ail", 3],
+            ["cumin", 3],
+            ["huile", 6],
           ],
         },
       ];
@@ -4144,12 +4516,12 @@
       // +36 recettes : ingrédients de grande surface, repas souples/humides et portions adaptées au congélateur.
       const MOMENT_LABEL = {
         petitdej: "Petit-déj",
-        collationmatin: "Collation matin",
+        collationmatin: "Collation AM",
         dejeuner: "Déjeuner",
-        collationapresmidi: "Collation après-midi",
+        collationapresmidi: "Collation PM",
         diner: "Dîner",
-        postworkout: "Récup post-séance 💪",
-        extra: "En-cas rapide (pas un repas)",
+        postworkout: "Collation soir",
+        extra: "En-cas rapide",
       };
       const MOMENT_EMOJI = {
         petitdej: "🍳",
@@ -4187,6 +4559,10 @@
         diner: 0.3,
         postworkout: 0.14,
       };
+      // Repas structurants (hors collations) : on évite de reprendre la
+      // même recette d'un jour sur l'autre pour ces moments-là.
+      const MAIN_MOMENTS = new Set(["petitdej", "dejeuner", "diner"]);
+      // Calcule les macros d'un repas à partir de ses ingrédients crus (précis : dérivé des quantités, pas figé).
       // Calcule les macros d'un repas à partir de ses ingrédients crus (précis : dérivé des quantités, pas figé).
       // Les repas ajoutés manuellement par l'utilisateur (sans liste d'ingrédients) gardent leurs champs kcal/protein/carbs/fat saisis à la main.
       // Catégorie(s) sur laquelle on peut ajuster la portion automatiquement.
@@ -4222,6 +4598,11 @@
           label: "blanc d'œuf",
           labelPlural: "blancs d'œufs",
           piece: true,
+        },
+        levure_chimique: {
+          unitG: 11,
+          label: "sachet de levure chimique",
+          labelPlural: "sachets de levure chimique",
         },
         banane: {
           unitG: 100,
@@ -4283,11 +4664,6 @@
           unitG: 5,
           label: "cuillère à café de sauce soja",
           labelPlural: "cuillères à café de sauce soja",
-        },
-        mayonnaise: {
-          unitG: 5,
-          label: "cuillère à café de mayonnaise",
-          labelPlural: "cuillères à café de mayonnaise",
         },
         curry: {
           unitG: 2.5,
@@ -4373,14 +4749,15 @@
           label: "cuillère à café de cannelle",
           labelPlural: "cuillères à café de cannelle",
         },
-        cacao_poudre: {
-          unitG: 5,
-          label: "cuillère à café de cacao en poudre",
-          labelPlural: "cuillères à café de cacao en poudre",
+        jambon_blanc: {
+          unitG: 25,
+          label: "tranche de jambon blanc",
+          labelPlural: "tranches de jambon blanc",
+          piece: true,
         },
       };
       // Ingrédients liquides affichés en ml plutôt qu'en g (même valeur, densité ≈1).
-      const LIQUID_KEYS = new Set(["lait", "lait_coco"]);
+      const LIQUID_KEYS = new Set(["lait"]);
       // Formate la quantité d'un ingrédient pour l'affichage : unité pratique
       // si elle existe (ex. "2 œufs", "1½ c. à café d'huile"), sinon grammes.
       function formatIngredientAmount(key, grams, n) {
@@ -4403,8 +4780,10 @@
           return `${numStr} ${label}`;
         }
         if (LIQUID_KEYS.has(key))
-          return `${Math.round(grams)} ml ${n ? n.label.toLowerCase() : key}`;
-        return `${Math.round(grams)}g ${n ? n.label.toLowerCase() : key}`;
+          return `${Math.round(grams / 5) * 5} ml ${n ? n.label.toLowerCase() : key}`;
+        if (key === "fromage_blanc")
+          return `${Math.max(100, Math.round(grams / 100) * 100)}g ${n ? n.label.toLowerCase() : key}`;
+        return `${Math.round(grams / 5) * 5}g ${n ? n.label.toLowerCase() : key}`;
       }
       function mac(m, scale) {
         scale = scale || 1;
@@ -4463,7 +4842,7 @@
             const grams = f === 1 ? g : g * f;
             return formatIngredientAmount(key, grams, n);
           })
-          .join(" · ");
+          .join("<br>");
       }
 
       // ── Génération des étapes de préparation ──
@@ -4486,16 +4865,10 @@
       ]);
       const VEG_ROLE_CATS = new Set(["legume", "fruit"]);
       const DAIRY_ROLE_KEYS = new Set([
-        "fromage_rape",
         "parmesan",
-        "houmous",
-        "mayonnaise",
         "fromage_frais_leger",
-        "fromage_blanc_0",
         "fromage_blanc",
-        "skyr",
         "lait",
-        "lait_coco",
       ]);
 
       function mealRoles(m) {
@@ -4541,8 +4914,13 @@
           "galette_riz",
           "bagel",
         ]);
-        const cookStarches = starches.filter((k) => !BREAD_KEYS.has(k));
+        const FLOUR_KEYS = new Set(["farine"]);
+        const cookStarches = starches.filter(
+          (k) => !BREAD_KEYS.has(k) && !FLOUR_KEYS.has(k),
+        );
         const breadStarches = starches.filter((k) => BREAD_KEYS.has(k));
+        const flourStarches = starches.filter((k) => FLOUR_KEYS.has(k));
+        const flourLbl = joinLabels(flourStarches) || "la farine";
         const t = m.technique || "poele";
         const proteinLbl = joinLabels(proteins) || "la protéine";
         const starchLbl = joinLabels(cookStarches);
@@ -4583,8 +4961,11 @@
               ...vegs,
               ...extras,
             ];
+            const pancakeBase =
+              joinLabels([...cookStarches, ...flourStarches]) ||
+              "les flocons d'avoine";
             steps.push(
-              `Mixe ou écrase ${mixIns.length ? joinLabels(mixIns) + " avec " : ""}les œufs, ${starchLbl || "les flocons d'avoine"}${dairy.length ? ` et ${dairyLbl}` : ""} pour obtenir une pâte lisse.`,
+              `Mixe ou écrase ${mixIns.length ? joinLabels(mixIns) + " avec " : ""}les œufs, ${pancakeBase}${dairy.length ? ` et ${dairyLbl}` : ""} pour obtenir une pâte lisse.`,
             );
             steps.push(
               "Fais chauffer une poêle légèrement huilée à feu moyen, verse des petites louches de pâte.",
@@ -4710,6 +5091,34 @@
             );
             break;
           }
+          case "pane": {
+            steps.push(`Coupe ${proteinLbl} en morceaux ou en escalopes.`);
+            steps.push(
+              `Passe-les dans ${flourLbl} puis dans l'œuf battu${seasonings.length ? `, assaisonné(e) de ${seasonLbl}` : ""}.`,
+            );
+            steps.push(
+              "Fais chauffer un filet d'huile dans une poêle et fais cuire 3-4 min de chaque côté jusqu'à ce que ce soit doré et cuit à cœur.",
+            );
+            if (vegs.length) steps.push(`Sers avec ${vegLbl}.`);
+            break;
+          }
+          case "galette": {
+            const otherProteins = proteins.filter(
+              (p) => p !== "oeuf" && p !== "blanc_oeuf",
+            );
+            steps.push(
+              `Mélange ${joinLabels(otherProteins) || proteinLbl}, ${flourLbl} et l'œuf${seasonings.length ? ` avec ${seasonLbl}` : ""} pour former une pâte homogène.`,
+            );
+            steps.push("Façonne des petites galettes avec les mains.");
+            steps.push(
+              "Fais chauffer un filet d'huile dans une poêle et fais cuire les galettes 3-4 min de chaque côté jusqu'à ce qu'elles soient dorées.",
+            );
+            if (vegs.length)
+              steps.push(
+                `Sers avec ${vegLbl}, sauté(e)s ou crus selon ton goût.`,
+              );
+            break;
+          }
           case "poele":
           default: {
             if (cookStarches.length)
@@ -4760,11 +5169,29 @@
       function mealSelGrams(m, scale) {
         scale = scale || 1;
         if (!m.ingredients) return 0;
+        const scalableCats = mealScalableCats(m);
         return m.ingredients.reduce((s, [key, g]) => {
           const sel = SEL_PAR_100G[key];
-          return sel ? s + (sel * g * scale) / 100 : s;
+          if (!sel) return s;
+          const n = NUTRI[key];
+          const f = n && scalableCats.has(n.cat) ? scale : 1;
+          return s + (sel * g * f) / 100;
         }, 0);
       }
+
+      function mealSucreGrams(m, scale) {
+        scale = scale || 1;
+        if (!m.ingredients) return 0;
+        const scalableCats = mealScalableCats(m);
+        return m.ingredients.reduce((s, [key, g]) => {
+          const sucre = SUCRE_PAR_100G[key];
+          if (!sucre) return s;
+          const n = NUTRI[key];
+          const f = n && scalableCats.has(n.cat) ? scale : 1;
+          return s + (sucre * g * f) / 100;
+        }, 0);
+      }
+
       function mealContainsIngredient(m, key) {
         if (!m.ingredients) return false;
         return m.ingredients.some(([k]) => k === key);
@@ -4786,8 +5213,6 @@
         "fromage_rape",
         "fromage_frais_leger",
         "fromage_blanc",
-        "fromage_blanc_0",
-        "skyr",
         "lait",
         "oeuf",
         "blanc_oeuf",
@@ -4849,7 +5274,6 @@
             "cabillaud",
             "truite",
             "crevettes",
-            "tofu_ferme",
             "oeuf",
             "blanc_oeuf",
           ].includes(k),
@@ -4914,7 +5338,7 @@
         custom: [],
         plan: { lun: [], mar: [], mer: [], jeu: [], ven: [], sam: [], dim: [] },
         savedWeeks: [], // [{id, label, date, plan}]
-        tab: "profil",
+        tab: "semaine",
         semaineView: "jours", // UI only — sous-onglet actif dans "Semaine": jours / courses / coherence / sauvegardes
         activeDay: "lun",
         suggestIdx: 0,
@@ -5114,14 +5538,18 @@
         redMeatLeft,
         charcuterieLeft,
         selLeft,
+        sucreLeft,
         thonLeft,
         cabillaudLeft,
+        fatLeft,
         daySrcCounts,
         dayTechCounts,
+        dayIngredientCounts,
         carbUsage,
         ingredientUsage,
         perishState,
         dayIndex,
+        forbiddenId,
       ) {
         return options
           .slice()
@@ -5156,8 +5584,13 @@
             const red = categoryGrams(m, "viande_rouge");
             const charc = categoryGrams(m, "charcuterie");
             const sel = mealSelGrams(m);
+            const sucre = mealSucreGrams(m);
             const thonGrams = ingredientGrams(m, "thon_boite");
             const isCabillaud = mealContainsIngredient(m, "cabillaud");
+            const containsPainComplet = mealContainsIngredient(
+              m,
+              "pain_complet",
+            );
             // Pénalité douce sur une source de glucides déjà beaucoup utilisée
             // cette semaine (riz, pâtes...), pour favoriser la rotation avec
             // patate douce / pomme de terre / quinoa déjà présents.
@@ -5186,9 +5619,38 @@
                   .map(([k]) => k)
               : [];
             const ingredientRepeatPenalty = mainKeys.reduce(
-              (s, k) => s + Math.max(0, (ingredientUsage[k] || 0) - 1) * 2.4,
+              (s, k) =>
+                s +
+                Math.pow(Math.max(0, (ingredientUsage[k] || 0) - 1), 1.6) * 1.8,
               0,
             );
+            const fruitCapPenalty = mainKeys.some(
+              (k) =>
+                NUTRI[k].cat === "fruit" &&
+                (ingredientUsage[k] || 0) >= FRUIT_INGREDIENT_MAX_WEEKLY,
+            )
+              ? 6
+              : 0;
+            const dayIngredientRepeatPenalty = mainKeys.reduce(
+              (s, k) => s + (dayIngredientCounts[k] || 0) * 3.5,
+              0,
+            );
+            // Rééquilibrage poulet / dinde : si le poulet a déjà été
+            // nettement plus utilisé que la dinde cette semaine, on le
+            // pénalise un peu plus pour ramener les deux au même niveau.
+            const poultryImbalancePenalty = mealContainsIngredient(
+              m,
+              "poulet_blanc",
+            )
+              ? Math.min(
+                  3,
+                  Math.max(
+                    0,
+                    (ingredientUsage["poulet_blanc"] || 0) -
+                      (ingredientUsage["dinde"] || 0),
+                  ),
+                ) * 2.5
+              : 0;
             // Périssables déjà ouverts cette semaine (lait, crème fraîche...) :
             // on encourage fortement à réutiliser un pot déjà entamé tant qu'il
             // est encore bon, pour ne pas en ouvrir un nouveau inutilement ni
@@ -5212,13 +5674,39 @@
             const oatSoftPenalty = mealContainsIngredient(m, "avoine")
               ? 1.5
               : 0;
+            // Pénalité douce anti-concentration : décourage de "dépenser"
+            // trop vite le quota hebdo de viande rouge par rapport à
+            // l'avancement de la semaine, pour éviter qu'elle se retrouve
+            // systématiquement en début de semaine.
+            const weekProgress = (dayIndex + 1) / DAYS.length;
+            const redMeatSoFarComputed = RED_MEAT_SAFE - redMeatLeft;
+            const redPaceOver = Math.max(
+              0,
+              redMeatSoFarComputed + red - RED_MEAT_SAFE * weekProgress,
+            );
+            const redPacePenalty =
+              (redPaceOver / Math.max(1, RED_MEAT_SAFE)) * 5;
+            const selSoFarComputed = SEL_SAFE - selLeft;
+            const selPaceOver = Math.max(
+              0,
+              selSoFarComputed + sel - SEL_SAFE * weekProgress,
+            );
+            const selPacePenalty = (selPaceOver / Math.max(1, SEL_SAFE)) * 4;
             const hardPenalty =
               (red > redMeatLeft ? 4 : 0) +
               (charc > charcuterieLeft ? 4 : 0) +
               (sel > selLeft ? 3 : 0) +
+              (sucre > sucreLeft ? 3 : 0) +
               (thonGrams > thonLeft ? 4 : 0) +
               (isCabillaud && cabillaudLeft <= 0 ? 4 : 0) +
+              (x.fat > fatLeft ? 3 : 0) +
+              (containsPainComplet &&
+              (dayIngredientCounts["pain_complet"] || 0) >= 1
+                ? 8
+                : 0) +
               ((mealUsage[m.id] || 0) >= 3 ? 6 : 0) +
+              (forbiddenId && m.id === forbiddenId ? 50 : 0) +
+              fruitCapPenalty +
               sameSrcPenalty;
             return {
               meal: m,
@@ -5230,10 +5718,14 @@
                 reusePenalty +
                 carbRepeatPenalty +
                 ingredientRepeatPenalty +
+                dayIngredientRepeatPenalty + // AJOUT
+                poultryImbalancePenalty +
                 perishBonus +
                 hardPenalty +
                 sameTechPenalty +
-                oatSoftPenalty,
+                oatSoftPenalty +
+                redPacePenalty,
+              selPacePenalty,
             };
           })
           .sort((a, b) => a.score - b.score)
@@ -5246,12 +5738,17 @@
       const HEALTH_SAFETY_MARGIN = 0.88;
       const RED_MEAT_MAX = 500; // g/semaine, PNNS 5
       const CHARCUTERIE_MAX = 150; // g/semaine, PNNS 5
+      const FRUIT_INGREDIENT_MAX_WEEKLY = 7; // occurrences max d'un même fruit par semaine
       const RED_MEAT_SAFE = Math.round(RED_MEAT_MAX * HEALTH_SAFETY_MARGIN);
       const CHARCUTERIE_SAFE = Math.round(
         CHARCUTERIE_MAX * HEALTH_SAFETY_MARGIN,
       );
       const SEL_MAX = 35; // g/semaine — 5g/jour recommandé ANSES/PNNS 5 (mangerbouger.fr)
       const SEL_SAFE = Math.round(SEL_MAX * HEALTH_SAFETY_MARGIN);
+
+      const SUCRE_MAX = 350; // g/semaine — 50g/jour, sucres libres max recommandé OMS (10% de l'apport énergétique)
+      const SUCRE_SAFE = Math.round(SUCRE_MAX * HEALTH_SAFETY_MARGIN);
+
       const NON_BLOCKING_RULE_KEYS = new Set([
         "dailyKcal",
         "dailyProtein",
@@ -5335,6 +5832,12 @@
           (s, { meal, scale }) => s + mealSelGrams(meal, scale),
           0,
         );
+
+        const sucreGrams = allEntries.reduce(
+          (s, { meal, scale }) => s + mealSucreGrams(meal, scale),
+          0,
+        );
+
         const dairyCount = weeklyMealsWithCat(["laitier"]);
         const completGrams = weeklyCatGrams("feculent_complet");
         const raffineGrams = weeklyCatGrams("feculent_raffine");
@@ -5398,14 +5901,29 @@
             return t <= 15;
           return t <= 35;
         });
-        const workSnackOk = meals
-          .filter(
-            (m) =>
-              m.moment === "collationmatin" ||
-              m.moment === "collationapresmidi",
-          )
-          .every((m) => isWorkSnackCompatible(m));
+        const workSnackOk = Object.entries(plan).every(([dayKey, entries]) => {
+          const day = DAYS.find((d) => d.key === dayKey);
+          if (!day || !day.workday) return true;
+          return entries
+            .map((e) => mealById(entryId(e)))
+            .filter(
+              (m) =>
+                m &&
+                (m.moment === "collationmatin" ||
+                  m.moment === "collationapresmidi"),
+            )
+            .every((m) => isWorkSnackCompatible(m));
+        });
         const wheyFree = meals.every((m) => !mealContainsIngredient(m, "whey"));
+
+        const fruitKeysInLibrary = Object.keys(NUTRI).filter(
+          (k) => NUTRI[k].cat === "fruit",
+        );
+        const fruitOveruse = fruitKeysInLibrary.filter(
+          (k) =>
+            meals.filter((m) => mealContainsIngredient(m, k)).length >
+            FRUIT_INGREDIENT_MAX_WEEKLY,
+        );
 
         const rules = {
           legFruit: legFruitPct >= 80,
@@ -5414,10 +5932,12 @@
           oilyFish: oilyFishCount >= 1,
           thonLimit: thonGramsWeek <= INGREDIENT_UNITS.thon_boite.unitG,
           cabillaudLimit: cabillaudCount <= 1,
+          fruitVariety: fruitOveruse.length === 0,
           perishCluster: perishViolations.length === 0,
           redMeat: redMeatGrams <= RED_MEAT_SAFE,
           charcuterie: charcuterieGrams <= CHARCUTERIE_SAFE,
           sel: selGrams <= SEL_SAFE,
+          sucre: sucreGrams <= SUCRE_SAFE,
           dairy: dairyCount >= 10,
           complet: completPct >= 50,
           fat: fatRatio <= 1.1,
@@ -5444,10 +5964,12 @@
           oilyFishCount,
           thonCount,
           cabillaudCount,
+          fruitOveruse,
           perishViolations,
           redMeatGrams,
           charcuterieGrams,
           selGrams,
+          sucreGrams,
           dairyCount,
           completPct,
           weekFatTotal,
@@ -5489,6 +6011,7 @@
           MOMENT_SHARE_TRAINING,
         );
         const byMoment = {};
+        const byMomentWorkSnack = {};
         Object.keys(allMomentShares).forEach((mo) => {
           let options = lib.filter((m) => m.moment === mo);
           options = options.filter((m) => !mealContainsIngredient(m, "whey"));
@@ -5502,10 +6025,19 @@
               return t <= 15;
             return t <= 35;
           });
-          if (mo === "collationmatin" || mo === "collationapresmidi") {
-            options = options.filter((m) => isWorkSnackCompatible(m));
-          }
+          options = options.filter((m) => {
+            if (!m.ingredients) return true;
+            const fruitCount = m.ingredients.filter(
+              ([k]) => NUTRI[k] && NUTRI[k].cat === "fruit",
+            ).length;
+            return fruitCount <= 1;
+          });
           byMoment[mo] = options;
+          if (mo === "collationmatin" || mo === "collationapresmidi") {
+            byMomentWorkSnack[mo] = options.filter((m) =>
+              isWorkSnackCompatible(m),
+            );
+          }
         });
         // Check coverage only for base moments (postworkout is training-only)
         const baseMoments = Object.keys(MOMENT_SHARE);
@@ -5515,6 +6047,12 @@
         const missingTrainingMoments = Object.keys(
           MOMENT_SHARE_TRAINING,
         ).filter((mo) => !byMoment[mo] || byMoment[mo].length === 0);
+        const missingWorkSnackMoments = [
+          "collationmatin",
+          "collationapresmidi",
+        ].filter(
+          (mo) => !byMomentWorkSnack[mo] || byMomentWorkSnack[mo].length === 0,
+        );
         if (missingMoments.length) {
           state.weekMessage =
             "Impossible de générer: il manque des recettes pour " +
@@ -5530,14 +6068,33 @@
           render();
           return;
         }
+        if (missingWorkSnackMoments.length) {
+          state.weekMessage =
+            "Impossible de générer: aucune collation compatible boulot (sans frigo, sans odeur, stable à température ambiante) pour " +
+            missingWorkSnackMoments.map((m) => MOMENT_LABEL[m]).join(", ") +
+            ".";
+          render();
+          return;
+        }
 
-        const attemptCount = 12000;
+        const TIME_BUDGET_MS = 20000;
+        const startTime = performance.now();
         const ruleFailCounts = {};
-        for (let attempt = 0; attempt < attemptCount; attempt++) {
+        const weekFatTargetPreCalc = DAYS.reduce(
+          (s, d) => s + computeTargets(d.training).fat,
+          0,
+        );
+        const FAT_SAFE = weekFatTargetPreCalc * 1.1;
+        let attempt = 0;
+        while (performance.now() - startTime < TIME_BUDGET_MS) {
+          attempt++;
           const mealUsage = {};
+          const prevDayMainMeals = {}; // dernière recette utilisée la veille, par moment structurant
           let redMeatSoFar = 0;
+          let fatSoFar = 0;
           let charcuterieSoFar = 0;
           let selSoFar = 0;
+          let sucreSoFar = 0;
           let thonGramsSoFar = 0;
           let cabillaudSoFar = 0;
           let scaledDaysCount = 0;
@@ -5556,6 +6113,7 @@
             const dayMeals = [];
             const daySrcCounts = {};
             const dayTechCounts = {};
+            const dayIngredientCounts = {}; // AJOUT
             const dayIndex = DAYS.indexOf(day);
 
             for (const moment of moments) {
@@ -5564,21 +6122,32 @@
                 protein: dayTarget.protein * dayMomentShare[moment],
                 fat: dayTarget.fat * dayMomentShare[moment],
               };
+              const isWorkCollation =
+                (moment === "collationmatin" ||
+                  moment === "collationapresmidi") &&
+                day.workday;
+              const momentPool = isWorkCollation
+                ? byMomentWorkSnack[moment]
+                : byMoment[moment];
               const ordered = sortedOptionsForMoment(
-                byMoment[moment],
+                momentPool,
                 subTarget,
                 mealUsage,
                 RED_MEAT_SAFE - redMeatSoFar,
                 CHARCUTERIE_SAFE - charcuterieSoFar,
                 SEL_SAFE - selSoFar,
+                SUCRE_SAFE - sucreSoFar,
                 INGREDIENT_UNITS.thon_boite.unitG - thonGramsSoFar,
                 1 - cabillaudSoFar,
+                FAT_SAFE - fatSoFar,
                 daySrcCounts,
                 dayTechCounts,
+                dayIngredientCounts,
                 carbUsage,
                 ingredientUsage,
                 perishState,
                 dayIndex,
+                MAIN_MOMENTS.has(moment) ? prevDayMainMeals[moment] : undefined,
               );
               const selected = weightedPick(ordered);
               if (!selected) {
@@ -5587,6 +6156,9 @@
               }
               dayMeals.push(selected);
               mealUsage[selected.id] = (mealUsage[selected.id] || 0) + 1;
+              if (MAIN_MOMENTS.has(moment)) {
+                prevDayMainMeals[moment] = selected.id;
+              }
               daySrcCounts[selected.src] =
                 (daySrcCounts[selected.src] || 0) + 1;
               if (selected.technique)
@@ -5595,10 +6167,12 @@
               redMeatSoFar += categoryGrams(selected, "viande_rouge");
               charcuterieSoFar += categoryGrams(selected, "charcuterie");
               selSoFar += mealSelGrams(selected);
+              sucreSoFar += mealSucreGrams(selected);
               thonGramsSoFar += ingredientGrams(selected, "thon_boite");
               if (mealContainsIngredient(selected, "cabillaud"))
                 cabillaudSoFar++;
               cabillaudSoFar++;
+              fatSoFar += mac(selected).fat;
               if (selected.ingredients) {
                 selected.ingredients.forEach(([k]) => {
                   if (
@@ -5610,6 +6184,7 @@
                   }
                   if (NUTRI[k] && MAIN_INGREDIENT_CATS.has(NUTRI[k].cat)) {
                     ingredientUsage[k] = (ingredientUsage[k] || 0) + 1;
+                    dayIngredientCounts[k] = (dayIngredientCounts[k] || 0) + 1; // AJOUT
                   }
                   if (
                     CONSERVATION_PACKAGES[k] &&
@@ -5715,9 +6290,11 @@
           oilyFish: "poisson gras (min 1/sem)",
           thonLimit: "thon (max 1 boîte/sem)",
           cabillaudLimit: "cabillaud (max 1/sem)",
+          fruitVariety: "variété des fruits (max 7x/sem par fruit)",
           redMeat: "viande rouge (quota)",
           charcuterie: "charcuterie (quota)",
           sel: "sel (quota)",
+          sucre: "sucre (quota)",
           dairy: "laitiers (min 10/sem)",
           complet: "féculents complets (50%)",
           fat: "lipides (quota)",
@@ -5729,6 +6306,9 @@
           workSnack: "compatibilité collations au travail",
           wheyFree: "whey exclue",
         };
+        console.log(
+          `Génération arrêtée après ${attempt} tentatives en ${Math.round(performance.now() - startTime)}ms.`,
+        );
         const topFails = Object.entries(ruleFailCounts)
           .sort((a, b) => b[1] - a[1])
           .slice(0, 3)
@@ -5787,15 +6367,15 @@
         </div>
         <div class="card">
           <h2>Jour d'entraînement <span class="pill">${t.kcal} kcal</span></h2>
-          ${macrobar("Protéines", 0, t.protein, "var(--green)")}
-          ${macrobar("Glucides", 0, t.carbs, "var(--amber)")}
-          ${macrobar("Lipides", 0, t.fat, "var(--brick)")}
+          ${macrobar("Protéines", 0, r.protein, "var(--protein)")}
+          ${macrobar("Glucides", 0, r.carbs, "var(--carbs)")}
+          ${macrobar("Lipides", 0, r.fat, "var(--fat)")}
         </div>
         <div class="card">
           <h2>Jour de repos <span class="pill amber">${r.kcal} kcal</span></h2>
-          ${macrobar("Protéines", 0, r.protein, "var(--green)")}
-          ${macrobar("Glucides", 0, r.carbs, "var(--amber)")}
-          ${macrobar("Lipides", 0, r.fat, "var(--brick)")}
+          ${macrobar("Protéines", 0, r.protein, "var(--protein)")}
+          ${macrobar("Glucides", 0, r.carbs, "var(--carbs)")}
+          ${macrobar("Lipides", 0, r.fat, "var(--fat)")}
         </div>
         <div class="card">
           <h2>Comment c'est calculé</h2>
@@ -5831,7 +6411,7 @@
             <div style="flex:1;min-width:0;">
               <div class="mname">${m.name}</div>
               <div class="mmacro">${MOMENT_LABEL[m.moment]} · ${mac(m).kcal} kcal · ${mac(m).protein}P/${mac(m).carbs}G/${mac(m).fat}L</div>
-              ${m.ingredients ? `<div class="ingr-chips">${ingredientChips(m)}</div>` : ""}
+              ${m.ingredients ? `<div class="ingr-chips">${ingredientLine(m)}</div>` : ""}
             </div>
             <button class="rm-info" data-view-recipe="${m.id}">🍳</button>
           </div>`,
@@ -5932,6 +6512,20 @@
         return html;
       }
 
+      function macroBarPct(macros) {
+        const p = macros.protein * 4,
+          c = macros.carbs * 4,
+          f = macros.fat * 9;
+        const t = p + c + f || 1;
+        return { p: (p / t) * 100, c: (c / t) * 100, f: (f / t) * 100 };
+      }
+
+      const PERIOD_GROUPS = [
+        { label: "Matin", moments: ["petitdej", "collationmatin"] },
+        { label: "Midi", moments: ["dejeuner", "collationapresmidi"] },
+        { label: "Soir", moments: ["postworkout", "diner", "extra"] },
+      ];
+
       // Vue "Jours": une strip de 7 jours pour naviguer + le détail d'un seul
       // jour à la fois (au lieu de 7 cartes empilées) pour limiter le scroll.
       function renderJoursView() {
@@ -5969,52 +6563,88 @@
           : totals.kcal < bounds.min
             ? "amber"
             : "";
+        const dayComp = macroBarPct(totals);
 
-        html += `<div class="card">
-          <div style="display:flex;align-items:center;gap:8px;margin-bottom:2px;">
-            <div style="flex:1;min-width:0;">
-              <div style="font-family:'Fraunces',serif;font-size:19px;font-weight:600;">${day.label}${day.training ? " · 💪 entraînement" : " · 🌿 repos"}</div>
-              <div class="mmacro" style="margin-top:2px;">${isEmpty ? "Aucun repas planifié" : `${totals.protein}g P · ${totals.carbs}g G · ${totals.fat}g L`}</div>
-            </div>
-            <span class="pill ${pillCls}">${isEmpty ? "vide" : totals.kcal + " / " + targets.kcal}</span>
+        html += `<div class="card day-head-card">
+          <div class="day-head-top">
+            <div class="day-title">${day.label}</div>
+            <span class="day-mode${day.training ? " is-training" : ""}">${day.training ? "Entraînement" : "Repos"}</span>
           </div>
-          ${overshoot ? `<p style="font-size:11.5px;color:var(--brick);margin:8px 0 0;line-height:1.4;">▲ Ce jour dépasse le quota calorique — régénère la semaine pour laisser l'algorithme ajuster les portions, ou retire un repas ci-dessous.</p>` : ""}
-          <div class="jar-wrap" style="margin:14px 0 12px;">
-            ${jarSvg(Math.min(1.2, totals.kcal / Math.max(1, targets.kcal)))}
-            <div class="jar-stats">
-              ${macrobar("Protéines", totals.protein, targets.protein, "var(--green)")}
-              ${macrobar("Glucides", totals.carbs, targets.carbs, "var(--amber)")}
-              ${macrobar("Lipides", totals.fat, targets.fat, "var(--brick)")}
+          <div class="day-kcal-row">
+            <span class="day-kcal">${isEmpty ? "—" : totals.kcal}</span>
+            <span class="day-kcal-target">/ ${targets.kcal} kcal</span>
+          </div>
+          ${overshoot ? `<p style="font-size:11.5px;color:var(--brick);margin:6px 0 0;line-height:1.4;">▲ Ce jour dépasse le quota calorique — régénère la semaine, ou retire un repas ci-dessous.</p>` : ""}
+          ${
+            isEmpty
+              ? ""
+              : `<div class="mc-bar day-comp-bar">
+            <div class="mc-bar-p" style="width:${dayComp.p}%;"></div>
+            <div class="mc-bar-c" style="width:${dayComp.c}%;"></div>
+            <div class="mc-bar-f" style="width:${dayComp.f}%;"></div>
+          </div>`
+          }
+          <div class="day-macros">
+            <div class="day-macro">
+              <div class="dm-top"><span>Protéines</span><span>${totals.protein}/${targets.protein}g</span></div>
+              <div class="dm-track"><div class="dm-fill dm-p" style="width:${targets.protein ? Math.min(115, (totals.protein / targets.protein) * 100) : 0}%;"></div></div>
+            </div>
+            <div class="day-macro">
+              <div class="dm-top"><span>Glucides</span><span>${totals.carbs}/${targets.carbs}g</span></div>
+              <div class="dm-track"><div class="dm-fill dm-c" style="width:${targets.carbs ? Math.min(115, (totals.carbs / targets.carbs) * 100) : 0}%;"></div></div>
+            </div>
+            <div class="day-macro">
+              <div class="dm-top"><span>Lipides</span><span>${totals.fat}/${targets.fat}g</span></div>
+              <div class="dm-track"><div class="dm-fill dm-f" style="width:${targets.fat ? Math.min(115, (totals.fat / targets.fat) * 100) : 0}%;"></div></div>
             </div>
           </div>
           ${
             isEmpty
               ? `<div class="empty" style="padding:12px 0 4px;"><p>Aucun repas pour ${day.label}.</p></div>`
-              : entries
-                  .map(
-                    (
-                      { meal: m, scale },
-                      i,
-                    ) => `<div class="meal-row-full" style="border-left:3px solid ${MOMENT_ACCENT[m.moment] || "var(--border)"};padding-left:10px;">
-              <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
-                <div style="flex:1;min-width:0;">
-                  <div class="mname">${MOMENT_EMOJI[m.moment] || ""} ${m.name}${scale !== 1 ? ` <span style="font-size:10px;color:var(--amber);font-family:'JetBrains Mono',monospace;font-weight:600;">FÉCULENTS/LÉGUMES ${Math.round(scale * 100)}%</span>` : ""}${m.moment === "postworkout" ? ' <span style="font-size:10px;color:var(--green);font-family:JetBrains Mono,monospace;font-weight:600;">POST-SÉANCE</span>' : ""}${m.moment === "extra" ? ' <span style="font-size:10px;color:var(--brick);font-family:JetBrains Mono,monospace;font-weight:600;">PAS UN REPAS · À FINIR</span>' : ""}</div>
-                  <div class="mmacro">${MOMENT_LABEL[m.moment]} · ${mac(m, scale).kcal} kcal · ${mac(m, scale).protein}P/${mac(m, scale).carbs}G/${mac(m, scale).fat}L</div>
-                  ${m.ingredients ? `<div class="ingr-chips">${ingredientChips(m, scale)}</div>` : ""}
+              : `<div class="day-timeline">${PERIOD_GROUPS.map((period) => {
+                  const periodEntries = entries
+                    .map((e, i) => ({ ...e, i }))
+                    .filter((e) => period.moments.includes(e.meal.moment));
+                  if (!periodEntries.length) return "";
+                  return `<div class="day-period">
+                <div class="day-period-label">${period.label}</div>
+                <div class="day-period-meals">
+                ${periodEntries
+                  .map(({ meal: m, scale, i }) => {
+                    const macros = mac(m, scale);
+                    const mb = macroBarPct(macros);
+                    return `<div class="meal-card" data-view-recipe="${m.id}">
+
+                  <div class="mc-head-row">
+                    <div class="mc-moment">${MOMENT_LABEL[m.moment]}</div>
+                    <span class="mc-open"><svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 6 15 12 9 18"/></svg></span>
+                  </div>
+                  <div class="mc-name">${m.name}</div>
+                  ${m.moment === "postworkout" ? '<span class="mc-tag">POST-SÉANCE</span>' : ""}
+                  ${m.moment === "extra" ? '<span class="mc-tag">À FINIR</span>' : ""}
+                  <div class="mc-foot">
+                    <div class="mc-kcal">${macros.kcal}<span class="mc-kcal-unit">kcal</span></div>
+                    <div class="mc-bar">
+                      <div class="mc-bar-p" style="width:${mb.p}%;"></div>
+                      <div class="mc-bar-c" style="width:${mb.c}%;"></div>
+                      <div class="mc-bar-f" style="width:${mb.f}%;"></div>
+                    </div>
+                    <div class="mc-macro-row">
+                      <span>${macros.protein}g P</span><span>${macros.carbs}g G</span><span>${macros.fat}g L</span>
+                    </div>
+                  </div>
+                </div>`;
+                  })
+                  .join("")}
                 </div>
-                <button class="rm-info" data-view-recipe="${m.id}">🍳</button>
-                <button class="rm" data-remove-day="${i}" data-remove-key="${day.key}">✕</button>
-              </div>
-            </div>`,
-                  )
-                  .join("")
+              </div>`;
+                }).join("")}</div>`
           }
-          <button class="primary small" data-open-picker-day="${day.key}" style="margin-top:12px;width:100%;">+ Ajouter un repas</button>
+
         </div>`;
 
         return html;
       }
-
       // Regroupement "rayon de supermarché" pour une liste de courses qui se
       // parcourt dans l'ordre où on remplit vraiment son caddie.
       const AISLES = [
@@ -6176,15 +6806,13 @@
           days: 5,
         },
         fromage_frais_leger: {
-          size: 150,
-          unit: "g",
-          vie: "4-5 jours",
-          days: 4,
+          unitG: 25,
+          label: "cube de fromage frais",
+          labelPlural: "cubes de fromage frais",
+          piece: true,
         },
         lait: { size: 1000, unit: "ml", vie: "3-4 jours", days: 4 },
         fromage_blanc: { size: 500, unit: "g", vie: "4-5 jours", days: 4 },
-        fromage_blanc_0: { size: 500, unit: "g", vie: "4-5 jours", days: 4 },
-        skyr: { size: 450, unit: "g", vie: "environ 1 semaine", days: 7 },
         blanc_oeuf: { size: 250, unit: "ml", vie: "2-3 jours", days: 3 },
         whey: { size: 900, unit: "g", vie: "plusieurs mois", days: 90 },
         fromage_rape: { size: 200, unit: "g", vie: "10-15 jours", days: 12 },
@@ -6231,14 +6859,6 @@
           vie: "2-3 jours une fois ouvert",
           days: 3,
         },
-        edamame: {
-          size: 400,
-          unit: "g",
-          vie: "plusieurs mois (surgelé)",
-          days: 90,
-        },
-        tofu_ferme: { size: 200, unit: "g", vie: "3-4 jours", days: 4 },
-        houmous: { size: 200, unit: "g", vie: "4-5 jours", days: 5 },
         mais_boite: {
           size: 285,
           unit: "g",
@@ -6331,18 +6951,6 @@
           days: 90,
         },
         huile: { size: 1000, unit: "ml", vie: "plusieurs mois", days: 180 },
-        lait_coco: {
-          size: 400,
-          unit: "ml",
-          vie: "3-4 jours une fois ouvert",
-          days: 4,
-        },
-        mayonnaise: {
-          size: 470,
-          unit: "g",
-          vie: "environ 2 mois",
-          days: 60,
-        },
         miel: { size: 500, unit: "g", vie: "plusieurs mois", days: 365 },
         ail: { size: 250, unit: "g", vie: "3-4 semaines", days: 25 },
         gingembre: {
@@ -6373,9 +6981,7 @@
       const PERISH_QUICK_EXTRA = {
         lait: "m131",
         fromage_frais_leger: "m133",
-        fromage_blanc_0: "m134",
         fromage_blanc: "m134",
-        skyr: "m135",
       };
       function conservationNotes(totals) {
         return Object.keys(CONSERVATION_PACKAGES)
@@ -6511,6 +7117,20 @@
             ` ${Math.round(stats.selGrams)}g (recommandation ANSES/PNNS 5 : max 35g/sem, ~5g/jour — l'appli vise ${SEL_SAFE}g).`,
           ),
           line(
+            stats.rules.fruitVariety ? "ok" : "warn",
+            stats.rules.fruitVariety ? "Fruits variés" : "Fruit trop répété",
+            stats.fruitOveruse.length
+              ? ` ${stats.fruitOveruse.map((k) => (NUTRI[k] ? NUTRI[k].label : k)).join(", ")} utilisé(s) plus de ${FRUIT_INGREDIENT_MAX_WEEKLY}x cette semaine.`
+              : ` Chaque fruit apparaît au plus ${FRUIT_INGREDIENT_MAX_WEEKLY}x dans la semaine.`,
+          ),
+          line(
+            stats.rules.sucre ? "ok" : "warn",
+            stats.rules.sucre
+              ? "Sucre sous contrôle"
+              : "Sucre au-dessus du quota",
+            ` ${Math.round(stats.sucreGrams)}g de sucres libres (recommandation OMS : max 350g/sem, ~50g/jour, 10% de l'apport énergétique — l'appli vise ${SUCRE_SAFE}g).`,
+          ),
+          line(
             stats.rules.dailyDiversity ? "ok" : "warn",
             stats.rules.dailyDiversity
               ? "Variété journalière OK"
@@ -6603,15 +7223,15 @@
         if (!m) return "";
         const x = mac(m);
         const steps = generateSteps(m);
-        return `<div class="overlay" id="recipe-overlay">
-        <div class="sheet">
+        return `<div class="overlay recipe-overlay" id="recipe-overlay">
+        <div class="sheet recipe-panel">
           <button class="close-x" data-close-recipe>✕</button>
           <h3>${m.name}</h3>
           <div class="mmacro" style="margin-bottom:14px;">${MOMENT_LABEL[m.moment]} · ${x.kcal} kcal · ${x.protein}P/${x.carbs}G/${x.fat}L</div>
           ${
             m.ingredients
               ? `<div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:6px;">Ingrédients</div>
-          <div class="ingr-chips" style="margin-bottom:16px;">${ingredientChips(m)}</div>`
+          <div class="ingr-chips" style="margin-bottom:16px;">${ingredientLine(m)}</div>`
               : ""
           }
           <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:8px;">Préparation</div>
@@ -6654,7 +7274,7 @@
               : lib
                   .map(
                     (m) => `<div class="picker-item" data-pick="${m.id}">
-              <div style="flex:1;"><div class="mname">${m.name}</div><div class="mmacro">${mac(m).kcal} kcal · ${mac(m).protein}P/${mac(m).carbs}G/${mac(m).fat}L</div>${m.ingredients ? `<div class="ingr-chips">${ingredientChips(m)}</div>` : ""}</div>
+              <div style="flex:1;"><div class="mname">${m.name}</div><div class="mmacro">${mac(m).kcal} kcal · ${mac(m).protein}P/${mac(m).carbs}G/${mac(m).fat}L</div>${m.ingredients ? `<div class="ingr-chips">${ingredientLine(m)}</div>` : ""}</div>
               <span style="font-size:20px;color:var(--green);flex:none;">+</span>
             </div>`,
                   )
