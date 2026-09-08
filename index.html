@@ -1424,12 +1424,12 @@
         },
 
         // --- Légumineuses
-        lentilles_crues: {
-          label: "Lentilles sèches crues",
-          kcal: 350,
-          p: 25,
-          c: 52,
-          f: 1.5,
+        lentilles_boite: {
+          label: "Lentilles cuites (boîte, égouttées)",
+          kcal: 110,
+          p: 9,
+          c: 17,
+          f: 0.6,
           cat: "legumineuse",
         },
         haricots_rouges_boite: {
@@ -1546,6 +1546,22 @@
           p: 0.3,
           c: 14,
           f: 0.2,
+          cat: "fruit",
+        },
+        kiwi: {
+          label: "Kiwi",
+          kcal: 61,
+          p: 1.1,
+          c: 10,
+          f: 0.5,
+          cat: "fruit",
+        },
+        orange: {
+          label: "Orange",
+          kcal: 47,
+          p: 0.9,
+          c: 9,
+          f: 0.1,
           cat: "fruit",
         },
         citron: {
@@ -1670,6 +1686,7 @@
       // pains, sauces, conserves). Absent de cette table = négligeable.
       const SEL_PAR_100G = {
         jambon_blanc: 1.8,
+        lentilles_boite: 0.6,
         thon_boite: 0.9,
         sardine_boite: 1.2,
         poisson_pane: 1.0,
@@ -1966,9 +1983,9 @@
           name: "Lentilles, poulet, riz",
           moment: "dejeuner",
           src: "légumineuses",
-          prep: 25,
+          prep: 20,
           ingredients: [
-            ["lentilles_crues", 70],
+            ["lentilles_boite", 200],
             ["poulet_blanc", 150],
             ["riz_complet_cru", 50],
             ["sauce_tomate", 100],
@@ -2035,9 +2052,9 @@
           src: "légumineuses",
           veg: true,
           frozen: true,
-          prep: 25,
+          prep: 18,
           ingredients: [
-            ["lentilles_crues", 80],
+            ["lentilles_boite", 220],
             ["poulet_blanc", 150],
             ["petits_pois", 150],
             ["huile", 6],
@@ -2076,25 +2093,6 @@
             ["huile", 6],
             ["sauce_tomate", 90],
             ["ail", 3],
-            ["herbes_de_provence", 1],
-          ],
-        },
-        {
-          id: "m39",
-          technique: "four",
-          name: "Cabillaud rôti à l'ail et au citron, pommes de terre, poivrons",
-          moment: "diner",
-          src: "poisson",
-          veg: true,
-          lean: true,
-          frozen: true,
-          ingredients: [
-            ["cabillaud", 200],
-            ["pomme_de_terre", 280],
-            ["poivron", 150],
-            ["huile", 10],
-            ["ail", 3],
-            ["citron", 15],
             ["herbes_de_provence", 1],
           ],
         },
@@ -2170,9 +2168,9 @@
           src: "légumineuses",
           veg: true,
           lean: true,
-          prep: 15,
+          prep: 10,
           ingredients: [
-            ["lentilles_crues", 80],
+            ["lentilles_boite", 220],
             ["thon_boite", 112],
             ["tomate", 120],
             ["oignon", 30],
@@ -3191,7 +3189,7 @@
         },
         {
           id: "m145",
-          technique: "poele",
+          technique: "pancakes",
           name: "Pancakes avoine, pomme, cannelle",
           moment: "petitdej",
           src: "œuf",
@@ -3472,21 +3470,6 @@
           ],
         },
         {
-          id: "m167",
-          technique: "four",
-          name: "Poulet au four, ratatouille, riz complet",
-          moment: "diner",
-          src: "poulet",
-          veg: true,
-          ingredients: [
-            ["poulet_blanc", 150],
-            ["ratatouille", 200],
-            ["riz_complet_cru", 70],
-            ["huile", 6],
-            ["herbes_de_provence", 1],
-          ],
-        },
-        {
           id: "m168",
           technique: "mijote",
           name: "Mijoté de poulet, petits pois, carotte, sauce tomate",
@@ -3533,22 +3516,6 @@
             ["ail", 3],
             ["huile", 6],
             ["herbes_de_provence", 1],
-          ],
-        },
-        {
-          id: "m171",
-          technique: "four",
-          name: "Cabillaud au four, sauce tomate, poivron, riz complet",
-          moment: "diner",
-          src: "poisson",
-          veg: true,
-          lean: true,
-          ingredients: [
-            ["cabillaud", 200],
-            ["sauce_tomate", 150],
-            ["poivron", 150],
-            ["riz_complet_cru", 70],
-            ["huile", 6],
           ],
         },
         {
@@ -3949,9 +3916,9 @@
           src: "légumineuses",
           veg: true,
           lean: true,
-          prep: 25,
+          prep: 18,
           ingredients: [
-            ["lentilles_crues", 90],
+            ["lentilles_boite", 250],
             ["mais_boite", 80],
             ["sauce_tomate", 150],
             ["riz_cru", 70],
@@ -4353,39 +4320,39 @@
         {
           id: "m247",
           technique: "assemblage",
-          name: "Fromage blanc, myrtilles, amandes",
+          name: "Fromage blanc, pomme, amandes",
           moment: "postworkout",
           src: "laitier",
           lean: true,
           ingredients: [
             ["fromage_blanc", 220],
-            ["myrtilles", 100],
+            ["kiwi", 100],
             ["amandes", 15],
           ],
         },
         {
           id: "m248",
           technique: "porridge",
-          name: "Porridge avoine, lait, fruits rouges, cannelle",
+          name: "Porridge avoine, lait, pomme, cannelle",
           moment: "postworkout",
           src: "laitier",
           ingredients: [
             ["avoine", 55],
             ["lait", 200],
-            ["fruits_rouges", 100],
+            ["pomme", 100],
             ["cannelle", 1],
           ],
         },
         {
           id: "m249",
           technique: "assemblage",
-          name: "Galette de riz, fromage frais, myrtilles, noix de cajou",
+          name: "Galette de riz, fromage frais, pomme, noix de cajou",
           moment: "postworkout",
           src: "laitier",
           ingredients: [
             ["galette_riz", 30],
             ["fromage_frais_leger", 150],
-            ["myrtilles", 80],
+            ["pomme", 80],
             ["noix_cajou", 15],
           ],
         },
@@ -4419,14 +4386,14 @@
         {
           id: "m251",
           technique: "bowl_froid",
-          name: "Bol fromage blanc, muesli aux noix, myrtilles",
+          name: "Bol fromage blanc, muesli aux noix, pomme",
           moment: "petitdej",
           src: "laitier",
           veg: true,
           ingredients: [
             ["fromage_blanc", 200],
             ["muesli_noix", 50],
-            ["myrtilles", 80],
+            ["pomme", 100],
           ],
         },
         {
@@ -4500,9 +4467,9 @@
           src: "légumineuses",
           veg: true,
           lean: true,
-          prep: 30,
+          prep: 20,
           ingredients: [
-            ["lentilles_crues", 90],
+            ["lentilles_boite", 250],
             ["carotte", 150],
             ["patate_douce", 150],
             ["gingembre", 4],
@@ -4524,23 +4491,6 @@
             ["champignons_boite", 150],
             ["ail", 3],
             ["huile", 6],
-          ],
-        },
-        {
-          id: "m264",
-          technique: "four",
-          name: "Cabillaud au four, pomme de terre, poivron",
-          moment: "diner",
-          src: "poisson",
-          veg: true,
-          lean: true,
-          ingredients: [
-            ["cabillaud", 200],
-            ["pomme_de_terre", 200],
-            ["poivron", 150],
-            ["huile", 6],
-            ["herbes_de_provence", 2],
-            ["citron", 15],
           ],
         },
         {
@@ -4658,21 +4608,6 @@
           ],
         },
         {
-          id: "m272",
-          technique: "four",
-          name: "Sardines, pomme de terre, ratatouille",
-          moment: "diner",
-          src: "poisson",
-          veg: true,
-          ingredients: [
-            ["sardine_boite", 100],
-            ["pomme_de_terre", 200],
-            ["ratatouille", 200],
-            ["huile", 5],
-            ["citron", 15],
-          ],
-        },
-        {
           id: "m273",
           technique: "mijote",
           name: "Dahl de pois chiches, carotte, curry, riz",
@@ -4782,12 +4717,12 @@
         {
           id: "m280",
           technique: "bowl_froid",
-          name: "Fromage blanc, myrtilles, noix de cajou",
+          name: "Fromage blanc, pomme, noix de cajou",
           moment: "collationapresmidi",
           src: "laitier",
           ingredients: [
             ["fromage_blanc", 200],
-            ["myrtilles", 80],
+            ["kiwi", 80],
             ["noix_cajou", 15],
           ],
         },
@@ -4811,12 +4746,12 @@
         {
           id: "m282",
           technique: "assemblage",
-          name: "Fromage blanc, fruits rouges, miel",
+          name: "Fromage blanc, pomme, miel",
           moment: "postworkout",
           src: "laitier",
           ingredients: [
             ["fromage_blanc", 220],
-            ["fruits_rouges", 100],
+            ["pomme", 100],
             ["miel", 10],
           ],
         },
@@ -4877,6 +4812,766 @@
             ["huile", 5],
           ],
         },
+        {
+          id: "m287",
+          technique: "assemblage",
+          name: "Bowl thon, maïs, poivron, oignon, citron",
+          moment: "dejeuner",
+          src: "thon",
+          veg: true,
+          ingredients: [
+            ["thon_boite", 112],
+            ["mais_boite", 80],
+            ["poivron", 100],
+            ["oignon", 30],
+            ["citron", 10],
+            ["huile", 6],
+            ["herbes_de_provence", 1],
+          ],
+        },
+        {
+          id: "m288",
+          technique: "assemblage",
+          name: "Bowl maquereau, haricots rouges, tomate, citron",
+          moment: "diner",
+          src: "maquereau",
+          veg: true,
+          ingredients: [
+            ["maquereau_boite", 120],
+            ["haricots_rouges_boite", 150],
+            ["tomate", 100],
+            ["citron", 10],
+            ["huile", 5],
+            ["herbes_de_provence", 1],
+          ],
+        },
+        {
+          id: "m289",
+          technique: "assemblage",
+          name: "Bowl sardines, maïs, poivron, citron",
+          moment: "diner",
+          src: "poisson",
+          veg: true,
+          ingredients: [
+            ["sardine_boite", 100],
+            ["mais_boite", 80],
+            ["poivron", 100],
+            ["citron", 10],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m290",
+          technique: "assemblage",
+          name: "Bowl jambon, pois chiches, tomate, fromage frais",
+          moment: "dejeuner",
+          src: "porc",
+          veg: true,
+          ingredients: [
+            ["jambon_blanc", 60],
+            ["pois_chiches_boite", 120],
+            ["tomate", 100],
+            ["fromage_frais_leger", 30],
+            ["herbes_de_provence", 1],
+          ],
+        },
+        {
+          id: "m291",
+          technique: "assemblage",
+          name: "Bowl jambon, haricots rouges, maïs, tomate, citron",
+          moment: "diner",
+          src: "porc",
+          veg: true,
+          ingredients: [
+            ["jambon_blanc", 60],
+            ["haricots_rouges_boite", 150],
+            ["mais_boite", 60],
+            ["tomate", 80],
+            ["citron", 10],
+          ],
+        },
+        {
+          id: "m292",
+          technique: "assemblage",
+          name: "Bowl pois chiches, fromage frais, tomate, poivron, citron",
+          moment: "dejeuner",
+          src: "légumineuses",
+          veg: true,
+          ingredients: [
+            ["pois_chiches_boite", 200],
+            ["fromage_frais_leger", 50],
+            ["tomate", 80],
+            ["poivron", 80],
+            ["citron", 10],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m293",
+          technique: "assemblage",
+          name: "Bowl fromage blanc, thon, carotte, tomate, citron",
+          moment: "dejeuner",
+          src: "thon",
+          veg: true,
+          ingredients: [
+            ["fromage_blanc", 150],
+            ["thon_boite", 100],
+            ["carotte", 50],
+            ["tomate", 60],
+            ["citron", 10],
+          ],
+        },
+        {
+          id: "m294",
+          technique: "assemblage",
+          name: "Tartine jambon, champignons, fromage frais, ail",
+          moment: "diner",
+          src: "porc",
+          veg: true,
+          ingredients: [
+            ["pain_complet", 70],
+            ["jambon_blanc", 50],
+            ["champignons_boite", 60],
+            ["fromage_frais_leger", 25],
+            ["ail", 3],
+          ],
+        },
+        {
+          id: "m295",
+          technique: "bowl_froid",
+          name: "Bol fromage blanc, muesli aux noix, kiwi",
+          moment: "petitdej",
+          src: "laitier",
+          veg: true,
+          ingredients: [
+            ["fromage_blanc", 200],
+            ["muesli_noix", 50],
+            ["kiwi", 90],
+          ],
+        },
+        {
+          id: "m296",
+          technique: "bowl_froid",
+          name: "Bol avoine, lait, orange, miel",
+          moment: "postworkout",
+          src: "laitier",
+          ingredients: [
+            ["avoine", 50],
+            ["lait", 200],
+            ["orange", 100],
+            ["miel", 8],
+          ],
+        },
+        {
+          id: "m297",
+          technique: "assemblage",
+          name: "Amandes, kiwi",
+          moment: "collationapresmidi",
+          src: "oléagineux",
+          workSnack: true,
+          veg: true,
+          ingredients: [
+            ["amandes", 28],
+            ["kiwi", 120],
+          ],
+        },
+        {
+          id: "m298",
+          technique: "assemblage",
+          name: "Galette de riz, beurre de cacahuète, kiwi",
+          moment: "collationmatin",
+          src: "oleagineux",
+          workSnack: true,
+          ingredients: [
+            ["galette_riz", 30],
+            ["beurre_cacahuete", 20],
+            ["kiwi", 100],
+          ],
+        },
+        {
+          id: "m299",
+          technique: "assemblage",
+          name: "Fromage blanc, orange, amandes",
+          moment: "postworkout",
+          src: "laitier",
+          lean: true,
+          ingredients: [
+            ["fromage_blanc", 200],
+            ["orange", 100],
+            ["amandes", 15],
+          ],
+        },
+        {
+          id: "m300",
+          technique: "assemblage",
+          name: "Pain complet, beurre de cacahuète, kiwi",
+          moment: "collationmatin",
+          src: "oleagineux",
+          workSnack: true,
+          lean: true,
+          ingredients: [
+            ["pain_complet", 45],
+            ["beurre_cacahuete", 14],
+            ["kiwi", 120],
+          ],
+        },
+        // --- Nouvelles recettes (préparation facile, sans four) ---
+        {
+          id: "m301",
+          technique: "wok",
+          name: "Riz sauté au jambon, œuf et poivron",
+          moment: "dejeuner",
+          src: "porc",
+          ingredients: [
+            ["riz_complet_cru", 80],
+            ["jambon_blanc", 80],
+            ["oeuf", 60],
+            ["poivron", 150],
+            ["oignon", 30],
+            ["sauce_soja", 8],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m302",
+          technique: "wok",
+          name: "Sauté de dinde, riz complet, poivron, gingembre",
+          moment: "diner",
+          src: "dinde",
+          lean: true,
+          ingredients: [
+            ["dinde", 160],
+            ["riz_complet_cru", 80],
+            ["poivron", 150],
+            ["oignon", 30],
+            ["gingembre", 5],
+            ["sauce_soja", 8],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m303",
+          technique: "poele",
+          name: "Cabillaud poêlé, quinoa, tomate, citron",
+          moment: "diner",
+          src: "poisson",
+          lean: true,
+          ingredients: [
+            ["cabillaud", 200],
+            ["quinoa_cru", 70],
+            ["tomate", 150],
+            ["citron", 20],
+            ["ail", 3],
+            ["herbes_de_provence", 1],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m304",
+          technique: "mijote",
+          name: "Curry de pois chiches et légumes, riz",
+          moment: "diner",
+          src: "légumineuses",
+          veg: true,
+          ingredients: [
+            ["pois_chiches_boite", 220],
+            ["riz_cru", 70],
+            ["sauce_tomate", 100],
+            ["oignon", 30],
+            ["ail", 3],
+            ["curry", 4],
+            ["huile", 8],
+          ],
+        },
+        {
+          id: "m305",
+          technique: "omelette",
+          name: "Omelette fromage frais, champignons, pain complet",
+          moment: "petitdej",
+          src: "œuf",
+          veg: true,
+          ingredients: [
+            ["oeuf", 150],
+            ["champignons_boite", 100],
+            ["fromage_frais_leger", 30],
+            ["pain_complet", 60],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m306",
+          technique: "bowl_froid",
+          name: "Bowl fromage blanc, muesli, banane, amandes",
+          moment: "petitdej",
+          src: "laitier",
+          veg: true,
+          ingredients: [
+            ["fromage_blanc", 200],
+            ["muesli_noix", 60],
+            ["banane", 100],
+            ["amandes", 15],
+          ],
+        },
+        {
+          id: "m307",
+          technique: "assemblage",
+          name: "Fromage blanc, kiwi, noix",
+          moment: "collationmatin",
+          src: "laitier",
+          workSnack: true,
+          lean: true,
+          ingredients: [
+            ["fromage_blanc", 150],
+            ["kiwi", 100],
+            ["noix", 15],
+          ],
+        },
+        {
+          id: "m308",
+          technique: "assemblage",
+          name: "Sardines, galette de riz, tomate",
+          moment: "collationapresmidi",
+          src: "poisson",
+          workSnack: true,
+          lean: true,
+          ingredients: [
+            ["sardine_boite", 90],
+            ["galette_riz", 40],
+            ["tomate", 80],
+          ],
+        },
+        {
+          id: "m309",
+          technique: "bowl_froid",
+          name: "Lait, banane, avoine, miel",
+          moment: "postworkout",
+          src: "laitier",
+          veg: true,
+          ingredients: [
+            ["lait", 300],
+            ["banane", 120],
+            ["avoine", 40],
+            ["miel", 10],
+          ],
+        },
+        {
+          id: "m310",
+          technique: "assemblage",
+          name: "Salade de lentilles, thon, poivron, citron",
+          moment: "dejeuner",
+          src: "légumineuses",
+          lean: true,
+          ingredients: [
+            ["lentilles_boite", 200],
+            ["thon_boite", 100],
+            ["poivron", 100],
+            ["oignon", 20],
+            ["citron", 15],
+            ["huile", 8],
+          ],
+        },
+        {
+          id: "m311",
+          technique: "poele",
+          name: "Saumon poêlé, patate douce, courgette",
+          moment: "dejeuner",
+          src: "poisson",
+          ingredients: [
+            ["saumon", 150],
+            ["patate_douce", 200],
+            ["courgette", 150],
+            ["citron", 15],
+            ["herbes_de_provence", 1],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m312",
+          technique: "pancakes",
+          name: "Pancakes avoine, œuf, banane, cannelle",
+          moment: "petitdej",
+          src: "œuf",
+          veg: true,
+          lean: true,
+          ingredients: [
+            ["avoine", 60],
+            ["oeuf", 100],
+            ["banane", 90],
+            ["cannelle", 1],
+          ],
+        },
+        {
+          id: "m313",
+          technique: "mijote",
+          name: "Poulet au curry, riz, petits pois",
+          moment: "diner",
+          src: "poulet",
+          ingredients: [
+            ["poulet_blanc", 170],
+            ["riz_cru", 75],
+            ["petits_pois", 150],
+            ["oignon", 30],
+            ["curry", 4],
+            ["ail", 3],
+            ["huile", 7],
+          ],
+        },
+        {
+          id: "m314",
+          technique: "wok",
+          name: "Bœuf sauté, riz complet, carotte, gingembre",
+          moment: "diner",
+          src: "bœuf",
+          ingredients: [
+            ["boeuf_hache_5", 150],
+            ["riz_complet_cru", 80],
+            ["carotte", 120],
+            ["oignon", 30],
+            ["gingembre", 3],
+            ["sauce_soja", 8],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m315",
+          technique: "assemblage",
+          name: "Fromage blanc, orange, noix de cajou",
+          moment: "collationmatin",
+          src: "laitier",
+          workSnack: true,
+          lean: true,
+          ingredients: [
+            ["fromage_blanc", 180],
+            ["orange", 100],
+            ["noix_cajou", 15],
+          ],
+        },
+        {
+          id: "m316",
+          technique: "assemblage",
+          name: "Pois chiches écrasés, galette de riz, tomate, cumin",
+          moment: "collationapresmidi",
+          src: "légumineuses",
+          veg: true,
+          workSnack: true,
+          ingredients: [
+            ["pois_chiches_boite", 150],
+            ["galette_riz", 40],
+            ["tomate", 60],
+            ["cumin", 1],
+            ["citron", 10],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m317",
+          technique: "assemblage",
+          name: "Fromage blanc, banane, cannelle, amandes",
+          moment: "postworkout",
+          src: "laitier",
+          veg: true,
+          ingredients: [
+            ["fromage_blanc", 200],
+            ["banane", 100],
+            ["cannelle", 1],
+            ["amandes", 15],
+          ],
+        },
+        {
+          id: "m319",
+          technique: "poele",
+          name: "Poêlée de jambon, pâtes complètes, champignons, parmesan",
+          moment: "diner",
+          src: "porc",
+          ingredients: [
+            ["jambon_blanc", 120],
+            ["pates_completes_cru", 80],
+            ["champignons_boite", 150],
+            ["parmesan", 15],
+            ["ail", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m319",
+          technique: "poele",
+          name: "Poêlée de jambon, pâtes complètes, champignons, parmesan",
+          moment: "diner",
+          src: "porc",
+          ingredients: [
+            ["jambon_blanc", 120],
+            ["pates_completes_cru", 80],
+            ["champignons_boite", 150],
+            ["parmesan", 15],
+            ["ail", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m320",
+          technique: "assemblage",
+          name: "Pomme, amandes, miel",
+          moment: "collationmatin",
+          src: "fruit",
+          veg: true,
+          workSnack: true,
+          lean: true,
+          ingredients: [
+            ["pomme", 150],
+            ["amandes", 20],
+            ["miel", 8],
+          ],
+        },
+        {
+          id: "m321",
+          technique: "assemblage",
+          name: "Maquereau, galette de riz, tomate, citron",
+          moment: "postworkout",
+          src: "maquereau",
+          lean: true,
+          ingredients: [
+            ["maquereau_boite", 90],
+            ["galette_riz", 40],
+            ["tomate", 60],
+            ["citron", 10],
+          ],
+        },
+        {
+          id: "m322",
+          technique: "assemblage",
+          name: "Salade de pommes de terre, maquereau, tomate, oignon",
+          moment: "dejeuner",
+          src: "maquereau",
+          ingredients: [
+            ["pomme_de_terre", 200],
+            ["maquereau_boite", 90],
+            ["tomate", 100],
+            ["oignon", 20],
+            ["citron", 10],
+            ["huile", 8],
+          ],
+        },
+        {
+          id: "m323",
+          technique: "bowl_froid",
+          name: "Kiwi, banane, fromage blanc, muesli",
+          moment: "petitdej",
+          src: "laitier",
+          veg: true,
+          ingredients: [
+            ["kiwi", 80],
+            ["banane", 80],
+            ["fromage_blanc", 150],
+            ["muesli_noix", 50],
+          ],
+        },
+        {
+          id: "m324",
+          technique: "poele",
+          name: "Dinde poêlée, quinoa, ratatouille",
+          moment: "dejeuner",
+          src: "dinde",
+          lean: true,
+          ingredients: [
+            ["dinde", 160],
+            ["quinoa_cru", 70],
+            ["ratatouille", 200],
+            ["herbes_de_provence", 1],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m325",
+          technique: "poele",
+          name: "Dinde, pâtes complètes, champignons, fromage frais",
+          moment: "diner",
+          src: "dinde",
+          lean: true,
+          ingredients: [
+            ["dinde", 170],
+            ["pates_completes_cru", 80],
+            ["champignons_boite", 150],
+            ["fromage_frais_leger", 40],
+            ["ail", 3],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m326",
+          technique: "assemblage",
+          name: "Blanc de poulet, galette de riz, tomate",
+          moment: "collationmatin",
+          src: "volaille",
+          workSnack: true,
+          lean: true,
+          ingredients: [
+            ["poulet_blanc", 80],
+            ["galette_riz", 40],
+            ["tomate", 60],
+          ],
+        },
+        {
+          id: "m327",
+          technique: "assemblage",
+          name: "Noix de cajou, pomme, fromage blanc",
+          moment: "collationapresmidi",
+          src: "oleagineux",
+          veg: true,
+          workSnack: true,
+          lean: true,
+          ingredients: [
+            ["noix_cajou", 20],
+            ["pomme", 100],
+            ["fromage_blanc", 100],
+          ],
+        },
+        {
+          id: "m328",
+          technique: "mijote",
+          name: "Jambon, ratatouille, pommes de terre",
+          moment: "diner",
+          src: "porc",
+          ingredients: [
+            ["jambon_blanc", 100],
+            ["ratatouille", 200],
+            ["pomme_de_terre", 200],
+            ["ail", 3],
+            ["herbes_de_provence", 1],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m329",
+          technique: "omelette",
+          name: "Œufs brouillés, jambon, pain complet",
+          moment: "petitdej",
+          src: "œuf",
+          lean: true,
+          ingredients: [
+            ["oeuf", 120],
+            ["jambon_blanc", 50],
+            ["pain_complet", 60],
+            ["huile", 5],
+          ],
+        },
+        {
+          id: "m330",
+          technique: "assemblage",
+          name: "Maïs, thon, poivron",
+          moment: "collationapresmidi",
+          src: "thon",
+          workSnack: true,
+          lean: true,
+          ingredients: [
+            ["mais_boite", 100],
+            ["thon_boite", 90],
+            ["poivron", 80],
+            ["citron", 10],
+          ],
+        },
+        {
+          id: "m331",
+          technique: "poele",
+          name: "Bowl poulet, riz, haricots rouges, maïs",
+          moment: "dejeuner",
+          src: "poulet",
+          ingredients: [
+            ["poulet_blanc", 150],
+            ["riz_cru", 70],
+            ["haricots_rouges_boite", 100],
+            ["mais_boite", 80],
+            ["paprika", 2],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m332",
+          technique: "poele",
+          name: "Steak de bœuf haché, pommes de terre écrasées, carotte",
+          moment: "diner",
+          src: "bœuf",
+          ingredients: [
+            ["boeuf_hache_5", 150],
+            ["pomme_de_terre", 220],
+            ["carotte", 150],
+            ["ail", 3],
+            ["herbes_de_provence", 1],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m333",
+          technique: "assemblage",
+          name: "Fromage blanc, muesli, miel",
+          moment: "postworkout",
+          src: "laitier",
+          veg: true,
+          ingredients: [
+            ["fromage_blanc", 200],
+            ["muesli_noix", 40],
+            ["miel", 10],
+          ],
+        },
+        {
+          id: "m334",
+          technique: "assemblage",
+          name: "Orange, banane, amandes",
+          moment: "collationmatin",
+          src: "fruit",
+          veg: true,
+          workSnack: true,
+          lean: true,
+          ingredients: [
+            ["orange", 100],
+            ["banane", 80],
+            ["amandes", 15],
+          ],
+        },
+        {
+          id: "m335",
+          technique: "poele",
+          name: "Sardines, pâtes complètes, sauce tomate, ail, citron",
+          moment: "diner",
+          src: "poisson",
+          ingredients: [
+            ["sardine_boite", 120],
+            ["pates_completes_cru", 80],
+            ["sauce_tomate", 100],
+            ["ail", 3],
+            ["citron", 10],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m336",
+          technique: "poele",
+          name: "Escalope de dinde, patate douce, champignons",
+          moment: "dejeuner",
+          src: "dinde",
+          lean: true,
+          ingredients: [
+            ["dinde", 160],
+            ["patate_douce", 200],
+            ["champignons_boite", 150],
+            ["herbes_de_provence", 1],
+            ["huile", 6],
+          ],
+        },
+        {
+          id: "m337",
+          technique: "mijote",
+          name: "Curry de cabillaud, riz, petits pois",
+          moment: "diner",
+          src: "poisson",
+          ingredients: [
+            ["cabillaud", 200],
+            ["riz_cru", 70],
+            ["petits_pois", 120],
+            ["curry", 4],
+            ["oignon", 30],
+            ["huile", 7],
+          ],
+        },
       ];
 
       // +36 recettes : ingrédients de grande surface, repas souples/humides et portions adaptées au congélateur.
@@ -4928,6 +5623,21 @@
       // Repas structurants (hors collations) : on évite de reprendre la
       // même recette d'un jour sur l'autre pour ces moments-là.
       const MAIN_MOMENTS = new Set(["petitdej", "dejeuner", "diner"]);
+      const COLLATION_MOMENTS = new Set([
+        "collationmatin",
+        "collationapresmidi",
+        "postworkout",
+      ]);
+      const MEAT_SRC_SET = new Set([
+        "bœuf",
+        "dinde",
+        "poulet",
+        "porc",
+        "volaille",
+        "poisson",
+        "maquereau",
+        "thon",
+      ]);
       // Calcule les macros d'un repas à partir de ses ingrédients crus (précis : dérivé des quantités, pas figé).
       // Calcule les macros d'un repas à partir de ses ingrédients crus (précis : dérivé des quantités, pas figé).
       // Les repas ajoutés manuellement par l'utilisateur (sans liste d'ingrédients) gardent leurs champs kcal/protein/carbs/fat saisis à la main.
@@ -4965,6 +5675,12 @@
           labelPlural: "blancs d'œufs",
           piece: true,
         },
+        lentilles_boite: {
+          size: 250,
+          unit: "g",
+          vie: "2-3 jours une fois ouvert",
+          days: 3,
+        },
         levure_chimique: {
           unitG: 11,
           label: "sachet de levure chimique",
@@ -4975,6 +5691,18 @@
           label: "banane",
           labelPlural: "bananes",
           piece: true,
+        },
+        kiwi: {
+          size: 1000,
+          unit: "g",
+          vie: "environ 1-2 semaines",
+          days: 10,
+        },
+        orange: {
+          size: 1000,
+          unit: "g",
+          vie: "environ 2 semaines",
+          days: 14,
         },
         pomme: {
           unitG: 180,
@@ -5711,6 +6439,18 @@
         weekMessage: "",
         generating: false,
         picker: null,
+        genModal: false, // UI only — popup "générer une semaine à partir d'un jour"
+        genRangeStart: DAYS[0].key, // UI only — jour de début choisi dans le popup de génération
+        genRangeEnd: DAYS[DAYS.length - 1].key, // UI only — jour de fin choisi dans le popup de génération
+        shopRangeStart: DAYS[0].key, // UI only — jour de début choisi pour la liste de courses
+        shopRangeEnd: DAYS[DAYS.length - 1].key, // UI only — jour de fin choisi pour la liste de courses
+        // 1. Dans l'objet state (près de genRangeStart / shopRangeStart)
+        genRangeStart: DAYS[0].key,
+        genRangeEnd: DAYS[DAYS.length - 1].key,
+        shopRangeStart: DAYS[0].key,
+        shopRangeEnd: DAYS[DAYS.length - 1].key,
+        weekRangeStart: DAYS[0].key, // plage de la dernière génération = "ma semaine" affichée (strip jours + défaut courses)
+        weekRangeEnd: DAYS[DAYS.length - 1].key,
         recipeDetail: null, // UI only — id du repas affiché dans la popup "détail de la recette"
       };
 
@@ -5719,6 +6459,7 @@
       // l'écran d'accueil), on se rabat sur localStorage pour que la
       // sauvegarde fonctionne quand même d'une visite à l'autre.
       async function saveState() {
+        // 2. Dans saveState(), payload
         const payload = JSON.stringify({
           profile: state.profile,
           validated: state.validated,
@@ -5726,6 +6467,8 @@
           custom: state.custom,
           plan: state.plan,
           savedWeeks: state.savedWeeks,
+          weekRangeStart: state.weekRangeStart,
+          weekRangeEnd: state.weekRangeEnd,
         });
         if (window.storage) {
           try {
@@ -5916,6 +6659,8 @@
         perishState,
         dayIndex,
         forbiddenId,
+        daySnackSrcCounts, // AJOUT — occurrences par src déjà utilisées sur les collations de CE jour
+        avoidSameTypeAsPrevDay, // AJOUT — src du petit-déj de la veille à éviter (undefined pour les autres moments)
       ) {
         return options
           .slice()
@@ -5945,6 +6690,19 @@
             const sameSrcPenalty =
               sameSrcCount > 0
                 ? sameSrcCount * 1.9 + (sameSrcCount >= 2 ? 3 : 0)
+                : 0;
+            const sameMeatPenalty =
+              MEAT_SRC_SET.has(m.src) && sameSrcCount > 0 ? 8 : 0;
+            // Pénalité forte : 2x le même type de collation (même src) le
+            // même jour (petit-déj/déjeuner/dîner non concernés ici).
+            const sameSnackCount = daySnackSrcCounts
+              ? daySnackSrcCounts[m.src] || 0
+              : 0;
+            const sameSnackTypePenalty = sameSnackCount > 0 ? 7 : 0;
+            // Pénalité forte : même type de petit-déj (src) que la veille.
+            const sameTypeAsPrevDayPenalty =
+              avoidSameTypeAsPrevDay && m.src === avoidSameTypeAsPrevDay
+                ? 7
                 : 0;
             const sameTechPenalty = sameTechCount * 0.7;
             const red = categoryGrams(m, "viande_rouge");
@@ -6073,7 +6831,10 @@
               ((mealUsage[m.id] || 0) >= 3 ? 6 : 0) +
               (forbiddenId && m.id === forbiddenId ? 50 : 0) +
               fruitCapPenalty +
-              sameSrcPenalty;
+              sameSrcPenalty +
+              sameMeatPenalty +
+              sameSnackTypePenalty +
+              sameTypeAsPrevDayPenalty;
             return {
               meal: m,
               score:
@@ -6368,9 +7129,15 @@
         );
       }
 
-      function generateWeek() {
+      function generateWeek(startKey, endKey) {
         const lib = libraryMeals();
         if (lib.length < 5) return;
+        startKey = startKey || DAYS[0].key;
+        endKey = endKey || DAYS[DAYS.length - 1].key;
+        const rangeStartIdx = DAYS.findIndex((d) => d.key === startKey);
+        const rangeEndIdx = DAYS.findIndex((d) => d.key === endKey);
+        const activeDays = DAYS.slice(rangeStartIdx, rangeEndIdx + 1);
+        const priorDays = DAYS.slice(0, rangeStartIdx);
         const allMomentShares = Object.assign(
           {},
           MOMENT_SHARE,
@@ -6451,26 +7218,91 @@
           0,
         );
         const FAT_SAFE = weekFatTargetPreCalc * 1.1;
+
+        // Si on ne régénère qu'une partie de la semaine (ex: mer → dim),
+        // on reprend l'état déjà posé par les jours laissés tels quels
+        // (avant le début de la plage), pour que les quotas hebdomadaires,
+        // la variété et la conservation des périssables restent cohérents
+        // sur toute la semaine et pas seulement sur la plage régénérée.
+        const seed = {
+          mealUsage: {},
+          carbUsage: {},
+          ingredientUsage: {},
+          perishState: {},
+          prevDayMainMeals: {},
+          redMeat: 0,
+          charcuterie: 0,
+          sel: 0,
+          sucre: 0,
+          thonGrams: 0,
+          cabillaud: 0,
+          fat: 0,
+        };
+        priorDays.forEach((day) => {
+          const dayIndex = DAYS.indexOf(day);
+          (state.plan[day.key] || []).forEach((e) => {
+            const id = entryId(e);
+            const scale = entryScale(e);
+            const m = mealById(id);
+            if (!m) return;
+            seed.mealUsage[id] = (seed.mealUsage[id] || 0) + 1;
+            if (MAIN_MOMENTS.has(m.moment))
+              seed.prevDayMainMeals[m.moment] = id;
+            seed.redMeat += categoryGrams(m, "viande_rouge", scale);
+            seed.charcuterie += categoryGrams(m, "charcuterie", scale);
+            seed.sel += mealSelGrams(m, scale);
+            seed.sucre += mealSucreGrams(m, scale);
+            seed.thonGrams += ingredientGrams(m, "thon_boite");
+            if (mealContainsIngredient(m, "cabillaud")) seed.cabillaud++;
+            seed.fat += mac(m, scale).fat;
+            if (m.ingredients) {
+              m.ingredients.forEach(([k]) => {
+                if (
+                  NUTRI[k] &&
+                  (NUTRI[k].cat === "feculent_complet" ||
+                    NUTRI[k].cat === "feculent_raffine")
+                ) {
+                  seed.carbUsage[k] = (seed.carbUsage[k] || 0) + 1;
+                }
+                if (NUTRI[k] && MAIN_INGREDIENT_CATS.has(NUTRI[k].cat)) {
+                  seed.ingredientUsage[k] = (seed.ingredientUsage[k] || 0) + 1;
+                }
+                if (
+                  CONSERVATION_PACKAGES[k] &&
+                  seed.perishState[k] === undefined
+                ) {
+                  seed.perishState[k] = dayIndex;
+                }
+              });
+            }
+          });
+        });
+
         let attempt = 0;
         while (performance.now() - startTime < TIME_BUDGET_MS) {
           attempt++;
-          const mealUsage = {};
-          const prevDayMainMeals = {}; // dernière recette utilisée la veille, par moment structurant
-          let redMeatSoFar = 0;
-          let fatSoFar = 0;
-          let charcuterieSoFar = 0;
-          let selSoFar = 0;
-          let sucreSoFar = 0;
-          let thonGramsSoFar = 0;
-          let cabillaudSoFar = 0;
+          const mealUsage = Object.assign({}, seed.mealUsage);
+          const prevDayMainMeals = Object.assign({}, seed.prevDayMainMeals); // dernière recette utilisée la veille, par moment structurant
+          // Type (src) du petit-déj de la veille, pour éviter de reprendre
+          // le même type 2 jours de suite (recette différente ou non).
+          let prevPetitdejSrc = seed.prevDayMainMeals.petitdej
+            ? (mealById(seed.prevDayMainMeals.petitdej) || {}).src
+            : undefined;
+          let redMeatSoFar = seed.redMeat;
+          let fatSoFar = seed.fat;
+          let charcuterieSoFar = seed.charcuterie;
+          let selSoFar = seed.sel;
+          let sucreSoFar = seed.sucre;
+          let thonGramsSoFar = seed.thonGrams;
+          let cabillaudSoFar = seed.cabillaud;
           let scaledDaysCount = 0;
-          const carbUsage = {};
-          const ingredientUsage = {};
-          const perishState = {}; // clé périssable -> index du jour où ouvert la 1ère fois
-          const newPlan = {};
+          const carbUsage = Object.assign({}, seed.carbUsage);
+          const ingredientUsage = Object.assign({}, seed.ingredientUsage);
+          const perishState = Object.assign({}, seed.perishState); // clé périssable -> index du jour où ouvert la 1ère fois
+          const newPlan = Object.assign({}, state.plan);
           let failed = false;
 
-          for (const day of DAYS) {
+          for (const day of activeDays) {
             const dayTarget = computeTargets(day.training);
             const dayMomentShare = day.training
               ? MOMENT_SHARE_TRAINING
@@ -6478,9 +7310,11 @@
             const moments = Object.keys(dayMomentShare);
             const dayMeals = [];
             const daySrcCounts = {};
+            const daySnackSrcCounts = {}; // AJOUT — src déjà pris sur les collations de ce jour
             const dayTechCounts = {};
             const dayIngredientCounts = {}; // AJOUT
             const dayIndex = DAYS.indexOf(day);
+            let todaysPetitdejSrc; // AJOUT
 
             for (const moment of moments) {
               const subTarget = {
@@ -6495,6 +7329,7 @@
               const momentPool = isWorkCollation
                 ? byMomentWorkSnack[moment]
                 : byMoment[moment];
+              // 7. Appel de sortedOptionsForMoment + traitement de la sélection
               const ordered = sortedOptionsForMoment(
                 momentPool,
                 subTarget,
@@ -6514,6 +7349,8 @@
                 perishState,
                 dayIndex,
                 MAIN_MOMENTS.has(moment) ? prevDayMainMeals[moment] : undefined,
+                daySnackSrcCounts,
+                moment === "petitdej" ? prevPetitdejSrc : undefined,
               );
               const selected = weightedPick(ordered);
               if (!selected) {
@@ -6524,12 +7361,14 @@
               mealUsage[selected.id] = (mealUsage[selected.id] || 0) + 1;
               if (MAIN_MOMENTS.has(moment)) {
                 prevDayMainMeals[moment] = selected.id;
+                if (moment === "petitdej") todaysPetitdejSrc = selected.src;
               }
               daySrcCounts[selected.src] =
                 (daySrcCounts[selected.src] || 0) + 1;
-              if (selected.technique)
-                dayTechCounts[selected.technique] =
-                  (dayTechCounts[selected.technique] || 0) + 1;
+              if (COLLATION_MOMENTS.has(moment)) {
+                daySnackSrcCounts[selected.src] =
+                  (daySnackSrcCounts[selected.src] || 0) + 1;
+              }
               redMeatSoFar += categoryGrams(selected, "viande_rouge");
               charcuterieSoFar += categoryGrams(selected, "charcuterie");
               selSoFar += mealSelGrams(selected);
@@ -6561,6 +7400,11 @@
                 });
               }
             }
+
+            // 8. Juste avant "if (failed) break;" en fin de journée
+            if (todaysPetitdejSrc !== undefined)
+              prevPetitdejSrc = todaysPetitdejSrc; // AJOUT
+            if (failed) break;
 
             if (failed) break;
 
@@ -6855,6 +7699,8 @@
         </div>
       </div>`;
 
+        if (state.genModal) html += renderGenerateWeekModal();
+
         if (!hasAnyMeals) return html;
 
         // ── Sous-navigation (évite de tout scroller pour changer de section) ──
@@ -6892,11 +7738,21 @@
         { label: "Soir", moments: ["postworkout", "diner", "extra"] },
       ];
 
+      function visibleWeekDays() {
+        const startKey = state.weekRangeStart || DAYS[0].key;
+        const endKey = state.weekRangeEnd || DAYS[DAYS.length - 1].key;
+        const startIdx = DAYS.findIndex((d) => d.key === startKey);
+        const endIdx = DAYS.findIndex((d) => d.key === endKey);
+        if (startIdx < 0 || endIdx < 0 || endIdx < startIdx) return DAYS;
+        return DAYS.slice(startIdx, endIdx + 1);
+      }
+
       // Vue "Jours": une strip de 7 jours pour naviguer + le détail d'un seul
       // jour à la fois (au lieu de 7 cartes empilées) pour limiter le scroll.
       function renderJoursView() {
+        const weekDays = visibleWeekDays();
         let html = `<div class="week-strip">`;
-        DAYS.forEach((day) => {
+        weekDays.forEach((day) => {
           const targets = computeTargets(day.training);
           const totals = dayTotals(day.key);
           const bounds = dayKcalBounds(day.training, targets);
@@ -6917,7 +7773,8 @@
         });
         html += `</div>`;
 
-        const day = DAYS.find((d) => d.key === state.activeDay) || DAYS[0];
+        const day =
+          weekDays.find((d) => d.key === state.activeDay) || weekDays[0];
         const targets = computeTargets(day.training);
         const totals = dayTotals(day.key);
         const bounds = dayKcalBounds(day.training, targets);
@@ -7051,9 +7908,37 @@
         return `${Math.round(grams)} g`;
       }
       function renderShoppingListInner() {
+        const startKey = state.shopRangeStart || DAYS[0].key;
+        const endKey = state.shopRangeEnd || DAYS[DAYS.length - 1].key;
+        let startIdx = DAYS.findIndex((d) => d.key === startKey);
+        let endIdx = DAYS.findIndex((d) => d.key === endKey);
+        if (startIdx < 0) startIdx = 0;
+        if (endIdx < 0) endIdx = DAYS.length - 1;
+        const rangeDays =
+          endIdx < startIdx ? [] : DAYS.slice(startIdx, endIdx + 1);
+        const dayOptions = (selected) =>
+          DAYS.map(
+            (d) =>
+              `<option value="${d.key}" ${d.key === selected ? "selected" : ""}>${d.label}</option>`,
+          ).join("");
+        const rangePicker = `<div class="card" style="margin-bottom:14px;">
+          <div style="font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);margin-bottom:8px;">Liste à partir d'un jour</div>
+          <div class="row">
+            <div class="field">
+              <label>Du</label>
+              <select id="shop-start" style="width:100%;border:1px solid var(--border);border-radius:10px;padding:9px 10px;font-size:14px;background:var(--bg);color:var(--ink);">${dayOptions(startKey)}</select>
+            </div>
+            <div class="field">
+              <label>Au</label>
+              <select id="shop-end" style="width:100%;border:1px solid var(--border);border-radius:10px;padding:9px 10px;font-size:14px;background:var(--bg);color:var(--ink);">${dayOptions(endKey)}</select>
+            </div>
+          </div>
+        </div>`;
+        if (!rangeDays.length)
+          return `${rangePicker}<p style="font-size:13px;color:var(--ink-soft);padding:2px 0;">Plage invalide.</p>`;
         const totals = {};
         const breakdown = {}; // key -> [{ dayLabel, mealName, grams }]
-        DAYS.forEach((day) => {
+        rangeDays.forEach((day) => {
           planDayMeals(day.key).forEach(({ meal: m, scale }) => {
             if (!m.ingredients) return;
             const scalableCats = mealScalableCats(m);
@@ -7072,7 +7957,7 @@
         });
         const keys = Object.keys(totals);
         if (!keys.length)
-          return `<p style="font-size:13px;color:var(--ink-soft);padding:2px 0;">La liste apparaît dès que des repas sont planifiés.</p>`;
+          return `${rangePicker}<p style="font-size:13px;color:var(--ink-soft);padding:2px 0;">La liste apparaît dès que des repas sont planifiés sur cette plage.</p>`;
         const row = (k) => `<details class="shop-item">
               <summary><div class="mname">${NUTRI[k] ? NUTRI[k].label : k}</div><span class="pill">${formatShoppingAmount(k, totals[k])}</span></summary>
               <div class="shop-item-detail">
@@ -7109,7 +7994,7 @@
             ${notes.map((n) => `<div class="coherence-item"><span class="ic" style="color:var(--amber);">▲</span><div class="txt"><b>${n.label}</b> ${n.packages > 1 ? `${n.packages} × ${n.size}${n.unit}` : `un format ${n.size}${n.unit}`} pour ${n.needed}${n.unit} utilisés cette semaine → il restera environ ${n.leftover}${n.unit} une fois ouvert, à consommer sous ${n.vie}. Pense à en réutiliser un peu dans une autre recette si possible.</div></div>`).join("")}
           </div>`
           : "";
-        return `<div class="card">${sections}${leftoverHtml}</div>${conservationHtml}`;
+        return `${rangePicker}<div class="card">${sections}${leftoverHtml}</div>${conservationHtml}`;
       }
 
       // Date de consommation / durée de vie une fois le format entamé, pour
@@ -7303,18 +8188,6 @@
           unit: "g",
           vie: "environ 2 semaines",
           days: 14,
-        },
-        fruits_rouges: {
-          size: 500,
-          unit: "g",
-          vie: "plusieurs mois (surgelé)",
-          days: 90,
-        },
-        myrtilles: {
-          size: 500,
-          unit: "g",
-          vie: "plusieurs mois (surgelé)",
-          days: 90,
         },
         huile: { size: 1000, unit: "ml", vie: "plusieurs mois", days: 180 },
         miel: { size: 500, unit: "g", vie: "plusieurs mois", days: 365 },
@@ -7608,6 +8481,34 @@
       </div>`;
       }
 
+      function renderGenerateWeekModal() {
+        const dayOptions = (selected) =>
+          DAYS.map(
+            (d) =>
+              `<option value="${d.key}" ${d.key === selected ? "selected" : ""}>${d.label}</option>`,
+          ).join("");
+        return `<div class="overlay" id="gen-overlay">
+        <div class="sheet">
+          <h3>Générer une semaine</h3>
+          <p style="font-size:12.5px;color:var(--ink-soft);margin:0 0 14px;">Choisis la plage de jours à régénérer. Les autres jours restent inchangés.</p>
+          <div class="row">
+            <div class="field">
+              <label>Du</label>
+              <select id="gen-start" style="width:100%;border:1px solid var(--border);border-radius:10px;padding:9px 10px;font-size:14px;background:var(--bg);color:var(--ink);">${dayOptions(state.genRangeStart)}</select>
+            </div>
+            <div class="field">
+              <label>Au</label>
+              <select id="gen-end" style="width:100%;border:1px solid var(--border);border-radius:10px;padding:9px 10px;font-size:14px;background:var(--bg);color:var(--ink);">${dayOptions(state.genRangeEnd)}</select>
+            </div>
+          </div>
+          <div class="btn-row" style="margin-top:16px;">
+            <button id="gen-cancel">Annuler</button>
+            <button class="primary" id="gen-confirm">Générer</button>
+          </div>
+        </div>
+      </div>`;
+      }
+
       function renderPicker() {
         const filter = state.picker.filter || "all";
         const dayKey = state.picker.dayKey || state.activeDay;
@@ -7710,14 +8611,81 @@
           if (genBtn)
             genBtn.onclick = () => {
               if (state.generating) return;
-              state.generating = true;
+              state.genModal = true;
               render();
-              setTimeout(() => {
-                generateWeek();
-                state.generating = false;
-                render();
-              }, 30);
             };
+
+          const genOverlay = document.getElementById("gen-overlay");
+          if (genOverlay) {
+            genOverlay.onclick = (e) => {
+              if (e.target === genOverlay) {
+                state.genModal = false;
+                render();
+              }
+            };
+            const genStartSel = document.getElementById("gen-start");
+            if (genStartSel)
+              genStartSel.onchange = () => {
+                state.genRangeStart = genStartSel.value;
+              };
+            const genEndSel = document.getElementById("gen-end");
+            if (genEndSel)
+              genEndSel.onchange = () => {
+                state.genRangeEnd = genEndSel.value;
+              };
+            const genCancelBtn = document.getElementById("gen-cancel");
+            if (genCancelBtn)
+              genCancelBtn.onclick = () => {
+                state.genModal = false;
+                render();
+              };
+            const genConfirmBtn = document.getElementById("gen-confirm");
+            if (genConfirmBtn)
+              genConfirmBtn.onclick = () => {
+                const startSel = document.getElementById("gen-start");
+                const endSel = document.getElementById("gen-end");
+                const startKey = startSel
+                  ? startSel.value
+                  : state.genRangeStart;
+                const endKey = endSel ? endSel.value : state.genRangeEnd;
+                const startIdx = DAYS.findIndex((d) => d.key === startKey);
+                const endIdx = DAYS.findIndex((d) => d.key === endKey);
+                if (endIdx < startIdx) return; // plage invalide, on ignore
+                state.genRangeStart = startKey;
+                state.genRangeEnd = endKey;
+                // La plage générée devient "ma semaine": strip de la vue
+                // Jours et liste de courses par défaut s'y calent aussi.
+                state.weekRangeStart = startKey;
+                state.weekRangeEnd = endKey;
+                state.shopRangeStart = startKey;
+                state.shopRangeEnd = endKey;
+                if (endIdx < startIdx) return; // plage invalide, on ignore
+                state.genRangeStart = startKey;
+                state.genRangeEnd = endKey;
+                // La plage générée devient "ma semaine": strip de la vue
+                // Jours et liste de courses par défaut s'y calent aussi.
+                state.weekRangeStart = startKey;
+                state.weekRangeEnd = endKey;
+                state.shopRangeStart = startKey;
+                state.shopRangeEnd = endKey;
+                const activeIdx = DAYS.findIndex(
+                  (d) => d.key === state.activeDay,
+                );
+                if (activeIdx < startIdx || activeIdx > endIdx) {
+                  state.activeDay = startKey;
+                }
+                state.genModal = false;
+                if (state.generating) return;
+                state.generating = true;
+                render();
+                setTimeout(() => {
+                  generateWeek(startKey, endKey);
+                  state.generating = false;
+                  saveState();
+                  render();
+                }, 30);
+              };
+          }
 
           const saveBtn = document.getElementById("save-week");
           if (saveBtn)
@@ -7738,6 +8706,19 @@
               render();
             };
           });
+
+          const shopStartSel = document.getElementById("shop-start");
+          if (shopStartSel)
+            shopStartSel.onchange = () => {
+              state.shopRangeStart = shopStartSel.value;
+              render();
+            };
+          const shopEndSel = document.getElementById("shop-end");
+          if (shopEndSel)
+            shopEndSel.onchange = () => {
+              state.shopRangeEnd = shopEndSel.value;
+              render();
+            };
 
           document.querySelectorAll("[data-remove-day]").forEach((b) => {
             b.onclick = (e) => {
