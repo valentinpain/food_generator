@@ -1,0 +1,16 @@
+plugins {
+    id "com.android.application"
+}
+
+android {
+    namespace "com.valen.food"
+    compileSdk 36
+
+    defaultConfig {
+        applicationId "com.valen.food"
+        minSdk 21
+        targetSdk 35
+        versionCode 1
+        versionName "1.0"
+    }
+}
